@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
+		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
+		08B69AF917A0680F00F32A3C /* LSWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08B69AF717A0680F00F32A3C /* LSWelcomeViewController.xib */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -17,7 +20,6 @@
 		08F455AC179F7C8200CB7E2D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AB179F7C8200CB7E2D /* Default@2x.png */; };
 		08F455AE179F7C8200CB7E2D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AD179F7C8200CB7E2D /* Default-568h@2x.png */; };
 		08F455B1179F7C8200CB7E2D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AF179F7C8200CB7E2D /* MainStoryboard.storyboard */; };
-		08F455B4179F7C8200CB7E2D /* LSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F455B3179F7C8200CB7E2D /* LSViewController.m */; };
 		08F455BB179F7CB100CB7E2D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BA179F7CB100CB7E2D /* Parse.framework */; };
 		08F455BD179F7CE000CB7E2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BC179F7CE000CB7E2D /* AudioToolbox.framework */; };
 		08F455BF179F7CE500CB7E2D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BE179F7CE500CB7E2D /* CFNetwork.framework */; };
@@ -31,6 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
+		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
+		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
+		08B69AF717A0680F00F32A3C /* LSWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSWelcomeViewController.xib; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -45,8 +51,6 @@
 		08F455AB179F7C8200CB7E2D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		08F455AD179F7C8200CB7E2D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		08F455B0179F7C8200CB7E2D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		08F455B2179F7C8200CB7E2D /* LSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSViewController.h; sourceTree = "<group>"; };
-		08F455B3179F7C8200CB7E2D /* LSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSViewController.m; sourceTree = "<group>"; };
 		08F455BA179F7CB100CB7E2D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		08F455BC179F7CE000CB7E2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		08F455BE179F7CE500CB7E2D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -83,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08786E2B179FAF9200CAA3D8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				08786E2C179FB1A100CAA3D8 /* swaplogo200.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		08F4558B179F7C8200CB7E2D = {
 			isa = PBXGroup;
 			children = (
@@ -123,11 +135,12 @@
 		08F4559D179F7C8200CB7E2D /* LeftoverSwap */ = {
 			isa = PBXGroup;
 			children = (
+				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
+				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
 				08F455A6179F7C8200CB7E2D /* LSAppDelegate.h */,
 				08F455A7179F7C8200CB7E2D /* LSAppDelegate.m */,
 				08F455AF179F7C8200CB7E2D /* MainStoryboard.storyboard */,
-				08F455B2179F7C8200CB7E2D /* LSViewController.h */,
-				08F455B3179F7C8200CB7E2D /* LSViewController.m */,
+				08786E2B179FAF9200CAA3D8 /* Assets */,
 				08F4559E179F7C8200CB7E2D /* Supporting Files */,
 			);
 			path = LeftoverSwap;
@@ -136,6 +149,7 @@
 		08F4559E179F7C8200CB7E2D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				08B69AF717A0680F00F32A3C /* LSWelcomeViewController.xib */,
 				08F4559F179F7C8200CB7E2D /* LeftoverSwap-Info.plist */,
 				08F455A0179F7C8200CB7E2D /* InfoPlist.strings */,
 				08F455A3179F7C8200CB7E2D /* main.m */,
@@ -204,6 +218,8 @@
 				08F455AC179F7C8200CB7E2D /* Default@2x.png in Resources */,
 				08F455AE179F7C8200CB7E2D /* Default-568h@2x.png in Resources */,
 				08F455B1179F7C8200CB7E2D /* MainStoryboard.storyboard in Resources */,
+				08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */,
+				08B69AF917A0680F00F32A3C /* LSWelcomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +232,7 @@
 			files = (
 				08F455A4179F7C8200CB7E2D /* main.m in Sources */,
 				08F455A8179F7C8200CB7E2D /* LSAppDelegate.m in Sources */,
-				08F455B4179F7C8200CB7E2D /* LSViewController.m in Sources */,
+				08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +363,7 @@
 				08F455B9179F7C8200CB7E2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
