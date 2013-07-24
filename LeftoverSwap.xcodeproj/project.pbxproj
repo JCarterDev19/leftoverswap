@@ -19,7 +19,6 @@
 		08F455AA179F7C8200CB7E2D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F455A9179F7C8200CB7E2D /* Default.png */; };
 		08F455AC179F7C8200CB7E2D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AB179F7C8200CB7E2D /* Default@2x.png */; };
 		08F455AE179F7C8200CB7E2D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AD179F7C8200CB7E2D /* Default-568h@2x.png */; };
-		08F455B1179F7C8200CB7E2D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08F455AF179F7C8200CB7E2D /* MainStoryboard.storyboard */; };
 		08F455BB179F7CB100CB7E2D /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BA179F7CB100CB7E2D /* Parse.framework */; };
 		08F455BD179F7CE000CB7E2D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BC179F7CE000CB7E2D /* AudioToolbox.framework */; };
 		08F455BF179F7CE500CB7E2D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455BE179F7CE500CB7E2D /* CFNetwork.framework */; };
@@ -50,7 +49,6 @@
 		08F455A9179F7C8200CB7E2D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		08F455AB179F7C8200CB7E2D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		08F455AD179F7C8200CB7E2D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		08F455B0179F7C8200CB7E2D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		08F455BA179F7CB100CB7E2D /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		08F455BC179F7CE000CB7E2D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		08F455BE179F7CE500CB7E2D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -139,7 +137,6 @@
 				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
 				08F455A6179F7C8200CB7E2D /* LSAppDelegate.h */,
 				08F455A7179F7C8200CB7E2D /* LSAppDelegate.m */,
-				08F455AF179F7C8200CB7E2D /* MainStoryboard.storyboard */,
 				08786E2B179FAF9200CAA3D8 /* Assets */,
 				08F4559E179F7C8200CB7E2D /* Supporting Files */,
 			);
@@ -217,7 +214,6 @@
 				08F455AA179F7C8200CB7E2D /* Default.png in Resources */,
 				08F455AC179F7C8200CB7E2D /* Default@2x.png in Resources */,
 				08F455AE179F7C8200CB7E2D /* Default-568h@2x.png in Resources */,
-				08F455B1179F7C8200CB7E2D /* MainStoryboard.storyboard in Resources */,
 				08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */,
 				08B69AF917A0680F00F32A3C /* LSWelcomeViewController.xib in Resources */,
 			);
@@ -245,14 +241,6 @@
 				08F455A1179F7C8200CB7E2D /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		08F455AF179F7C8200CB7E2D /* MainStoryboard.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				08F455B0179F7C8200CB7E2D /* en */,
-			);
-			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
