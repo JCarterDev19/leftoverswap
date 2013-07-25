@@ -11,6 +11,12 @@
 
 @implementation LSWelcomeViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  
+  [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 - (void)viewDidLoad {
   self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"welcome"]];
   

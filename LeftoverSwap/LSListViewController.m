@@ -54,10 +54,16 @@
 
 #pragma mark - UIViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+  [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)viewDidLoad {
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; // PFQueryTableViewController reads this in viewDidLoad -- would prefer to throw this in init, but didn't work
   
   [super viewDidLoad];
+  
+//  [self.navigationController setNavigationBarHidden:NO];
   
 //  UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
 //  texturedBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]];
