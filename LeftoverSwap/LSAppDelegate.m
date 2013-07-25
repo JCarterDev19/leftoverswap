@@ -88,8 +88,8 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
   // set the global navigation bar tint
 
-  [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
-  [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.502 green:1.000 blue:0.000 alpha:1.000]];
+  [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+  [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.07 green:0.90 blue:0.5 alpha:1.000]];
 
 //  [[UINavigationBar appearance] setTranslucent:YES];
 
