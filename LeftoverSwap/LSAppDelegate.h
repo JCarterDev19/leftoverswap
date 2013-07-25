@@ -36,4 +36,6 @@ static NSString * const kLSPostCreatedNotification = @"kPAWPostCreatedNotificati
 
 @property (nonatomic, strong) UINavigationController *navController;
 
+- (void)presentMainInterface;
+
 @end

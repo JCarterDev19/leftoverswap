@@ -12,6 +12,9 @@
 		0823B43417A0BC1A00FE86FF /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43117A0BC1A00FE86FF /* welcome.png */; };
 		0823B43517A0BC1A00FE86FF /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43217A0BC1A00FE86FF /* welcome@2x.png */; };
 		0823B43617A0BC1A00FE86FF /* welcome-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43317A0BC1A00FE86FF /* welcome-568h@2x.png */; };
+		0823B43F17A0C51900FE86FF /* LSListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B43E17A0C51900FE86FF /* LSListViewController.m */; };
+		0823B44517A0D4C400FE86FF /* PAPPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */; };
+		0823B44617A0D4C700FE86FF /* PAPLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */; };
 		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
@@ -43,6 +46,12 @@
 		0823B43117A0BC1A00FE86FF /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = welcome.png; path = Assets/welcome.png; sourceTree = "<group>"; };
 		0823B43217A0BC1A00FE86FF /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome@2x.png"; path = "Assets/welcome@2x.png"; sourceTree = "<group>"; };
 		0823B43317A0BC1A00FE86FF /* welcome-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-568h@2x.png"; path = "Assets/welcome-568h@2x.png"; sourceTree = "<group>"; };
+		0823B43D17A0C51900FE86FF /* LSListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSListViewController.h; sourceTree = "<group>"; };
+		0823B43E17A0C51900FE86FF /* LSListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSListViewController.m; sourceTree = "<group>"; };
+		0823B44117A0D3EB00FE86FF /* PAPLoadMoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAPLoadMoreCell.h; sourceTree = "<group>"; };
+		0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PAPLoadMoreCell.m; sourceTree = "<group>"; };
+		0823B44317A0D3F600FE86FF /* PAPPhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAPPhotoCell.h; sourceTree = "<group>"; };
+		0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PAPPhotoCell.m; sourceTree = "<group>"; };
 		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
@@ -98,6 +107,7 @@
 		0823B42E17A0B11C00FE86FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0823B44017A0D3DD00FE86FF /* UITableViewCells */,
 				0823B42B17A0B11500FE86FF /* LSWelcomeButton.h */,
 				0823B42C17A0B11500FE86FF /* LSWelcomeButton.m */,
 			);
@@ -107,6 +117,8 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0823B43D17A0C51900FE86FF /* LSListViewController.h */,
+				0823B43E17A0C51900FE86FF /* LSListViewController.m */,
 				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
 				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
 			);
@@ -122,6 +134,17 @@
 				08786E2B179FAF9200CAA3D8 /* Assets */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		0823B44017A0D3DD00FE86FF /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				0823B44317A0D3F600FE86FF /* PAPPhotoCell.h */,
+				0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */,
+				0823B44117A0D3EB00FE86FF /* PAPLoadMoreCell.h */,
+				0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */,
+			);
+			name = UITableViewCells;
 			sourceTree = "<group>";
 		};
 		08786E2B179FAF9200CAA3D8 /* Assets */ = {
@@ -175,11 +198,11 @@
 		08F4559D179F7C8200CB7E2D /* LeftoverSwap */ = {
 			isa = PBXGroup;
 			children = (
+				08F455A6179F7C8200CB7E2D /* LSAppDelegate.h */,
+				08F455A7179F7C8200CB7E2D /* LSAppDelegate.m */,
 				0823B43017A0BB9D00FE86FF /* Resources */,
 				0823B42F17A0B12600FE86FF /* Controllers */,
 				0823B42E17A0B11C00FE86FF /* Views */,
-				08F455A6179F7C8200CB7E2D /* LSAppDelegate.h */,
-				08F455A7179F7C8200CB7E2D /* LSAppDelegate.m */,
 				08F4559E179F7C8200CB7E2D /* Supporting Files */,
 				0823B42617A0A4DE00FE86FF /* LSConstants.h */,
 				0823B42717A0A4DE00FE86FF /* LSConstants.m */,
@@ -272,7 +295,10 @@
 				08F455A8179F7C8200CB7E2D /* LSAppDelegate.m in Sources */,
 				08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */,
 				0823B42817A0A4DE00FE86FF /* LSConstants.m in Sources */,
+				0823B44617A0D4C700FE86FF /* PAPLoadMoreCell.m in Sources */,
+				0823B44517A0D4C400FE86FF /* PAPPhotoCell.m in Sources */,
 				0823B42D17A0B11500FE86FF /* LSWelcomeButton.m in Sources */,
+				0823B43F17A0C51900FE86FF /* LSListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

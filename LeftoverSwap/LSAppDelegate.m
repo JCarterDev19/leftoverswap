@@ -9,6 +9,7 @@
 #import "LSAppDelegate.h"
 #import <Parse/Parse.h>
 #import "LSWelcomeViewController.h"
+#import "LSListViewController.h"
 
 static NSString * const defaultsFilterDistanceKey = @"filterDistance";
 static NSString * const defaultsLocationKey = @"currentLocation";
@@ -16,7 +17,10 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @interface LSAppDelegate ()
 
+@property (nonatomic, strong) LSListViewController *listViewController;
 @property (nonatomic, strong) LSWelcomeViewController *welcomeViewController;
+
+-(void)setupAppearance;
 
 @end
 
@@ -25,7 +29,11 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 @synthesize window;
 
 @synthesize navController;
+
+@synthesize listViewController;
 @synthesize welcomeViewController;
+
+#pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -38,6 +46,8 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.502 green:1.000 blue:0.000 alpha:1.000]];
   [[UINavigationBar appearance] setTranslucent:YES];
   
+  [self setupAppearance];
+
   if ([self shouldDisplayWelcomeScreen]) {
     self.welcomeViewController = [[LSWelcomeViewController alloc] init];
   }
@@ -53,9 +63,15 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
   return YES;
 }
-							
+
+
 #pragma mark - LSAppDelegate
 
+- (void)presentMainInterface {
+  self.listViewController = [[LSListViewController alloc] init];
+  [self.navController pushViewController:self.listViewController animated:YES];
+}
+							
 - (BOOL)shouldDisplayWelcomeScreen
 {
   BOOL shouldDisplay = NO;
@@ -72,5 +88,15 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   return YES;
 }
 
+- (void)setupAppearance {
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+  [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.498f green:0.388f blue:0.329f alpha:1.0f]];
+  [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                        [UIColor whiteColor],UITextAttributeTextColor,
+                                                        [UIColor colorWithWhite:0.0f alpha:0.750f],UITextAttributeTextShadowColor,
+                                                        [NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)],UITextAttributeTextShadowOffset,
+                                                        nil]];
+
+}
 
 @end

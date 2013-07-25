@@ -7,6 +7,7 @@
 //
 
 #import "LSWelcomeViewController.h"
+#import "LSAppDelegate.h"
 
 @implementation LSWelcomeViewController
 
@@ -69,6 +70,7 @@
 #pragma mark - ()
 
 - (void)eatButtonAction:(id)sender {
+  [(LSAppDelegate*)[[UIApplication sharedApplication] delegate] presentMainInterface];
 }
 
 - (void)feedButtonAction:(id)sender {
