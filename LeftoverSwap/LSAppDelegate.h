@@ -32,9 +32,8 @@ static NSString * const kLSPostCreatedNotification = @"kPAWPostCreatedNotificati
 
 @interface LSAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UIViewController *viewController;
-@property (assign, nonatomic) CLLocationAccuracy filterDistance;
-@property (strong, nonatomic) CLLocation *currentLocation;
+@property (nonatomic, strong) UIWindow *window;
+
+@property (nonatomic, strong) UINavigationController *navController;
 
 @end

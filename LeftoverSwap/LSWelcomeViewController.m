@@ -8,41 +8,71 @@
 
 #import "LSWelcomeViewController.h"
 
-@interface LSWelcomeViewController ()
-
-@end
-
 @implementation LSWelcomeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (void)viewDidLoad {
+  self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"welcome"]];
+  
+  NSInteger screenWidth = [UIScreen mainScreen].bounds.size.width;
+
+//  {
+//    NSString *text = @"LeftoverSwap";
+//    CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:36.0f]];
+//    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake( (screenWidth - textSize.width)/2.0f, 200.0f, textSize.width, textSize.height)];
+//    [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:36.0f]];
+//    [textLabel setText:text];
+//    [textLabel setTextColor:[UIColor blackColor]];
+//    [textLabel setBackgroundColor:[UIColor clearColor]];
+//    [textLabel setTextAlignment:UITextAlignmentCenter];
+//    
+//    [self.view addSubview:textLabel];
+//  }
+
+  {
+    NSString *text = @"Eat";
+    CGSize dimens = CGSizeMake(240, 80);
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:CGRectMake((screenWidth - dimens.width)/2.0f, 260.0f, dimens.width, dimens.height)];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [[button titleLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:28.0f]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 5.0f, 0.0f, 0.0f)];
+    [button addTarget:self action:@selector(eatButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:button];
+  }
+
+  {
+    NSString *text = @"Feed";
+    CGSize dimens = CGSizeMake(240, 80);
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:CGRectMake((screenWidth - dimens.width)/2.0f, 360.0f, dimens.width, dimens.height)];
+    [button setTitle:text forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [[button titleLabel] setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:28.0f]];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 5.0f, 0.0f, 0.0f)];
+    [button addTarget:self action:@selector(feedButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.view addSubview:button];
+  }
+
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+  return toInterfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - ()
+
+- (void)eatButtonAction:(id)sender {
 }
 
-#pragma mark - Transition methods
-
-- (void)eatButtonSelected:(id)sender {
-  NSLog(@"Eat button selected");
-}
-
-- (void)feedButtonSelected:(id)sender {
-  NSLog(@"Feed button selected");
+- (void)feedButtonAction:(id)sender {
+  
 }
 
 @end

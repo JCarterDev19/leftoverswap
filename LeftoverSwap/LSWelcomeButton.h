@@ -1,5 +1,5 @@
 //
-//  LSWelcomeViewController.h
+//  LSWelcomeButtonItem.h
 //  LeftoverSwap
 //
 //  Created by Bryan Summersett on 7/24/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSWelcomeViewController : UIViewController
+@interface LSWelcomeButton : UIButton
 
 @end
