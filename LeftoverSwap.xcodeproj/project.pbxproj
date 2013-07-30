@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0805F28917A7940300963343 /* LSEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0805F28817A7940300963343 /* LSEditPhotoViewController.m */; };
+		0805F29217A7946300963343 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0805F28D17A7946300963343 /* UIImage+ResizeAdditions.m */; };
+		0805F29317A7946300963343 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0805F28F17A7946300963343 /* UIImage+AlphaAdditions.m */; };
+		0805F29417A7946300963343 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0805F29117A7946300963343 /* UIImage+RoundedCornerAdditions.m */; };
 		0823B42817A0A4DE00FE86FF /* LSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B42717A0A4DE00FE86FF /* LSConstants.m */; };
 		0823B42D17A0B11500FE86FF /* LSWelcomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B42C17A0B11500FE86FF /* LSWelcomeButton.m */; };
 		0823B43417A0BC1A00FE86FF /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43117A0BC1A00FE86FF /* welcome.png */; };
@@ -39,6 +43,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0805F28717A7940300963343 /* LSEditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSEditPhotoViewController.h; sourceTree = "<group>"; };
+		0805F28817A7940300963343 /* LSEditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSEditPhotoViewController.m; sourceTree = "<group>"; };
+		0805F28C17A7946300963343 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeAdditions.h"; sourceTree = "<group>"; };
+		0805F28D17A7946300963343 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeAdditions.m"; sourceTree = "<group>"; };
+		0805F28E17A7946300963343 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AlphaAdditions.h"; sourceTree = "<group>"; };
+		0805F28F17A7946300963343 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AlphaAdditions.m"; sourceTree = "<group>"; };
+		0805F29017A7946300963343 /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
+		0805F29117A7946300963343 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		0823B42617A0A4DE00FE86FF /* LSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConstants.h; sourceTree = "<group>"; };
 		0823B42717A0A4DE00FE86FF /* LSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConstants.m; sourceTree = "<group>"; };
 		0823B42B17A0B11500FE86FF /* LSWelcomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeButton.h; sourceTree = "<group>"; };
@@ -104,6 +116,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0805F28617A793F200963343 /* Take Picture */ = {
+			isa = PBXGroup;
+			children = (
+				0805F28717A7940300963343 /* LSEditPhotoViewController.h */,
+				0805F28817A7940300963343 /* LSEditPhotoViewController.m */,
+			);
+			name = "Take Picture";
+			sourceTree = "<group>";
+		};
+		0805F28A17A7942800963343 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				0805F28B17A7945200963343 /* UIImage Categories */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		0805F28B17A7945200963343 /* UIImage Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0805F28C17A7946300963343 /* UIImage+ResizeAdditions.h */,
+				0805F28D17A7946300963343 /* UIImage+ResizeAdditions.m */,
+				0805F28E17A7946300963343 /* UIImage+AlphaAdditions.h */,
+				0805F28F17A7946300963343 /* UIImage+AlphaAdditions.m */,
+				0805F29017A7946300963343 /* UIImage+RoundedCornerAdditions.h */,
+				0805F29117A7946300963343 /* UIImage+RoundedCornerAdditions.m */,
+			);
+			name = "UIImage Categories";
+			sourceTree = "<group>";
+		};
 		0823B42E17A0B11C00FE86FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +159,7 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0805F28617A793F200963343 /* Take Picture */,
 				0823B43D17A0C51900FE86FF /* LSListViewController.h */,
 				0823B43E17A0C51900FE86FF /* LSListViewController.m */,
 				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
@@ -162,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				08F4559D179F7C8200CB7E2D /* LeftoverSwap */,
+				0805F28A17A7942800963343 /* External */,
 				08F45596179F7C8200CB7E2D /* Frameworks */,
 				08F45595179F7C8200CB7E2D /* Products */,
 			);
@@ -299,6 +343,10 @@
 				0823B44517A0D4C400FE86FF /* LSListingCell.m in Sources */,
 				0823B42D17A0B11500FE86FF /* LSWelcomeButton.m in Sources */,
 				0823B43F17A0C51900FE86FF /* LSListViewController.m in Sources */,
+				0805F28917A7940300963343 /* LSEditPhotoViewController.m in Sources */,
+				0805F29217A7946300963343 /* UIImage+ResizeAdditions.m in Sources */,
+				0805F29317A7946300963343 /* UIImage+AlphaAdditions.m in Sources */,
+				0805F29417A7946300963343 /* UIImage+RoundedCornerAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
