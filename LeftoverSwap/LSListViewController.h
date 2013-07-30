@@ -8,6 +8,6 @@
 
 #import <Parse/Parse.h>
 
-@interface LSListViewController : PFQueryTableViewController
+@interface LSListViewController : PFQueryTableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end

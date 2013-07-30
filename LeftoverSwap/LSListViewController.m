@@ -6,19 +6,27 @@
 //  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
+#import <MobileCoreServices/MobileCoreServices.h>
+
 #import "LSListViewController.h"
 #import "LSConstants.h"
 #import "LSListingCell.h"
 #import "LSLoadMoreCell.h"
 
+
 @interface LSListViewController ()
+@property (nonatomic, strong) UINavigationController *navController;
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
+
+- (void)startCameraController;
+
 @end
 
 @implementation LSListViewController
 
+@synthesize navController;
 @synthesize reusableSectionHeaderViews;
 @synthesize shouldReloadOnAppear;
 @synthesize outstandingSectionHeaderQueries;
@@ -62,11 +70,18 @@
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; // PFQueryTableViewController reads this in viewDidLoad -- would prefer to throw this in init, but didn't work
   
   [super viewDidLoad];
+  
+  self.navController = [[UINavigationController alloc] init];
 
   [self.navigationItem setHidesBackButton:YES];
 
   UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:nil];
   self.navigationItem.leftBarButtonItem = filterButton;
+
+  UIBarButtonItem *pictureButton = [[UIBarButtonItem alloc] initWithTitle:@"Take Picture" style:UIBarButtonItemStyleBordered target:self action:nil];
+  pictureButton.target = self;
+  pictureButton.action = @selector(startCameraController);
+  self.navigationItem.rightBarButtonItem = pictureButton;
 
 //  self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
 //  
@@ -339,5 +354,55 @@
   return cell;
 }
 
+#pragma mark - UIImagePickerDelegate
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+  [self dismissModalViewControllerAnimated:NO];
+  
+  UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+  
+//  LSEditPhotoViewController *viewController = [[LSEditPhotoViewController alloc] initWithImage:image];
+//  [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+  
+//  [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+//  [self.navController pushViewController:viewController animated:NO];
+//  
+//  [self presentModalViewController:self.navController animated:YES];
+  [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - ()
+
+- (void)startCameraController {
+  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
+    [NSException raise:@"UICamera not available" format:nil];
+  }
+  
+  UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+  
+  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
+      && [[UIImagePickerController availableMediaTypesForSourceType:
+           UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]) {
+    
+    cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+      cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    } else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+      cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+    }
+  }
+  
+  cameraUI.allowsEditing = YES;
+  cameraUI.showsCameraControls = YES;
+  cameraUI.delegate = self;
+  
+  [self presentModalViewController:cameraUI animated:YES];
+}
 
 @end
