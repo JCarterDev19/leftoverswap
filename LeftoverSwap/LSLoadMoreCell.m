@@ -5,9 +5,9 @@
 //  Created by Mattieu Gamache-Asselin on 5/17/12.
 //
 
-#import "PAPLoadMoreCell.h"
+#import "LSLoadMoreCell.h"
 
-@implementation PAPLoadMoreCell
+@implementation LSLoadMoreCell
 
 @synthesize cellInsetWidth;
 @synthesize mainView;

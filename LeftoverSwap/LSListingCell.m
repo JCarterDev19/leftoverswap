@@ -5,10 +5,10 @@
 //  Created by Héctor Ramos on 5/3/12.
 //
 
-#import "PAPPhotoCell.h"
+#import "LSListingCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation PAPPhotoCell
+@implementation LSListingCell
 @synthesize photoButton;
 
 #pragma mark - NSObject

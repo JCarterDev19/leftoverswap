@@ -13,8 +13,8 @@
 		0823B43517A0BC1A00FE86FF /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43217A0BC1A00FE86FF /* welcome@2x.png */; };
 		0823B43617A0BC1A00FE86FF /* welcome-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0823B43317A0BC1A00FE86FF /* welcome-568h@2x.png */; };
 		0823B43F17A0C51900FE86FF /* LSListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B43E17A0C51900FE86FF /* LSListViewController.m */; };
-		0823B44517A0D4C400FE86FF /* PAPPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */; };
-		0823B44617A0D4C700FE86FF /* PAPLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */; };
+		0823B44517A0D4C400FE86FF /* LSListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44417A0D3F600FE86FF /* LSListingCell.m */; };
+		0823B44617A0D4C700FE86FF /* LSLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */; };
 		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
@@ -48,10 +48,10 @@
 		0823B43317A0BC1A00FE86FF /* welcome-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-568h@2x.png"; path = "Assets/welcome-568h@2x.png"; sourceTree = "<group>"; };
 		0823B43D17A0C51900FE86FF /* LSListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSListViewController.h; sourceTree = "<group>"; };
 		0823B43E17A0C51900FE86FF /* LSListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSListViewController.m; sourceTree = "<group>"; };
-		0823B44117A0D3EB00FE86FF /* PAPLoadMoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAPLoadMoreCell.h; sourceTree = "<group>"; };
-		0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PAPLoadMoreCell.m; sourceTree = "<group>"; };
-		0823B44317A0D3F600FE86FF /* PAPPhotoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PAPPhotoCell.h; sourceTree = "<group>"; };
-		0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PAPPhotoCell.m; sourceTree = "<group>"; };
+		0823B44117A0D3EB00FE86FF /* LSLoadMoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSLoadMoreCell.h; sourceTree = "<group>"; };
+		0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSLoadMoreCell.m; sourceTree = "<group>"; };
+		0823B44317A0D3F600FE86FF /* LSListingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSListingCell.h; sourceTree = "<group>"; };
+		0823B44417A0D3F600FE86FF /* LSListingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSListingCell.m; sourceTree = "<group>"; };
 		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
@@ -139,10 +139,10 @@
 		0823B44017A0D3DD00FE86FF /* UITableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				0823B44317A0D3F600FE86FF /* PAPPhotoCell.h */,
-				0823B44417A0D3F600FE86FF /* PAPPhotoCell.m */,
-				0823B44117A0D3EB00FE86FF /* PAPLoadMoreCell.h */,
-				0823B44217A0D3EB00FE86FF /* PAPLoadMoreCell.m */,
+				0823B44317A0D3F600FE86FF /* LSListingCell.h */,
+				0823B44417A0D3F600FE86FF /* LSListingCell.m */,
+				0823B44117A0D3EB00FE86FF /* LSLoadMoreCell.h */,
+				0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */,
 			);
 			name = UITableViewCells;
 			sourceTree = "<group>";
@@ -295,8 +295,8 @@
 				08F455A8179F7C8200CB7E2D /* LSAppDelegate.m in Sources */,
 				08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */,
 				0823B42817A0A4DE00FE86FF /* LSConstants.m in Sources */,
-				0823B44617A0D4C700FE86FF /* PAPLoadMoreCell.m in Sources */,
-				0823B44517A0D4C400FE86FF /* PAPPhotoCell.m in Sources */,
+				0823B44617A0D4C700FE86FF /* LSLoadMoreCell.m in Sources */,
+				0823B44517A0D4C400FE86FF /* LSListingCell.m in Sources */,
 				0823B42D17A0B11500FE86FF /* LSWelcomeButton.m in Sources */,
 				0823B43F17A0C51900FE86FF /* LSListViewController.m in Sources */,
 			);

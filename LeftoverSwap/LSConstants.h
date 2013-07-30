@@ -9,6 +9,7 @@
 #pragma mark - PFObject User Class
 // Field keys
 extern NSString *const kUserDisplayNameKey;
+extern NSString *const kUserEmailKey;
 extern NSString *const kUserPrivateChannelKey;
 
 #pragma mark - PFObject Post Class

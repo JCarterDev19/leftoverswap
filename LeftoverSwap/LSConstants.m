@@ -11,6 +11,7 @@
 #pragma mark - PFObject User Class
 // Field keys
 NSString *const kUserDisplayNameKey = @"displayName";
+NSString *const kUserEmailKey = @"email";
 NSString *const kUserPrivateChannelKey = @"channel";
 
 #pragma mark - PFObject Post Class

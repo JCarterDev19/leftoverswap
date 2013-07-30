@@ -8,7 +8,7 @@
 #import <Parse/Parse.h>
 
 @class PFImageView;
-@interface PAPPhotoCell : PFTableViewCell
+@interface LSListingCell : PFTableViewCell
 
 @property (nonatomic, strong) UIButton *photoButton;
 

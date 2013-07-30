@@ -5,7 +5,7 @@
 //  Created by Mattieu Gamache-Asselin on 5/17/12.
 //
 
-@interface PAPLoadMoreCell : UITableViewCell
+@interface LSLoadMoreCell : UITableViewCell
 
 @property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UIImageView *separatorImageTop;

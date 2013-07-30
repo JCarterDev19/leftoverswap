@@ -8,8 +8,8 @@
 
 #import "LSListViewController.h"
 #import "LSConstants.h"
-#import "PAPPhotoCell.h"
-#import "PAPLoadMoreCell.h"
+#import "LSListingCell.h"
+#import "LSLoadMoreCell.h"
 
 @interface LSListViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
@@ -62,9 +62,25 @@
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; // PFQueryTableViewController reads this in viewDidLoad -- would prefer to throw this in init, but didn't work
   
   [super viewDidLoad];
-  
-//  [self.navigationController setNavigationBarHidden:NO];
-  
+
+  [self.navigationItem setHidesBackButton:YES];
+
+  UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:nil];
+  self.navigationItem.leftBarButtonItem = filterButton;
+
+//  self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
+//  
+//  UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//  [backButton setFrame:CGRectMake(0.0f, 0.0f, 52.0f, 32.0f)];
+//  [backButton setTitle:@"Back" forState:UIControlStateNormal];
+//  [backButton setTitleColor:[UIColor colorWithRed:214.0f/255.0f green:210.0f/255.0f blue:197.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+//  [[backButton titleLabel] setFont:[UIFont boldSystemFontOfSize:[UIFont smallSystemFontSize]]];
+//  [backButton setTitleEdgeInsets:UIEdgeInsetsMake( 0.0f, 5.0f, 0.0f, 0.0f)];
+//  [backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+////  [backButton setBackgroundImage:[UIImage imageNamed:@"ButtonBack.png"] forState:UIControlStateNormal];
+////  [backButton setBackgroundImage:[UIImage imageNamed:@"ButtonBackSelected.png"] forState:UIControlStateHighlighted];
+//  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+
 //  UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
 //  texturedBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLeather.png"]];
 //  self.tableView.backgroundView = texturedBackgroundView;
@@ -289,10 +305,10 @@
     UITableViewCell *cell = [self tableView:tableView cellForNextPageAtIndexPath:indexPath];
     return cell;
   } else {
-    PAPPhotoCell *cell = (PAPPhotoCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    LSListingCell *cell = (LSListingCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-      cell = [[PAPPhotoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+      cell = [[LSListingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
       [cell.photoButton addTarget:self action:@selector(didTapOnPhotoAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
@@ -312,9 +328,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *LoadMoreCellIdentifier = @"LoadMoreCell";
   
-  PAPLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
+  LSLoadMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:LoadMoreCellIdentifier];
   if (!cell) {
-    cell = [[PAPLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
+    cell = [[LSLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoadMoreCellIdentifier];
     cell.selectionStyle =UITableViewCellSelectionStyleGray;
     cell.separatorImageTop.image = [UIImage imageNamed:@"SeparatorTimelineDark.png"];
     cell.hideSeparatorBottom = YES;
