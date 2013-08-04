@@ -40,6 +40,7 @@
 		08F455C9179F7D0500CB7E2D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455C8179F7D0500CB7E2D /* StoreKit.framework */; };
 		08F455CB179F7D0A00CB7E2D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */; };
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
+		08F8DCC117AEFDA700A6AE60 /* LSEditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSEditPhotoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		08F455C8179F7D0500CB7E2D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		08F8DCC017AEFDA700A6AE60 /* LSEditPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSEditPhotoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				0805F28717A7940300963343 /* LSEditPhotoViewController.h */,
+				08F8DCC017AEFDA700A6AE60 /* LSEditPhotoViewController.xib */,
 				0805F28817A7940300963343 /* LSEditPhotoViewController.m */,
 			);
 			name = "Take Picture";
@@ -325,6 +328,7 @@
 				0823B43417A0BC1A00FE86FF /* welcome.png in Resources */,
 				0823B43517A0BC1A00FE86FF /* welcome@2x.png in Resources */,
 				0823B43617A0BC1A00FE86FF /* welcome-568h@2x.png in Resources */,
+				08F8DCC117AEFDA700A6AE60 /* LSEditPhotoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

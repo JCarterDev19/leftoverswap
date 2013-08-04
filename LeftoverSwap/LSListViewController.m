@@ -9,6 +9,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "LSListViewController.h"
+#import "LSEditPhotoViewController.h"
 #import "LSConstants.h"
 #import "LSListingCell.h"
 #import "LSLoadMoreCell.h"
@@ -364,42 +365,51 @@
   [self dismissModalViewControllerAnimated:NO];
   
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+  if (!image) {
+    image = [info objectForKey:UIImagePickerControllerOriginalImage];
+  }
   
-//  LSEditPhotoViewController *viewController = [[LSEditPhotoViewController alloc] initWithImage:image];
+  LSEditPhotoViewController *viewController = [[LSEditPhotoViewController alloc] initWithNibName:nil bundle:nil image:image];
 //  [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
   
-//  [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-//  [self.navController pushViewController:viewController animated:NO];
-//  
-//  [self presentModalViewController:self.navController animated:YES];
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+  [self.navController pushViewController:viewController animated:NO];
+  
+  [self presentModalViewController:self.navController animated:YES];
+
 }
 
 #pragma mark - ()
 
 - (void)startCameraController {
-  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
-    [NSException raise:@"UICamera not available" format:nil];
-  }
   
   UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+  cameraUI.mediaTypes = @[(NSString*)kUTTypeImage];
   
-  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
-      && [[UIImagePickerController availableMediaTypesForSourceType:
-           UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]) {
+  if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
     
-    cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
+    cameraUI.showsCameraControls = YES;
+
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
       cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
     } else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
       cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceFront;
     }
+    
+    // Some iPods, simulator: use the Camera's photo roll
+  } else {
+    //    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+
+    NSAssert([UIImagePickerController isSourceTypeAvailable:sourceType]
+             && [[UIImagePickerController availableMediaTypesForSourceType:sourceType] containsObject:(NSString *)kUTTypeImage], @"Device must support photo rolls");
+    
+    cameraUI.sourceType = sourceType;
+    
   }
-  
-  cameraUI.allowsEditing = YES;
-  cameraUI.showsCameraControls = YES;
+
+  cameraUI.allowsEditing = NO;
   cameraUI.delegate = self;
   
   [self presentModalViewController:cameraUI animated:YES];
