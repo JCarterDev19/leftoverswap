@@ -10,25 +10,32 @@
 
 #import "LSConstants.h"
 #import "LSEditPhotoViewController.h"
+#import "LSPaddedTextField.h"
 #import "UIImage+ResizeAdditions.h"
 
 @interface LSEditPhotoViewController ()
 
 @property (nonatomic) UIImage *image;
-@property (nonatomic) IBOutlet UIView *rootView;
 
 @property PFFile *photoFile;
 @property PFFile *thumbnailFile;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
 
+-(UIView*)findEmptyViews;
+
 @end
 
 @implementation LSEditPhotoViewController
 
+@synthesize scrollView;
+@synthesize imageView;
+@synthesize titleTextField;
+@synthesize descriptionTextView;
+@synthesize postButton;
+
 @synthesize image;
 
-@synthesize titleTextField;
 @synthesize photoFile;
 @synthesize thumbnailFile;
 @synthesize fileUploadBackgroundTaskId;
@@ -37,8 +44,9 @@
 #pragma mark - NSObject
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil image:(UIImage *)aImage {
@@ -49,7 +57,7 @@
     }
     
     self.image = aImage;
-
+    
     self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
     self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
   }
@@ -69,23 +77,31 @@
   [super viewDidLoad];
   
   self.scrollView.delegate = self;
+  self.scrollView.scrollEnabled = NO;
 
   [self.navigationItem setHidesBackButton:YES];
   
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonAction:)];
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonAction:)];
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPost:)];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(postPost:)];
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextViewTextDidChangeNotification object:nil];
   
-  self.titleTextField.delegate = self;
-  self.descriptionTextView.delegate = self;
+  titleTextField.delegate = self;
+  descriptionTextView.delegate = self;
+  
+  titleTextField.leftRightPadding = 8.0f;
+//  descriptionTextView.layer.borderWidth = 1.0f;
+//  descriptionTextView.layer.borderColor = [UIColor blackColor].CGColor;
 
   // Adding image view properties
   self.imageView.image = self.image;
   [self.imageView setClipsToBounds:YES];
 
   [self shouldUploadImage:self.image];
+  
+  [titleTextField becomeFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -98,20 +114,18 @@
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-  [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(textView.frame)) animated:YES];
+//  [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(textView.frame)) animated:YES];
   return YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-//  [self doneButtonAction:textView];
-//  [textView resignFirstResponder];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-  [self.titleTextField resignFirstResponder];
-  [self.descriptionTextView resignFirstResponder];
+//  [self.titleTextField resignFirstResponder];
+//  [self.descriptionTextView resignFirstResponder];
 }
 
 
@@ -133,24 +147,24 @@
     self.thumbnailFile = [PFFile fileWithData:thumbnailImageData];
 
     // Request a background execution task to allow us to finish uploading the photo even if the app is backgrounded
-//    self.fileUploadBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-//        [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
-//    }];
-//    
-//    NSLog(@"Requested background expiration task with id %d for LeftoverSwap photo upload", self.fileUploadBackgroundTaskId);
-//    [self.photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            NSLog(@"Photo uploaded successfully");
-//            [self.thumbnailFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                if (succeeded) {
-//                    NSLog(@"Thumbnail uploaded successfully");
-//                }
-//                [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
-//            }];
-//        } else {
-//            [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
-//        }
-//    }];
+    self.fileUploadBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+    }];
+    
+    NSLog(@"Requested background expiration task with id %d for LeftoverSwap photo upload", self.fileUploadBackgroundTaskId);
+    [self.photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"Photo uploaded successfully");
+            [self.thumbnailFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"Thumbnail uploaded successfully");
+                }
+                [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+            }];
+        } else {
+            [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+        }
+    }];
   
     return YES;
 }
@@ -175,7 +189,17 @@
   }];
 }
 
-- (void)doneButtonAction:(id)sender {
+- (IBAction)postPost:(id)sender {
+  [titleTextField resignFirstResponder];
+  [descriptionTextView resignFirstResponder];
+  
+  UIView *emptyView = [self findEmptyViews];
+
+  if (emptyView) {
+		[emptyView becomeFirstResponder];
+		return;
+	}
+  
 //    NSDictionary *userInfo = [NSDictionary dictionary];
   NSString *trimmedTitle = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
   NSString *trimmedDescription = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -253,8 +277,26 @@
     [self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
-- (void)cancelButtonAction:(id)sender {
+- (IBAction)cancelPost:(id)sender {
     [self.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark UITextView nofitication methods
+
+- (void)textInputChanged:(NSNotification *)note {
+  postButton.enabled = [self findEmptyViews] == nil;
+}
+
+#pragma mark Private helper methods
+
+-(UIView*)findEmptyViews {
+  if (titleTextField.text.length == 0) {
+    return titleTextField;
+  } else if (descriptionTextView == 0) {
+    return descriptionTextView;
+  } else {
+    return nil;
+  }
 }
 
 @end
