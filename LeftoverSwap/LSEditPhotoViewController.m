@@ -82,7 +82,7 @@
   [self.navigationItem setHidesBackButton:YES];
   
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPost:)];
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(postPost:)];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:self action:@selector(postPost:)];
   
 //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -217,12 +217,12 @@
     // both files have finished uploading
     
     // create a photo object
-//    PFObject *photo = [PFObject objectWithClassName:kPostClassKey];
-//    [photo setObject:[PFUser currentUser] forKey:kPostUserKey];
-//    [photo setObject:self.photoFile forKey:kPostImageKey];
-//    [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
-//    [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
-//    [photo setObject:trimmedTitle forKey:kPostTitleKey];
+    PFObject *photo = [PFObject objectWithClassName:kPostClassKey];
+    [photo setObject:[PFUser currentUser] forKey:kPostUserKey];
+    [photo setObject:self.photoFile forKey:kPostImageKey];
+    [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
+    [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
+    [photo setObject:trimmedTitle forKey:kPostTitleKey];
 
   
     // photos are public, but may only be modified by the user who uploaded them

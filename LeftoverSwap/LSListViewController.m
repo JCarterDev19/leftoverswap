@@ -79,7 +79,7 @@
   UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:nil];
   self.navigationItem.leftBarButtonItem = filterButton;
 
-  UIBarButtonItem *pictureButton = [[UIBarButtonItem alloc] initWithTitle:@"Take Picture" style:UIBarButtonItemStyleBordered target:self action:nil];
+  UIBarButtonItem *pictureButton = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleBordered target:self action:nil];
   pictureButton.target = self;
   pictureButton.action = @selector(startCameraController);
   self.navigationItem.rightBarButtonItem = pictureButton;
