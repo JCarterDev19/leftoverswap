@@ -92,8 +92,6 @@
   descriptionTextView.delegate = self;
   
   titleTextField.leftRightPadding = 8.0f;
-//  descriptionTextView.layer.borderWidth = 1.0f;
-//  descriptionTextView.layer.borderColor = [UIColor blackColor].CGColor;
 
   // Adding image view properties
   self.imageView.image = self.image;
