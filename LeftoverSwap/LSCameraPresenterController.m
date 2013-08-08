@@ -6,36 +6,52 @@
 //  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
-#import "LSCameraController.h"
-#import "LSEditPhotoViewController.h"
+#import "LSCameraPresenterController.h"
+#import "LSPostPhotoViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@implementation LSCameraController
+@interface LSCameraPresenterController ()
+
+@property (nonatomic) UIImagePickerController *imagePickerController;
+
+@end
+
+@implementation LSCameraPresenterController
+
+@synthesize imagePickerController;
+
+- (id)init
+{
+  self = [super init];
+  if (self) {
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:nil tag:1];
+  }
+  return self;
+}
 
 #pragma mark - UIImagePickerDelegate
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-  [self dismissModalViewControllerAnimated:YES];
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-  [self dismissModalViewControllerAnimated:NO];
   
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
   if (!image) {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
   }
   
-  LSEditPhotoViewController *editPhotoController = [[LSEditPhotoViewController alloc] initWithNibName:nil bundle:nil image:image];
-  [self.navigationController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-  [self.navigationController pushViewController:editPhotoController animated:YES];
+  LSPostPhotoViewController *editPhotoController = [[LSPostPhotoViewController alloc] initWithNibName:nil bundle:nil image:image];
+  editPhotoController.delegate = self;
+  [imagePickerController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
+  [imagePickerController presentViewController:editPhotoController animated:YES completion:nil];
 }
 
 #pragma mark - ()
 
-- (void)startCameraController {
-  
+- (void)presentCameraPickerController {
   UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
   cameraUI.mediaTypes = @[(NSString*)kUTTypeImage];
   
@@ -65,7 +81,22 @@
   cameraUI.allowsEditing = NO;
   cameraUI.delegate = self;
   
-  [self presentModalViewController:cameraUI animated:YES];
+  self.imagePickerController = cameraUI;
+
+  [self.tabBarController presentViewController:imagePickerController animated:YES completion:nil];
 }
+
+#pragma mark - LSPostPhotoViewControllerDelegate
+
+-(void)postPhotoControllerDidCancel:(LSPostPhotoViewController *)post
+{
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)postPhotoControllerDidFinishPosting:(LSPostPhotoViewController *)post
+{
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

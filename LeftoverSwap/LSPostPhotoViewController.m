@@ -11,11 +11,11 @@
 #import "LSAppDelegate.h"
 #import "LSLocationController.h"
 #import "LSConstants.h"
-#import "LSEditPhotoViewController.h"
+#import "LSPostPhotoViewController.h"
 #import "LSPaddedTextField.h"
 #import "UIImage+ResizeAdditions.h"
 
-@interface LSEditPhotoViewController ()
+@interface LSPostPhotoViewController ()
 
 @property (nonatomic) UIImage *image;
 
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation LSEditPhotoViewController
+@implementation LSPostPhotoViewController
 
 @synthesize scrollView;
 @synthesize imageView;
@@ -37,6 +37,8 @@
 @synthesize postButton;
 
 @synthesize image;
+
+@synthesize delegate;
 
 @synthesize photoFile;
 @synthesize thumbnailFile;
@@ -253,11 +255,11 @@
     [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
   }];
   
-  [self.parentViewController dismissModalViewControllerAnimated:YES];
+  [delegate postPhotoControllerDidFinishPosting:self];
 }
 
 - (IBAction)cancelPost:(id)sender {
-  [self.parentViewController dismissModalViewControllerAnimated:YES];
+  [delegate postPhotoControllerDidCancel:self];
 }
 
 #pragma mark UITextView nofitication methods
@@ -269,7 +271,7 @@
 #pragma mark Private helper methods
 
 -(PFGeoPoint*)currentLocation {
-  LSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+  LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
   CLLocationCoordinate2D currentCoordinate = appDelegate.locationController.currentLocation.coordinate;
 	PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude longitude:currentCoordinate.longitude];
   return currentPoint;

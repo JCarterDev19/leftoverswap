@@ -75,8 +75,7 @@
 #pragma mark - ()
 
 - (void)eatButtonAction:(id)sender {
-  LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
-  [self.navigationController setViewControllers:@[mapViewController] animated:YES];
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)feedButtonAction:(id)sender {

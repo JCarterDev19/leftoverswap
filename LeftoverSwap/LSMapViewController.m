@@ -22,12 +22,12 @@ static NSUInteger const kPostLimit = 20;
 // private methods and properties
 @interface LSMapViewController ()
 
+@property (nonatomic) LSLocationController *locationController;
 @property (nonatomic) LSSearchRadius *searchRadius;
 @property (nonatomic) NSMutableArray *annotations;
 @property (nonatomic, copy) NSString *parseClassName;
 @property (nonatomic) BOOL mapPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
-@property (nonatomic) LSLocationController *locationController;
 
 // posts:
 @property (nonatomic) NSMutableArray *allPosts;
@@ -56,12 +56,14 @@ static NSUInteger const kPostLimit = 20;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self) {
-		self.title = @"LeftoverSwap";
+
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:nil tag:0];
+
 		self.parseClassName = kPostClassKey;
 		annotations = [[NSMutableArray alloc] initWithCapacity:10];
 		allPosts = [[NSMutableArray alloc] initWithCapacity:10];
     
-    LSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
     locationController = appDelegate.locationController;
 	}
 	return self;

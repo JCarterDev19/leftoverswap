@@ -12,6 +12,7 @@
 #import "LSWelcomeViewController.h"
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
+#import "LSCameraPresenterController.h"
 
 static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
@@ -39,32 +40,35 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
                 clientKey:@"HF41j3NxMvnykjW2Cbu7LL48NA2Ebk98qUCT252h"];
   
   [self setupAppearance];
+  
+  self.locationController = [[LSLocationController alloc] init];
 
-  UINavigationController *navController = nil;
+  UITabBarController *tabBarController = [[UITabBarController alloc] init];
+  
+  LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
+  LSCameraPresenterController *cameraController = [[LSCameraPresenterController alloc] init];
+
+  tabBarController.viewControllers = @[mapViewController, cameraController];
 
   if (![PFUser currentUser]) {
+    
     LSWelcomeSigninViewController *signinController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
-    navController = [[UINavigationController alloc] initWithRootViewController:signinController];
-
+    [tabBarController presentViewController:signinController animated:NO completion:nil];
+    
   } else if ([self shouldDisplayWelcomeScreen]) {
     
     LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
-    navController = [[UINavigationController alloc] initWithRootViewController:welcomeViewController];
-
-  } else {
-
-    LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
-		navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    [tabBarController presentViewController:welcomeViewController animated:NO completion:nil];
 
   }
   
-  navController.navigationBarHidden = YES;
-  self.viewController = navController;
+  tabBarController.delegate = self;
+
+//  navController.navigationBarHidden = YES;
+  self.viewController = tabBarController;
   self.window.rootViewController = self.viewController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-
-  self.locationController = [[LSLocationController alloc] init];
 
   [self.window makeKeyAndVisible];
 
@@ -107,6 +111,19 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 //                                                        [NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)],UITextAttributeTextShadowOffset,
 //                                                        nil]];
 
+}
+
+#pragma mark - UITabBarControllerDelegate
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController
+    shouldSelectViewController:(UIViewController *)aViewController
+{
+  // Intercept tab event, and trigger its own modal UI instead
+  if ([aViewController isKindOfClass:[LSCameraPresenterController class]]) {
+    [(LSCameraPresenterController*)aViewController presentCameraPickerController];
+    return NO;
+  }
+  return YES;
 }
 
 @end

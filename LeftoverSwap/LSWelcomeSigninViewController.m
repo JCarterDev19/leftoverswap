@@ -22,12 +22,12 @@
 
 - (IBAction)loginButtonSelected:(id)sender {
 	LSLoginViewController *loginViewController = [[LSLoginViewController alloc] initWithNibName:nil bundle:nil];
-	[self.navigationController presentViewController:loginViewController animated:YES completion:^{}];
+	[self presentViewController:loginViewController animated:YES completion:nil];
 }
 
 - (IBAction)createButtonSelected:(id)sender {
 	LSNewUserViewController *newUserViewController = [[LSNewUserViewController alloc] initWithNibName:nil bundle:nil];
-	[self.navigationController presentViewController:newUserViewController animated:YES completion:^{}];
+	[self presentViewController:newUserViewController animated:YES completion:nil];
 }
 
 #pragma mark - View lifecycle

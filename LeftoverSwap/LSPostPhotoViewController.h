@@ -7,7 +7,16 @@
 
 @class LSPaddedTextField;
 
-@interface LSEditPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UITextViewDelegate>
+@class LSPostPhotoViewController;
+
+@protocol LSPostPhotoViewControllerDelegate <NSObject>
+
+- (void)postPhotoControllerDidFinishPosting:(LSPostPhotoViewController *)post;
+- (void)postPhotoControllerDidCancel:(LSPostPhotoViewController *)post;
+
+@end
+
+@interface LSPostPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UITextViewDelegate>
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil image:(UIImage *)aImage;
 
@@ -16,6 +25,7 @@
 @property (nonatomic) IBOutlet LSPaddedTextField *titleTextField;
 @property (nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (nonatomic) IBOutlet UIBarButtonItem *postButton;
+@property (nonatomic, weak) id<LSPostPhotoViewControllerDelegate> delegate;
 
 - (IBAction)cancelPost:(id)sender;
 - (IBAction)postPost:(id)sender;

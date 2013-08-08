@@ -201,9 +201,8 @@
 		[activityView.activityIndicator stopAnimating];
 		[activityView removeFromSuperview];
 
-    LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
-    [(UINavigationController *)self.presentingViewController pushViewController:mapViewController animated:NO];
-    [self.presentingViewController dismissModalViewControllerAnimated:YES];
+    // TODO: may need to change this. 
+    [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 	}];
 }
 
