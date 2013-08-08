@@ -10,7 +10,7 @@
 
 #import <Parse/Parse.h>
 #import "LSActivityView.h"
-#import "LSListViewController.h"
+#import "LSMapViewController.h"
 
 @interface LSNewUserViewController ()
 
@@ -201,9 +201,9 @@
 		[activityView.activityIndicator stopAnimating];
 		[activityView removeFromSuperview];
 
-		LSListViewController *listViewController = [[LSListViewController alloc] initWithNibName:nil bundle:nil];
-		[(UINavigationController *)self.presentingViewController pushViewController:listViewController animated:NO];
-		[self.presentingViewController dismissModalViewControllerAnimated:YES];
+    LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
+    [(UINavigationController *)self.presentingViewController pushViewController:mapViewController animated:NO];
+    [self.presentingViewController dismissModalViewControllerAnimated:YES];
 	}];
 }
 

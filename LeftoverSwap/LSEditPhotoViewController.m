@@ -8,6 +8,8 @@
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "LSAppDelegate.h"
+#import "LSLocationController.h"
 #import "LSConstants.h"
 #import "LSEditPhotoViewController.h"
 #import "LSPaddedTextField.h"
@@ -60,6 +62,7 @@
     
     self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
     self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
+    
   }
   return self;
 }
@@ -220,6 +223,7 @@
   [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
   [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
   [photo setObject:trimmedTitle forKey:kPostTitleKey];
+  [photo setObject:[self currentLocation] forKey:kPostLocationKey];
   
   // photos are public, but may only be modified by the user who uploaded them
   PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
@@ -236,7 +240,11 @@
     if (succeeded) {
       NSLog(@"Photo uploaded");
       
-//      [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
+      NSLog(@"Successfully saved!");
+			NSLog(@"%@", photo);
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil];
+			});
     } else {
       NSLog(@"Photo failed to save: %@", error);
       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
@@ -259,6 +267,13 @@
 }
 
 #pragma mark Private helper methods
+
+-(PFGeoPoint*)currentLocation {
+  LSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+  CLLocationCoordinate2D currentCoordinate = appDelegate.locationController.currentLocation.coordinate;
+	PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude longitude:currentCoordinate.longitude];
+  return currentPoint;
+}
 
 -(UIView*)findEmptyViews {
   if (titleTextField.text.length == 0) {

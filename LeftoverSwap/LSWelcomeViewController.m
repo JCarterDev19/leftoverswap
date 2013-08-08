@@ -8,13 +8,12 @@
 
 #import "LSWelcomeViewController.h"
 #import "LSAppDelegate.h"
+#import "LSMapViewController.h"
 
 @implementation LSWelcomeViewController
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  
-  [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -76,7 +75,8 @@
 #pragma mark - ()
 
 - (void)eatButtonAction:(id)sender {
-  [(LSAppDelegate*)[[UIApplication sharedApplication] delegate] presentMainInterface];
+  LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
+  [self.navigationController setViewControllers:@[mapViewController] animated:YES];
 }
 
 - (void)feedButtonAction:(id)sender {

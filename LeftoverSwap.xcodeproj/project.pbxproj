@@ -29,6 +29,13 @@
 		08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */; };
 		08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */; };
 		08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */; };
+		08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6317B3496100C5E4FF /* LSMapViewController.m */; };
+		08EB0F6717B3501700C5E4FF /* LSSearchRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */; };
+		08EB0F6B17B353DB00C5E4FF /* LSCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */; };
+		08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6D17B3559D00C5E4FF /* LSPost.m */; };
+		08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EB0F6F17B3589400C5E4FF /* MapKit.framework */; };
+		08EB0F7317B35C0600C5E4FF /* LSCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7217B35C0600C5E4FF /* LSCameraController.m */; };
+		08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -90,6 +97,18 @@
 		08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSWelcomeSigninViewController.xib; sourceTree = "<group>"; };
 		08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLocationController.h; sourceTree = "<group>"; };
 		08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLocationController.m; sourceTree = "<group>"; };
+		08EB0F6217B3496100C5E4FF /* LSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMapViewController.h; sourceTree = "<group>"; };
+		08EB0F6317B3496100C5E4FF /* LSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMapViewController.m; sourceTree = "<group>"; };
+		08EB0F6517B3501100C5E4FF /* LSSearchRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSearchRadius.h; sourceTree = "<group>"; };
+		08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSearchRadius.m; sourceTree = "<group>"; };
+		08EB0F6917B353DB00C5E4FF /* LSCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCircleView.h; sourceTree = "<group>"; };
+		08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCircleView.m; sourceTree = "<group>"; };
+		08EB0F6C17B3559D00C5E4FF /* LSPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPost.h; sourceTree = "<group>"; };
+		08EB0F6D17B3559D00C5E4FF /* LSPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPost.m; sourceTree = "<group>"; };
+		08EB0F6F17B3589400C5E4FF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		08EB0F7117B35C0600C5E4FF /* LSCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCameraController.h; sourceTree = "<group>"; };
+		08EB0F7217B35C0600C5E4FF /* LSCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCameraController.m; sourceTree = "<group>"; };
+		08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMapViewController.xib; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */,
 				08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */,
 				08F455CB179F7D0A00CB7E2D /* SystemConfiguration.framework in Frameworks */,
 				08F455C9179F7D0500CB7E2D /* StoreKit.framework in Frameworks */,
@@ -148,6 +168,8 @@
 				0805F28717A7940300963343 /* LSEditPhotoViewController.h */,
 				08F8DCC017AEFDA700A6AE60 /* LSEditPhotoViewController.xib */,
 				0805F28817A7940300963343 /* LSEditPhotoViewController.m */,
+				08EB0F7117B35C0600C5E4FF /* LSCameraController.h */,
+				08EB0F7217B35C0600C5E4FF /* LSCameraController.m */,
 			);
 			name = "Take Picture";
 			sourceTree = "<group>";
@@ -176,6 +198,8 @@
 		0823B42E17A0B11C00FE86FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F6917B353DB00C5E4FF /* LSCircleView.h */,
+				08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */,
 				08EB0F5617B3024C00C5E4FF /* LSActivityView.h */,
 				08EB0F5717B3024C00C5E4FF /* LSActivityView.m */,
 				0823B44017A0D3DD00FE86FF /* UITableViewCells */,
@@ -190,6 +214,7 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F6117B3494E00C5E4FF /* Map */,
 				08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */,
 				08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */,
 				08EB0F4B17B300C900C5E4FF /* Signup / login */,
@@ -251,6 +276,27 @@
 			name = "Signup / login";
 			sourceTree = "<group>";
 		};
+		08EB0F6117B3494E00C5E4FF /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F6217B3496100C5E4FF /* LSMapViewController.h */,
+				08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */,
+				08EB0F6317B3496100C5E4FF /* LSMapViewController.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		08EB0F6817B3502100C5E4FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F6517B3501100C5E4FF /* LSSearchRadius.h */,
+				08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */,
+				08EB0F6C17B3559D00C5E4FF /* LSPost.h */,
+				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		08F4558B179F7C8200CB7E2D = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +318,7 @@
 		08F45596179F7C8200CB7E2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F6F17B3589400C5E4FF /* MapKit.framework */,
 				08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */,
 				08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */,
 				08F455C8179F7D0500CB7E2D /* StoreKit.framework */,
@@ -292,11 +339,12 @@
 		08F4559D179F7C8200CB7E2D /* LeftoverSwap */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F6817B3502100C5E4FF /* Models */,
 				08F455A6179F7C8200CB7E2D /* LSAppDelegate.h */,
 				08F455A7179F7C8200CB7E2D /* LSAppDelegate.m */,
+				0823B42E17A0B11C00FE86FF /* Views */,
 				0823B43017A0BB9D00FE86FF /* Resources */,
 				0823B42F17A0B12600FE86FF /* Controllers */,
-				0823B42E17A0B11C00FE86FF /* Views */,
 				08F4559E179F7C8200CB7E2D /* Supporting Files */,
 				0823B42617A0A4DE00FE86FF /* LSConstants.h */,
 				0823B42717A0A4DE00FE86FF /* LSConstants.m */,
@@ -379,6 +427,7 @@
 				08EB0F5417B3011500C5E4FF /* LSNewUserViewController.xib in Resources */,
 				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
 				08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */,
+				08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +456,11 @@
 				08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */,
 				08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */,
 				08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */,
+				08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */,
+				08EB0F6717B3501700C5E4FF /* LSSearchRadius.m in Sources */,
+				08EB0F6B17B353DB00C5E4FF /* LSCircleView.m in Sources */,
+				08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */,
+				08EB0F7317B35C0600C5E4FF /* LSCameraController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

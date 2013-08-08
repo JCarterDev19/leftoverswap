@@ -14,9 +14,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, strong) UINavigationController *navController;
 @property (nonatomic) LSLocationController *locationController;
-
-- (void)presentMainInterface;
+@property (nonatomic) UIViewController *viewController;
 
 @end

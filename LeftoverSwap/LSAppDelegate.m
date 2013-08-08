@@ -11,14 +11,11 @@
 #import "LSWelcomeSigninViewController.h"
 #import "LSWelcomeViewController.h"
 #import "LSLoginViewController.h"
-#import "LSListViewController.h"
+#import "LSMapViewController.h"
 
 static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @interface LSAppDelegate ()
-
-@property (nonatomic, strong) LSListViewController *listViewController;
-@property (nonatomic, strong) LSWelcomeViewController *welcomeViewController;
 
 -(void)setupAppearance;
 
@@ -28,10 +25,8 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @synthesize window;
 
-@synthesize navController;
+@synthesize viewController;
 
-@synthesize listViewController;
-@synthesize welcomeViewController;
 @synthesize locationController;
 
 #pragma mark - UIApplicationDelegate
@@ -45,14 +40,27 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   
   [self setupAppearance];
 
-  if ([self shouldDisplayWelcomeScreen]) {
-    self.welcomeViewController = [[LSWelcomeViewController alloc] init];
+  UINavigationController *navController = nil;
+
+  if (![PFUser currentUser]) {
+    LSWelcomeSigninViewController *signinController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
+    navController = [[UINavigationController alloc] initWithRootViewController:signinController];
+
+  } else if ([self shouldDisplayWelcomeScreen]) {
+    
+    LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
+    navController = [[UINavigationController alloc] initWithRootViewController:welcomeViewController];
+
+  } else {
+
+    LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
+		navController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+
   }
-
-  self.navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeViewController];
-  self.navController.navigationBarHidden = YES;
-
-  self.window.rootViewController = self.navController;
+  
+  navController.navigationBarHidden = YES;
+  self.viewController = navController;
+  self.window.rootViewController = self.viewController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
@@ -66,17 +74,6 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 #pragma mark - LSAppDelegate
 
-- (void)presentMainInterface {
-  
-  if ([PFUser currentUser]) {
-    self.listViewController = [[LSListViewController alloc] init];
-    [self.navController pushViewController:self.listViewController animated:YES];
-  } else {
-    LSWelcomeSigninViewController *signinController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navController pushViewController:signinController animated:YES];
-  }
-}
-							
 - (BOOL)shouldDisplayWelcomeScreen
 {
   BOOL shouldDisplay = NO;

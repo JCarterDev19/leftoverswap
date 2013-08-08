@@ -36,3 +36,4 @@ NSString *const kCommentToUserKey = @"toUser";
 NSString *const kCommentForPostKey = @"forPost";
 NSString *const kCommentTextKey = @"text";
 
+NSString *const kLSPostCreatedNotification = @"kPostCreatedNotification";

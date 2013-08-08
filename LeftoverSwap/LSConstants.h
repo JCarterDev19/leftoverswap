@@ -33,3 +33,7 @@ extern NSString *const kCommentFromUserKey;
 extern NSString *const kCommentToUserKey;
 extern NSString *const kCommentForPostKey;
 extern NSString *const kCommentTextKey;
+
+#pragma mark - NSNotitication keys
+
+extern NSString * const kLSPostCreatedNotification;
