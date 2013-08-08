@@ -21,6 +21,13 @@
 		0823B44617A0D4C700FE86FF /* LSLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */; };
 		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
+		08EB0F5017B300D600C5E4FF /* LSNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSNewUserViewController.m */; };
+		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
+		08EB0F5417B3011500C5E4FF /* LSNewUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5217B3011500C5E4FF /* LSNewUserViewController.xib */; };
+		08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */; };
+		08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5717B3024C00C5E4FF /* LSActivityView.m */; };
+		08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */; };
+		08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -69,6 +76,17 @@
 		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
+		08EB0F4C17B300D600C5E4FF /* LSNewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSNewUserViewController.h; sourceTree = "<group>"; };
+		08EB0F4D17B300D600C5E4FF /* LSNewUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSNewUserViewController.m; sourceTree = "<group>"; };
+		08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
+		08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLoginViewController.m; sourceTree = "<group>"; };
+		08EB0F5217B3011500C5E4FF /* LSNewUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSNewUserViewController.xib; sourceTree = "<group>"; };
+		08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSLoginViewController.xib; sourceTree = "<group>"; };
+		08EB0F5617B3024C00C5E4FF /* LSActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSActivityView.h; sourceTree = "<group>"; };
+		08EB0F5717B3024C00C5E4FF /* LSActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSActivityView.m; sourceTree = "<group>"; };
+		08EB0F5917B303EA00C5E4FF /* LSWelcomeSigninViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeSigninViewController.h; sourceTree = "<group>"; };
+		08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeSigninViewController.m; sourceTree = "<group>"; };
+		08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSWelcomeSigninViewController.xib; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -155,6 +173,8 @@
 		0823B42E17A0B11C00FE86FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F5617B3024C00C5E4FF /* LSActivityView.h */,
+				08EB0F5717B3024C00C5E4FF /* LSActivityView.m */,
 				0823B44017A0D3DD00FE86FF /* UITableViewCells */,
 				0823B42B17A0B11500FE86FF /* LSWelcomeButton.h */,
 				0823B42C17A0B11500FE86FF /* LSWelcomeButton.m */,
@@ -167,6 +187,7 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F4B17B300C900C5E4FF /* Signup / login */,
 				0805F28617A793F200963343 /* Take Picture */,
 				0823B43D17A0C51900FE86FF /* LSListViewController.h */,
 				0823B43E17A0C51900FE86FF /* LSListViewController.m */,
@@ -207,6 +228,22 @@
 				08786E2C179FB1A100CAA3D8 /* swaplogo200.png */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		08EB0F4B17B300C900C5E4FF /* Signup / login */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */,
+				08EB0F5917B303EA00C5E4FF /* LSWelcomeSigninViewController.h */,
+				08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */,
+				08EB0F5217B3011500C5E4FF /* LSNewUserViewController.xib */,
+				08EB0F4C17B300D600C5E4FF /* LSNewUserViewController.h */,
+				08EB0F4D17B300D600C5E4FF /* LSNewUserViewController.m */,
+				08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */,
+				08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */,
+				08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */,
+			);
+			name = "Signup / login";
 			sourceTree = "<group>";
 		};
 		08F4558B179F7C8200CB7E2D = {
@@ -334,6 +371,9 @@
 				0823B43517A0BC1A00FE86FF /* welcome@2x.png in Resources */,
 				0823B43617A0BC1A00FE86FF /* welcome-568h@2x.png in Resources */,
 				08F8DCC117AEFDA700A6AE60 /* LSEditPhotoViewController.xib in Resources */,
+				08EB0F5417B3011500C5E4FF /* LSNewUserViewController.xib in Resources */,
+				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
+				08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +397,10 @@
 				0805F29317A7946300963343 /* UIImage+AlphaAdditions.m in Sources */,
 				0805F29417A7946300963343 /* UIImage+RoundedCornerAdditions.m in Sources */,
 				08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */,
+				08EB0F5017B300D600C5E4FF /* LSNewUserViewController.m in Sources */,
+				08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */,
+				08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */,
+				08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

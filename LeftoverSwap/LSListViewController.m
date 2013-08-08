@@ -70,7 +70,7 @@
 - (void)viewDidLoad {
   [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone]; // PFQueryTableViewController reads this in viewDidLoad -- would prefer to throw this in init, but didn't work
   
-  [super viewDidLoad];
+//  [super viewDidLoad];
   
   self.navController = [[UINavigationController alloc] init];
 

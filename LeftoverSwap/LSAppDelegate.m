@@ -8,7 +8,9 @@
 
 #import "LSAppDelegate.h"
 #import <Parse/Parse.h>
+#import "LSWelcomeSigninViewController.h"
 #import "LSWelcomeViewController.h"
+#import "LSLoginViewController.h"
 #import "LSListViewController.h"
 
 static NSString * const defaultsFilterDistanceKey = @"filterDistance";
@@ -64,8 +66,14 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 #pragma mark - LSAppDelegate
 
 - (void)presentMainInterface {
-  self.listViewController = [[LSListViewController alloc] init];
-  [self.navController pushViewController:self.listViewController animated:YES];
+  
+  if ([PFUser currentUser]) {
+    self.listViewController = [[LSListViewController alloc] init];
+    [self.navController pushViewController:self.listViewController animated:YES];
+  } else {
+    LSWelcomeSigninViewController *signinController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navController pushViewController:signinController animated:YES];
+  }
 }
 							
 - (BOOL)shouldDisplayWelcomeScreen
