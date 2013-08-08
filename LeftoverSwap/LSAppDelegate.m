@@ -13,8 +13,6 @@
 #import "LSLoginViewController.h"
 #import "LSListViewController.h"
 
-static NSString * const defaultsFilterDistanceKey = @"filterDistance";
-static NSString * const defaultsLocationKey = @"currentLocation";
 static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @interface LSAppDelegate ()
@@ -34,6 +32,7 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @synthesize listViewController;
 @synthesize welcomeViewController;
+@synthesize locationController;
 
 #pragma mark - UIApplicationDelegate
 
@@ -56,7 +55,9 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   self.window.rootViewController = self.navController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-  
+
+  self.locationController = [[LSLocationController alloc] init];
+
   [self.window makeKeyAndVisible];
 
   return YES;

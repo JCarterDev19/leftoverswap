@@ -192,91 +192,64 @@
   [descriptionTextView resignFirstResponder];
   
   UIView *emptyView = [self findEmptyViews];
-
+  
   if (emptyView) {
 		[emptyView becomeFirstResponder];
 		return;
 	}
   
-//    NSDictionary *userInfo = [NSDictionary dictionary];
+  //NSDictionary *userInfo = [NSDictionary dictionary];
   NSString *trimmedTitle = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
   NSString *trimmedDescription = [self.descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
-//    if (trimmedComment.length != 0) {
-//        userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                  trimmedComment,kPhotoComment,
-//                                  nil];
-//    }
   
-    if (!self.photoFile || !self.thumbnailFile) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-        [alert show];
-        return;
+  if (!self.photoFile || !self.thumbnailFile) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+    [alert show];
+    return;
+  }
+  
+  // both files have finished uploading
+  if (![PFUser currentUser]) {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"user must be logged in to post" userInfo:nil];
+  }
+  
+  // create a photo object
+  PFObject *photo = [PFObject objectWithClassName:kPostClassKey];
+  [photo setObject:[PFUser currentUser] forKey:kPostUserKey];
+  [photo setObject:self.photoFile forKey:kPostImageKey];
+  [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
+  [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
+  [photo setObject:trimmedTitle forKey:kPostTitleKey];
+  
+  // photos are public, but may only be modified by the user who uploaded them
+  PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+  [photoACL setPublicReadAccess:YES];
+  photo.ACL = photoACL;
+  
+  // Request a background execution task to allow us to finish uploading the photo even if the app is backgrounded
+  self.photoPostBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
+  }];
+
+  // save
+  [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (succeeded) {
+      NSLog(@"Photo uploaded");
+      
+//      [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
+    } else {
+      NSLog(@"Photo failed to save: %@", error);
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+      [alert show];
     }
-    
-    // both files have finished uploading
-    
-    // create a photo object
-    PFObject *photo = [PFObject objectWithClassName:kPostClassKey];
-    [photo setObject:[PFUser currentUser] forKey:kPostUserKey];
-    [photo setObject:self.photoFile forKey:kPostImageKey];
-    [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
-    [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
-    [photo setObject:trimmedTitle forKey:kPostTitleKey];
-
+    [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
+  }];
   
-    // photos are public, but may only be modified by the user who uploaded them
-//    PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-//    [photoACL setPublicReadAccess:YES];
-//    photo.ACL = photoACL;
-//    
-//    // Request a background execution task to allow us to finish uploading the photo even if the app is backgrounded
-//    self.photoPostBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-//        [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
-//    }];
-//
-//    // save
-//    [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            NSLog(@"Photo uploaded");
-//            
-////            [[PAPCache sharedCache] setAttributesForPhoto:photo likers:[NSArray array] commenters:[NSArray array] likedByCurrentUser:NO];
-//          
-//            // userInfo might contain any caption which might have been posted by the uploader
-////            if (userInfo) {
-////                NSString *commentText = [userInfo objectForKey:kPhotoComment];
-////                if (commentText && commentText.length != 0) {
-////                    // create and save photo caption
-////                  // location too
-//////                    PFObject *comment = [PFObject objectWithClassName:kCommentClassKey];
-//////                    [comment setObject:photo forKey:kCommentForPostKey];
-//////                    [comment setObject:[PFUser currentUser] forKey:kCommentFromUserKey];
-//////                    [comment setObject:[PFUser currentUser] forKey:kCommentToUserKey];
-//////                    [comment setObject:commentText forKey:kCommentTextKey];
-////                  
-//////                    PFACL *ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-//////                    [ACL setPublicReadAccess:YES];
-//////                    comment.ACL = ACL;
-////                  
-////                  [photo saveEventually];
-//////                    [[PAPCache sharedCache] incrementCommentCountForPhoto:photo];
-////                }
-////            }
-////
-////            [[NSNotificationCenter defaultCenter] postNotificationName:PAPTabBarControllerDidFinishEditingPhotoNotification object:photo];
-//        } else {
-//            NSLog(@"Photo failed to save: %@", error);
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-//            [alert show];
-//        }
-//        [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
-//    }];
-  
-    [self.parentViewController dismissModalViewControllerAnimated:YES];
+  [self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (IBAction)cancelPost:(id)sender {
-    [self.parentViewController dismissModalViewControllerAnimated:YES];
+  [self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark UITextView nofitication methods

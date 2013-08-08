@@ -8,6 +8,7 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "LSAppDelegate.h"
 #import "LSListViewController.h"
 #import "LSEditPhotoViewController.h"
 #import "LSConstants.h"
@@ -20,6 +21,7 @@
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
 @property (nonatomic, strong) NSMutableDictionary *outstandingSectionHeaderQueries;
+@property (nonatomic) LSLocationController *locationController;
 
 - (void)startCameraController;
 
@@ -31,6 +33,7 @@
 @synthesize reusableSectionHeaderViews;
 @synthesize shouldReloadOnAppear;
 @synthesize outstandingSectionHeaderQueries;
+@synthesize locationController;
 
 #pragma mark - Init
 
@@ -57,14 +60,42 @@
     self.reusableSectionHeaderViews = [NSMutableSet setWithCapacity:3];
     
     self.shouldReloadOnAppear = NO;
+    
+    LSAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    self.locationController = appDelegate.locationController;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kLSFilterDistanceChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kLSLocationChangeNotification object:nil];
+
   }
   return self;
+}
+
+-(void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSFilterDistanceChangeNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSLocationChangeNotification object:nil];
+}
+
+#pragma mark - NSNotificationCenter notification handlers
+
+- (void)distanceFilterDidChange:(NSNotification *)note {
+  NSLog(@"distanceFilter changed to %f", locationController.filterDistance);
+}
+
+- (void)locationDidChange:(NSNotification *)note {
+  NSLog(@"currentLocation changed to %@", locationController.currentLocation);
 }
 
 #pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
   [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+  [locationController startUpdatingLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  [locationController stopUpdatingLocation];
 }
 
 - (void)viewDidLoad {

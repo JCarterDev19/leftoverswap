@@ -28,6 +28,7 @@
 		08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5717B3024C00C5E4FF /* LSActivityView.m */; };
 		08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */; };
 		08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */; };
+		08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -87,6 +88,8 @@
 		08EB0F5917B303EA00C5E4FF /* LSWelcomeSigninViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeSigninViewController.h; sourceTree = "<group>"; };
 		08EB0F5A17B303EA00C5E4FF /* LSWelcomeSigninViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeSigninViewController.m; sourceTree = "<group>"; };
 		08EB0F5C17B3113600C5E4FF /* LSWelcomeSigninViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSWelcomeSigninViewController.xib; sourceTree = "<group>"; };
+		08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLocationController.h; sourceTree = "<group>"; };
+		08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLocationController.m; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -187,6 +190,8 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */,
+				08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */,
 				08EB0F4B17B300C900C5E4FF /* Signup / login */,
 				0805F28617A793F200963343 /* Take Picture */,
 				0823B43D17A0C51900FE86FF /* LSListViewController.h */,
@@ -401,6 +406,7 @@
 				08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */,
 				08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */,
 				08EB0F5B17B303EA00C5E4FF /* LSWelcomeSigninViewController.m in Sources */,
+				08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
