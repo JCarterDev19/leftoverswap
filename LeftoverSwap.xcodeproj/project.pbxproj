@@ -35,6 +35,9 @@
 		08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EB0F6F17B3589400C5E4FF /* MapKit.framework */; };
 		08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */; };
 		08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */; };
+		08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */; };
+		08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */; };
+		08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -114,6 +117,12 @@
 		08EB0F7117B35C0600C5E4FF /* LSCameraPresenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCameraPresenterController.h; sourceTree = "<group>"; };
 		08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCameraPresenterController.m; sourceTree = "<group>"; };
 		08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMapViewController.xib; sourceTree = "<group>"; };
+		08EB0F7717B4738000C5E4FF /* LSConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationViewController.h; sourceTree = "<group>"; };
+		08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationViewController.m; sourceTree = "<group>"; };
+		08EB0F7A17B4782D00C5E4FF /* LSConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationCell.h; sourceTree = "<group>"; };
+		08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationCell.m; sourceTree = "<group>"; };
+		08EB0F7D17B47A6000C5E4FF /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
+		08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -190,6 +199,7 @@
 		0805F28A17A7942800963343 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F8017B47A6300C5E4FF /* TTTTimeIntervalFormatter */,
 				0805F28B17A7945200963343 /* UIImage Categories */,
 			);
 			name = External;
@@ -227,6 +237,7 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				08EB0F7617B46C6900C5E4FF /* Conversation */,
 				08EB0F6117B3494E00C5E4FF /* Map */,
 				08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */,
 				08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */,
@@ -314,6 +325,26 @@
 				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		08EB0F7617B46C6900C5E4FF /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F7A17B4782D00C5E4FF /* LSConversationCell.h */,
+				08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */,
+				08EB0F7717B4738000C5E4FF /* LSConversationViewController.h */,
+				08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
+		08EB0F8017B47A6300C5E4FF /* TTTTimeIntervalFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F7D17B47A6000C5E4FF /* TTTTimeIntervalFormatter.h */,
+				08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */,
+			);
+			name = TTTTimeIntervalFormatter;
 			sourceTree = "<group>";
 		};
 		08F4558B179F7C8200CB7E2D = {
@@ -487,6 +518,9 @@
 				08EB0F6B17B353DB00C5E4FF /* LSCircleView.m in Sources */,
 				08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */,
 				08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */,
+				08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */,
+				08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */,
+				08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

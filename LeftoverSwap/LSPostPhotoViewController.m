@@ -255,11 +255,15 @@
     [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
   }];
   
-  [delegate postPhotoControllerDidFinishPosting:self];
+  if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidFinishPosting:)]) {
+    [delegate postPhotoControllerDidFinishPosting:self];
+  }
 }
 
 - (IBAction)cancelPost:(id)sender {
-  [delegate postPhotoControllerDidCancel:self];
+  if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidCancel:)]) {
+    [delegate postPhotoControllerDidCancel:self];
+  }
 }
 
 #pragma mark UITextView nofitication methods

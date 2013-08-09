@@ -24,15 +24,20 @@ extern NSString *const kPostTitleKey;
 extern NSString *const kPostDescriptionKey;
 extern NSString *const kPostLocationKey;
 
-#pragma mark - PFObject Comment Class
+#pragma mark - PFObject Conversation Class
 // Class key
-extern NSString *const kCommentClassKey;
+extern NSString *const kConversationClassKey;
+extern NSString *const kConversationTypeKey;
+
+// Type key
+extern NSString *const kConversationTypeTopicKey;
+extern NSString *const kConversationTypeMessageKey;
 
 // Field keys
-extern NSString *const kCommentFromUserKey;
-extern NSString *const kCommentToUserKey;
-extern NSString *const kCommentForPostKey;
-extern NSString *const kCommentTextKey;
+extern NSString *const kConversationFromUserKey;
+extern NSString *const kConversationToUserKey;
+extern NSString *const kConversationTopicKey;
+extern NSString *const kConversationMessageKey;
 
 #pragma mark - NSNotitication keys
 
