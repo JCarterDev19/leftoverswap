@@ -25,7 +25,7 @@
 {
   self = [super init];
   if (self) {
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:nil tag:1];
+      self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:[UIImage imageNamed:@"TabBarPost.png"] tag:1];
   }
   return self;
 }

@@ -57,7 +57,7 @@ static NSUInteger const kPostLimit = 20;
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self) {
 
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:nil tag:0];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"TabBarMap.png"] tag:0];
 
 		self.parseClassName = kPostClassKey;
 		annotations = [[NSMutableArray alloc] initWithCapacity:10];
