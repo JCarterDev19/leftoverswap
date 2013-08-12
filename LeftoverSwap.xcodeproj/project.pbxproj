@@ -56,14 +56,14 @@
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
 		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
-		5D40952017B964A900FAD279 /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951817B964A900FAD279 /* TabBarProfile@2x.png */; };
-		5D40952117B964A900FAD279 /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951917B964A900FAD279 /* TabBarProfile.png */; };
-		5D40952217B964A900FAD279 /* TabBarPost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951A17B964A900FAD279 /* TabBarPost@2x.png */; };
-		5D40952317B964A900FAD279 /* TabBarPost.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951B17B964A900FAD279 /* TabBarPost.png */; };
-		5D40952417B964A900FAD279 /* TabBarMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951C17B964A900FAD279 /* TabBarMessage@2x.png */; };
-		5D40952517B964A900FAD279 /* TabBarMessage.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951D17B964A900FAD279 /* TabBarMessage.png */; };
-		5D40952617B964A900FAD279 /* TabBarMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951E17B964A900FAD279 /* TabBarMap@2x.png */; };
-		5D40952717B964A900FAD279 /* TabBarMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D40951F17B964A900FAD279 /* TabBarMap.png */; };
+		5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */; };
+		5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarProfile.png */; };
+		5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */; };
+		5D44DF9B17B967EF000E0B9C /* TabBarPost.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9317B967EF000E0B9C /* TabBarPost.png */; };
+		5D44DF9C17B967EF000E0B9C /* TabBarMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */; };
+		5D44DF9D17B967EF000E0B9C /* TabBarMessage.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9517B967EF000E0B9C /* TabBarMessage.png */; };
+		5D44DF9E17B967EF000E0B9C /* TabBarMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9617B967EF000E0B9C /* TabBarMap@2x.png */; };
+		5D44DF9F17B967EF000E0B9C /* TabBarMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9717B967EF000E0B9C /* TabBarMap.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,14 +140,14 @@
 		08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostPhotoViewController.xib; sourceTree = "<group>"; };
 		08F8DCC217AF7E6300A6AE60 /* LSPaddedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaddedTextField.h; sourceTree = "<group>"; };
 		08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaddedTextField.m; sourceTree = "<group>"; };
-		5D40951817B964A900FAD279 /* TabBarProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarProfile@2x.png"; sourceTree = "<group>"; };
-		5D40951917B964A900FAD279 /* TabBarProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarProfile.png; sourceTree = "<group>"; };
-		5D40951A17B964A900FAD279 /* TabBarPost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPost@2x.png"; sourceTree = "<group>"; };
-		5D40951B17B964A900FAD279 /* TabBarPost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarPost.png; sourceTree = "<group>"; };
-		5D40951C17B964A900FAD279 /* TabBarMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMessage@2x.png"; sourceTree = "<group>"; };
-		5D40951D17B964A900FAD279 /* TabBarMessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarMessage.png; sourceTree = "<group>"; };
-		5D40951E17B964A900FAD279 /* TabBarMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMap@2x.png"; sourceTree = "<group>"; };
-		5D40951F17B964A900FAD279 /* TabBarMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarMap.png; sourceTree = "<group>"; };
+		5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarProfile@2x.png"; sourceTree = "<group>"; };
+		5D44DF9117B967EF000E0B9C /* TabBarProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarProfile.png; sourceTree = "<group>"; };
+		5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPost@2x.png"; sourceTree = "<group>"; };
+		5D44DF9317B967EF000E0B9C /* TabBarPost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarPost.png; sourceTree = "<group>"; };
+		5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMessage@2x.png"; sourceTree = "<group>"; };
+		5D44DF9517B967EF000E0B9C /* TabBarMessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarMessage.png; sourceTree = "<group>"; };
+		5D44DF9617B967EF000E0B9C /* TabBarMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMap@2x.png"; sourceTree = "<group>"; };
+		5D44DF9717B967EF000E0B9C /* TabBarMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarMap.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,14 +263,14 @@
 		08786E2B179FAF9200CAA3D8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5D40951817B964A900FAD279 /* TabBarProfile@2x.png */,
-				5D40951917B964A900FAD279 /* TabBarProfile.png */,
-				5D40951A17B964A900FAD279 /* TabBarPost@2x.png */,
-				5D40951B17B964A900FAD279 /* TabBarPost.png */,
-				5D40951C17B964A900FAD279 /* TabBarMessage@2x.png */,
-				5D40951D17B964A900FAD279 /* TabBarMessage.png */,
-				5D40951E17B964A900FAD279 /* TabBarMap@2x.png */,
-				5D40951F17B964A900FAD279 /* TabBarMap.png */,
+				5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */,
+				5D44DF9117B967EF000E0B9C /* TabBarProfile.png */,
+				5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */,
+				5D44DF9317B967EF000E0B9C /* TabBarPost.png */,
+				5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */,
+				5D44DF9517B967EF000E0B9C /* TabBarMessage.png */,
+				5D44DF9617B967EF000E0B9C /* TabBarMap@2x.png */,
+				5D44DF9717B967EF000E0B9C /* TabBarMap.png */,
 				0823B43117A0BC1A00FE86FF /* welcome.png */,
 				0823B43217A0BC1A00FE86FF /* welcome@2x.png */,
 				0823B43317A0BC1A00FE86FF /* welcome-568h@2x.png */,
@@ -447,14 +447,14 @@
 				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
 				08EB0F5D17B3113600C5E4FF /* LSWelcomeSigninViewController.xib in Resources */,
 				08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */,
-				5D40952017B964A900FAD279 /* TabBarProfile@2x.png in Resources */,
-				5D40952117B964A900FAD279 /* TabBarProfile.png in Resources */,
-				5D40952217B964A900FAD279 /* TabBarPost@2x.png in Resources */,
-				5D40952317B964A900FAD279 /* TabBarPost.png in Resources */,
-				5D40952417B964A900FAD279 /* TabBarMessage@2x.png in Resources */,
-				5D40952517B964A900FAD279 /* TabBarMessage.png in Resources */,
-				5D40952617B964A900FAD279 /* TabBarMap@2x.png in Resources */,
-				5D40952717B964A900FAD279 /* TabBarMap.png in Resources */,
+				5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */,
+				5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */,
+				5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */,
+				5D44DF9B17B967EF000E0B9C /* TabBarPost.png in Resources */,
+				5D44DF9C17B967EF000E0B9C /* TabBarMessage@2x.png in Resources */,
+				5D44DF9D17B967EF000E0B9C /* TabBarMessage.png in Resources */,
+				5D44DF9E17B967EF000E0B9C /* TabBarMap@2x.png in Resources */,
+				5D44DF9F17B967EF000E0B9C /* TabBarMap.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
