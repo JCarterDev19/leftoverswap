@@ -246,6 +246,7 @@
 		0823B42E17A0B11C00FE86FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				08AB64F517BEDC1000EF8D0D /* Conversation */,
 				08EB0F6917B353DB00C5E4FF /* LSCircleView.h */,
 				08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */,
 				08EB0F5617B3024C00C5E4FF /* LSActivityView.h */,
@@ -333,6 +334,17 @@
 			name = Detail;
 			sourceTree = "<group>";
 		};
+		08AB64F517BEDC1000EF8D0D /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				08EB0F7A17B4782D00C5E4FF /* LSConversationCell.h */,
+				08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */,
+				08EB0F8617B8857100C5E4FF /* LSConversationSummaryCell.h */,
+				08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */,
+			);
+			name = Conversation;
+			sourceTree = "<group>";
+		};
 		08EB0F4B17B300C900C5E4FF /* Signup / login */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,12 +385,8 @@
 		08EB0F7617B46C6900C5E4FF /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
-				08EB0F7A17B4782D00C5E4FF /* LSConversationCell.h */,
-				08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */,
 				08EB0F7717B4738000C5E4FF /* LSConversationViewController.h */,
 				08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */,
-				08EB0F8617B8857100C5E4FF /* LSConversationSummaryCell.h */,
-				08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */,
 				08EB0F8117B569F200C5E4FF /* LSConversationSummaryViewController.h */,
 				08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */,
 			);

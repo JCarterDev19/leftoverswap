@@ -68,13 +68,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
-  [self.imageView loadInBackground];
+  [self.imageView loadInBackground:^(UIImage *image, NSError *error) {
+    NSLog(@"%@ load image", error ? @"Did" : @"Didn't");
+  }];
   
   self.titleLabel.text = [post objectForKey:kPostTitleKey];
   
   [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
     NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
     self.sellerLabel.text = name;
+    [sellerLabel setNeedsDisplay];
   }];
   
   self.postDateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[post createdAt]];
@@ -92,6 +95,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 - (void)contact:(id)sender
 {
   NSLog(@"You contacted the sender!");
+  
   [self.presentingViewController dismissModalViewControllerAnimated:YES];
 }
 
