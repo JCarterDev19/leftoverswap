@@ -16,6 +16,7 @@
 #import "LSSearchRadius.h"
 #import "LSCircleView.h"
 #import "LSPost.h"
+#import "LSPostDetailViewController.h"
 
 static NSUInteger const kPostLimit = 20;
 
@@ -235,11 +236,29 @@ static NSUInteger const kPostLimit = 20;
 		pinView.pinColor = [(LSPost *)annotation pinColor];
 		pinView.animatesDrop = [((LSPost *)annotation) animatesDrop];
 		pinView.canShowCallout = YES;
+    
+    // note: when the detail disclosure button is tapped, we respond to it via:
+    //       calloutAccessoryControlTapped delegate method
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+    pinView.rightCalloutAccessoryView = rightButton;
 
 		return pinView;
 	}
 
 	return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+  if (![[view annotation] isKindOfClass:[LSPost class]]) return;
+  
+  NSLog(@"tapped on a post annotation: %s", __PRETTY_FUNCTION__);
+  
+  LSPost *post = (LSPost *)[view annotation];
+  
+  LSPostDetailViewController *viewController = [[LSPostDetailViewController alloc] initWithNibName:nil bundle:nil post:post.object];
+  [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
