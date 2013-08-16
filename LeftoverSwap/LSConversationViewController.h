@@ -10,6 +10,4 @@
 
 @interface LSConversationViewController : PFQueryTableViewController <LSConversationCellDelegate>
 
-+ (NSString *)stringForActivityType:(NSString *)activityType;
-
 @end

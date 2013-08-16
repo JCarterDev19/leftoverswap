@@ -10,23 +10,27 @@
 #import "LSConstants.h"
 //#import "MBProgressHUD.h"
 
+static NSString *const kLastRefreshDefaultsKey = @"kLastRefreshDefaults";
+
 @interface LSConversationViewController ()
 
 @property (nonatomic) NSDate *lastRefresh;
-@property (nonatomic) UIView *blankTimelineView;
 
 @end
 
 @implementation LSConversationViewController
 
 @synthesize lastRefresh;
-@synthesize blankTimelineView;
 
 #pragma mark - Initialization
 
 - (id)initWithStyle:(UITableViewStyle)style {
   self = [super initWithStyle:style];
   if (self) {
+    
+    // Might not need this later. 
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:nil tag:0];
+
     // The className to query on
     self.parseClassName = kConversationClassKey;
     
@@ -46,7 +50,7 @@
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     [super viewDidLoad];
     
@@ -69,7 +73,7 @@
 //    [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 //    [self.blankTimelineView addSubview:button];
 
-//    lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
+    lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:kLastRefreshDefaultsKey];
 }
 
 
@@ -88,7 +92,7 @@
         
         return [LSConversationCell heightForCellWithName:nameString contentString:activityString];
     } else {
-        return 44.0f;
+        return 44;
     }
 }
 
@@ -112,43 +116,50 @@
 
 #pragma mark - PFQueryTableViewController
 
+/** Queries all conversations from, or to, a user, and the most up-to-date topic for these. */
 - (PFQuery *)queryForTable {
-    
-    if (![PFUser currentUser]) {
-        PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-        [query setLimit:0];
-        return query;
-    }
-
+  
+  if (![PFUser currentUser]) {
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    [query whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
-    [query whereKey:kConversationFromUserKey notEqualTo:[PFUser currentUser]];
-    [query whereKeyExists:kConversationFromUserKey];
-    [query includeKey:kConversationFromUserKey];
-//    [query includeKey:kPAPActivityPhotoKey];
-    [query orderByDescending:@"createdAt"];
-
-    [query setCachePolicy:kPFCachePolicyNetworkOnly];
-
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    //
-    // If there is no network connection, we will hit the cache first.
-    if (self.objects.count == 0 || ![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
-        NSLog(@"Loading from cache");
-        [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
-    }
-    
-
+    [query setLimit:0];
     return query;
+  }
+  
+  PFQuery *toUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [toUserQuery whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
+  
+  PFQuery *fromUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [fromUserQuery whereKey:kConversationFromUserKey equalTo:[PFUser currentUser]];
+  
+  PFQuery *query = [PFQuery orQueryWithSubqueries:@[toUserQuery, fromUserQuery]];
+  
+  [query includeKey:kConversationFromUserKey];
+  [query includeKey:kConversationToUserKey];
+  [query includeKey:kConversationTopicPostKey];
+  
+  [query orderByDescending:@"createdAt"];
+  
+  [query setCachePolicy:kPFCachePolicyNetworkOnly];
+  
+  // If no objects are loaded in memory, we look to the cache first to fill the table
+  // and then subsequently do a query against the network.
+  //
+  // If there is no network connection, we will hit the cache first.
+  if (self.objects.count == 0 || ![[UIApplication sharedApplication].delegate performSelector:@selector(isParseReachable)]) {
+    NSLog(@"Loading from cache");
+    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
+  }
+  
+  
+  return query;
 }
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
-//    
-//    lastRefresh = [NSDate date];
-//    [[NSUserDefaults standardUserDefaults] setObject:lastRefresh forKey:kPAPUserDefaultsActivityFeedViewControllerLastRefreshKey];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    lastRefresh = [NSDate date];
+    [[NSUserDefaults standardUserDefaults] setObject:lastRefresh forKey:kLastRefreshDefaultsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
 //    [MBProgressHUD hideHUDForView:self.view animated:YES];
   
@@ -156,23 +167,23 @@
         self.tableView.scrollEnabled = NO;
         self.navigationController.tabBarItem.badgeValue = nil;
 
-        if (!self.blankTimelineView.superview) {
-            self.blankTimelineView.alpha = 0.0f;
-            self.tableView.tableHeaderView = self.blankTimelineView;
-            
-            [UIView animateWithDuration:0.200f animations:^{
-                self.blankTimelineView.alpha = 1.0f;
-            }];
-        }
+//        if (!self.blankTimelineView.superview) {
+//            self.blankTimelineView.alpha = 0.0f;
+//            self.tableView.tableHeaderView = self.blankTimelineView;
+//            
+//            [UIView animateWithDuration:0.200f animations:^{
+//                self.blankTimelineView.alpha = 1.0f;
+//            }];
+//        }
     } else {
         self.tableView.tableHeaderView = nil;
         self.tableView.scrollEnabled = YES;
         
         NSUInteger unreadCount = 0;
         for (PFObject *activity in self.objects) {
-//            if ([lastRefresh compare:[activity createdAt]] == NSOrderedAscending && ![[activity objectForKey:kPAPActivityTypeKey] isEqualToString:kPAPActivityTypeJoined]) {
-//                unreadCount++;
-//            }
+            if ([lastRefresh compare:[activity createdAt]] == NSOrderedAscending && ![[activity objectForKey:kConversationTypeKey] isEqualToString:kConversationTypeMessageKey]) {
+                unreadCount++;
+            }
         }
         
         if (unreadCount > 0) {
@@ -196,12 +207,12 @@
 //  [cell setActivity:object];
   
 //  [cell setIsNew:YES];
-  //    if ([lastRefresh compare:[object createdAt]] == NSOrderedAscending) {
-  //        [cell setIsNew:YES];
-  //    } else {
-  //        [cell setIsNew:NO];
-  //    }
-  
+//  if ([lastRefresh compare:[object createdAt]] == NSOrderedAscending) {
+//      [cell setIsNew:YES];
+//  } else {
+//      [cell setIsNew:NO];
+//  }
+//    
   [cell hideSeparator:(indexPath.row == self.objects.count - 1)];
   
   return cell;
@@ -238,7 +249,6 @@
 //    [accountViewController setUser:user];
 //    [self.navigationController pushViewController:accountViewController animated:YES];
 }
-
 
 #pragma mark - PAPActivityFeedViewController
 

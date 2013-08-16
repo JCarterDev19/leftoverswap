@@ -13,6 +13,7 @@
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
+#import "LSConversationSummaryViewController.h"
 
 static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
@@ -47,8 +48,9 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   
   LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
   LSCameraPresenterController *cameraController = [[LSCameraPresenterController alloc] init];
+  LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
 
-  tabBarController.viewControllers = @[mapViewController, cameraController];
+  tabBarController.viewControllers = @[mapViewController, cameraController, conversationController];
 
   if (![PFUser currentUser]) {
     

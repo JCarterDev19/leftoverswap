@@ -38,6 +38,8 @@
 		08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */; };
 		08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */; };
 		08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */; };
+		08EB0F8417B569F300C5E4FF /* LSConversationSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */; };
+		08EB0F8817B8857200C5E4FF /* LSConversationSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -123,6 +125,10 @@
 		08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationCell.m; sourceTree = "<group>"; };
 		08EB0F7D17B47A6000C5E4FF /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
 		08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTTimeIntervalFormatter.m; sourceTree = "<group>"; };
+		08EB0F8117B569F200C5E4FF /* LSConversationSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationSummaryViewController.h; sourceTree = "<group>"; };
+		08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationSummaryViewController.m; sourceTree = "<group>"; };
+		08EB0F8617B8857100C5E4FF /* LSConversationSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationSummaryCell.h; sourceTree = "<group>"; };
+		08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationSummaryCell.m; sourceTree = "<group>"; };
 		08F45594179F7C8200CB7E2D /* LeftoverSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftoverSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F45597179F7C8200CB7E2D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		08F45599179F7C8200CB7E2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -334,6 +340,10 @@
 				08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */,
 				08EB0F7717B4738000C5E4FF /* LSConversationViewController.h */,
 				08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */,
+				08EB0F8617B8857100C5E4FF /* LSConversationSummaryCell.h */,
+				08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */,
+				08EB0F8117B569F200C5E4FF /* LSConversationSummaryViewController.h */,
+				08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */,
 			);
 			name = Conversation;
 			sourceTree = "<group>";
@@ -521,6 +531,8 @@
 				08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */,
 				08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */,
 				08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */,
+				08EB0F8417B569F300C5E4FF /* LSConversationSummaryViewController.m in Sources */,
+				08EB0F8817B8857200C5E4FF /* LSConversationSummaryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

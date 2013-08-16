@@ -36,7 +36,7 @@ extern NSString *const kConversationTypeMessageKey;
 // Field keys
 extern NSString *const kConversationFromUserKey;
 extern NSString *const kConversationToUserKey;
-extern NSString *const kConversationTopicKey;
+extern NSString *const kConversationTopicPostKey;
 extern NSString *const kConversationMessageKey;
 
 #pragma mark - NSNotitication keys

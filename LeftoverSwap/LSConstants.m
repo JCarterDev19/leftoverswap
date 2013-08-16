@@ -38,7 +38,7 @@ NSString *const kConversationTypeMessageKey = @"message";
 // Field keys
 NSString *const kConversationFromUserKey = @"fromUser";
 NSString *const kConversationToUserKey = @"toUser";
-NSString *const kConversationTopicKey = @"topic";
+NSString *const kConversationTopicPostKey = @"topicPost";
 NSString *const kConversationMessageKey = @"message";
 
 NSString *const kLSPostCreatedNotification = @"kPostCreatedNotification";
