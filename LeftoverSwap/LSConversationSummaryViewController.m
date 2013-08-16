@@ -22,7 +22,7 @@
   self = [super initWithStyle:style];
   if (self) {
     
-    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:nil tag:0];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:[UIImage imageNamed:@"TabBarMessage"] tag:1];
     
     // The className to query on
     self.parseClassName = kConversationClassKey;
