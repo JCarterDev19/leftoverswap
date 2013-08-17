@@ -224,13 +224,11 @@ static NSUInteger const kPostLimit = 20;
 		// Try to dequeue an existing pin view first.
 		MKPinAnnotationView *pinView = (MKPinAnnotationView*)[aMapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
 
-		if (!pinView)
-		{
+		if (!pinView) {
 			// If an existing pin view was not available, create one.
 			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
 			                                          reuseIdentifier:pinIdentifier];
-		}
-		else {
+		} else {
 			pinView.annotation = annotation;
 		}
 		pinView.pinColor = [(LSPost *)annotation pinColor];
