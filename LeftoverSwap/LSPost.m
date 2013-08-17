@@ -91,4 +91,8 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 	}
 }
 
+-(PFFile *)thumbnail {
+  return [self.object objectForKey:kPostThumbnailKey];
+}
+
 @end

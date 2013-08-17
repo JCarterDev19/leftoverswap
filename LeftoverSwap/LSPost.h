@@ -26,6 +26,8 @@ extern NSString *const kCantViewPostTitle;
 @property (nonatomic, readonly, copy) NSString *subtitle;
 // @end
 
+@property (nonatomic, readonly) PFFile *thumbnail;
+
 // Other properties:
 @property (nonatomic, readonly, strong) PFObject *object;
 @property (nonatomic, readonly, strong) PFGeoPoint *geopoint;

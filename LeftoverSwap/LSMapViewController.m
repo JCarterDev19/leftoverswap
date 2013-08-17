@@ -197,7 +197,8 @@ static NSUInteger const kPostLimit = 20;
 
 #pragma mark - MKMapViewDelegate methods
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
 	MKOverlayView *result = nil;
 	
 	// Only display the search radius in iOS 5.1+
@@ -221,6 +222,8 @@ static NSUInteger const kPostLimit = 20;
 	// Handle any custom annotations.
 	if ([annotation isKindOfClass:[LSPost class]])
 	{
+    LSPost *post = (LSPost *)annotation;
+
 		// Try to dequeue an existing pin view first.
 		MKPinAnnotationView *pinView = (MKPinAnnotationView*)[aMapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
 
@@ -229,11 +232,16 @@ static NSUInteger const kPostLimit = 20;
 			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
 			                                          reuseIdentifier:pinIdentifier];
 		} else {
-			pinView.annotation = annotation;
+			pinView.annotation = post;
 		}
-		pinView.pinColor = [(LSPost *)annotation pinColor];
-		pinView.animatesDrop = [((LSPost *)annotation) animatesDrop];
+		pinView.pinColor = [post pinColor];
+		pinView.animatesDrop = [post animatesDrop];
 		pinView.canShowCallout = YES;
+    
+    PFImageView *thumbnailView = [[PFImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    thumbnailView.file = post.thumbnail;
+    pinView.leftCalloutAccessoryView = thumbnailView;
+    [thumbnailView loadInBackground];
     
     // note: when the detail disclosure button is tapped, we respond to it via:
     //       calloutAccessoryControlTapped delegate method
