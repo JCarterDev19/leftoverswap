@@ -18,6 +18,7 @@
 		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
+		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
 		08EB0F5017B300D600C5E4FF /* LSNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSNewUserViewController.m */; };
 		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
@@ -101,6 +102,8 @@
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
 		08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostDetailViewController.xib; sourceTree = "<group>"; };
+		08AB64F617C034D400EF8D0D /* LSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarController.h; sourceTree = "<group>"; };
+		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
 		08EB0F4C17B300D600C5E4FF /* LSNewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSNewUserViewController.h; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 				0805F28617A793F200963343 /* Take Picture */,
 				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
 				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
+				08AB64F617C034D400EF8D0D /* LSTabBarController.h */,
+				08AB64F717C034D600EF8D0D /* LSTabBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				08EB0F8417B569F300C5E4FF /* LSConversationSummaryViewController.m in Sources */,
 				08EB0F8817B8857200C5E4FF /* LSConversationSummaryCell.m in Sources */,
 				08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */,
+				08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
