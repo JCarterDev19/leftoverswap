@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LSLocationController.h"
 
-@interface LSAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface LSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
