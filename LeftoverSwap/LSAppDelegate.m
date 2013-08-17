@@ -75,7 +75,7 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   [[NSUserDefaults standardUserDefaults] setObject:now forKey:lastOpenedTimeKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
   
-  return YES;
+  return shouldDisplay;
 }
 
 - (void)setupAppearance {
