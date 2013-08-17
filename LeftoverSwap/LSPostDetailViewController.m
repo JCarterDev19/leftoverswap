@@ -44,9 +44,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
       self.seller = [aPost objectForKey:kPostUserKey];
       
 //      self.imageView.image = [UIImage imageNamed:@"PlaceholderPhoto.png"];
-      self.imageView.backgroundColor = [UIColor blackColor];
-      self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-      self.imageView.file = [post objectForKey:kPostImageKey];
       
       if (!timeFormatter) {
         timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
@@ -68,16 +65,21 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
+  self.imageView.backgroundColor = [UIColor clearColor];
+  self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+  self.imageView.file = [post objectForKey:kPostImageKey];
+  
   [self.imageView loadInBackground:^(UIImage *image, NSError *error) {
     NSLog(@"%@ load image", error ? @"Did" : @"Didn't");
+//    [self.imageView setNeedsDisplay];
   }];
-  
+
   self.titleLabel.text = [post objectForKey:kPostTitleKey];
   
   [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
     NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
     self.sellerLabel.text = name;
-    [sellerLabel setNeedsDisplay];
+    [self.sellerLabel setNeedsDisplay];
   }];
   
   self.postDateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[post createdAt]];

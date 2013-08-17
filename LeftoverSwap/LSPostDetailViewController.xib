@@ -40,7 +40,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUINavigationBar" id="442240521">
@@ -48,6 +48,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="891679762"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -80,6 +81,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 20}, {280, 280}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="418946739"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -90,6 +92,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 308}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="887321619"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -121,6 +124,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 366}, {280, 128}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="988567752"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -150,6 +154,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 337}, {44, 21}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="231548013"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -170,6 +175,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{236, 337}, {64, 21}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="672617713"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -191,6 +197,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 502}, {280, 44}}</string>
 								<reference key="NSSuperview" ref="891679762"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -223,6 +230,7 @@
 						</array>
 						<string key="NSFrame">{{0, 44}, {320, 548}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="450680587"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -231,6 +239,8 @@
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="442240521"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -280,14 +290,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">imageView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="450680587"/>
-					</object>
-					<int key="connectionID">125</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">sellerLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="887321619"/>
@@ -309,6 +311,14 @@
 						<reference key="destination" ref="231548013"/>
 					</object>
 					<int key="connectionID">128</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="450680587"/>
+					</object>
+					<int key="connectionID">129</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1165,7 +1175,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">128</int>
+			<int key="maxID">129</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1189,9 +1199,9 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="description">UITextView</string>
 						<string key="imageView">PFImageView</string>
-						<string key="postDate">UILabel</string>
-						<string key="seller">UILabel</string>
-						<string key="title">UILabel</string>
+						<string key="postDateLabel">UILabel</string>
+						<string key="sellerLabel">UILabel</string>
+						<string key="titleLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="description">
@@ -1202,16 +1212,16 @@
 							<string key="name">imageView</string>
 							<string key="candidateClassName">PFImageView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="postDate">
-							<string key="name">postDate</string>
+						<object class="IBToOneOutletInfo" key="postDateLabel">
+							<string key="name">postDateLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="seller">
-							<string key="name">seller</string>
+						<object class="IBToOneOutletInfo" key="sellerLabel">
+							<string key="name">sellerLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="title">
-							<string key="name">title</string>
+						<object class="IBToOneOutletInfo" key="titleLabel">
+							<string key="name">titleLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 					</dictionary>
