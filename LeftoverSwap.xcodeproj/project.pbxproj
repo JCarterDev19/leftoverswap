@@ -266,17 +266,16 @@
 		0823B42F17A0B12600FE86FF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				08AB64F617C034D400EF8D0D /* LSTabBarController.h */,
+				08AB64F717C034D600EF8D0D /* LSTabBarController.m */,
+				08EB0F4B17B300C900C5E4FF /* Signup / login */,
+				08AB64F917C03A1500EF8D0D /* Welcome */,
 				08AB64EF17BEB18D00EF8D0D /* Detail */,
 				08EB0F7617B46C6900C5E4FF /* Conversation */,
 				08EB0F6117B3494E00C5E4FF /* Map */,
 				08EB0F5E17B32DA200C5E4FF /* LSLocationController.h */,
 				08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */,
-				08EB0F4B17B300C900C5E4FF /* Signup / login */,
 				0805F28617A793F200963343 /* Take Picture */,
-				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
-				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
-				08AB64F617C034D400EF8D0D /* LSTabBarController.h */,
-				08AB64F717C034D600EF8D0D /* LSTabBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -348,6 +347,15 @@
 				08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */,
 			);
 			name = Conversation;
+			sourceTree = "<group>";
+		};
+		08AB64F917C03A1500EF8D0D /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */,
+				08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */,
+			);
+			name = Welcome;
 			sourceTree = "<group>";
 		};
 		08EB0F4B17B300C900C5E4FF /* Signup / login */ = {
