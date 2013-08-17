@@ -43,8 +43,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
       self.post = aPost;
       self.seller = [aPost objectForKey:kPostUserKey];
       
-//      self.imageView.image = [UIImage imageNamed:@"PlaceholderPhoto.png"];
-      
       if (!timeFormatter) {
         timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
       }
@@ -69,10 +67,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
   self.imageView.contentMode = UIViewContentModeScaleAspectFit;
   self.imageView.file = [post objectForKey:kPostImageKey];
   
-  [self.imageView loadInBackground:^(UIImage *image, NSError *error) {
-    NSLog(@"%@ load image", error ? @"Did" : @"Didn't");
-//    [self.imageView setNeedsDisplay];
-  }];
+  [self.imageView loadInBackground];
 
   self.titleLabel.text = [post objectForKey:kPostTitleKey];
   
