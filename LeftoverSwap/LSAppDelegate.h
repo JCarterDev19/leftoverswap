@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "LSLocationController.h"
+#import "LSWelcomeViewController.h"
 
-@interface LSAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface LSAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, LSWelcomeControllerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
 @property (nonatomic) LSLocationController *locationController;
-@property (nonatomic) UIViewController *viewController;
+@property (nonatomic, readonly) UIViewController *viewController;
 
 @end

@@ -19,6 +19,9 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 
 @interface LSAppDelegate ()
 
+@property (nonatomic) UIViewController *viewController;
+@property (nonatomic) UITabBarController *tabBarController;
+
 -(void)setupAppearance;
 
 @end
@@ -26,10 +29,9 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
 @implementation LSAppDelegate
 
 @synthesize window;
-
 @synthesize viewController;
-
 @synthesize locationController;
+@synthesize tabBarController;
 
 #pragma mark - UIApplicationDelegate
 
@@ -44,35 +46,40 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   
   self.locationController = [[LSLocationController alloc] init];
 
-  UITabBarController *tabBarController = [[UITabBarController alloc] init];
+  self.tabBarController = [[UITabBarController alloc] init];
   
   LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
   LSCameraPresenterController *cameraController = [[LSCameraPresenterController alloc] init];
   LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
 
-  tabBarController.viewControllers = @[mapViewController, cameraController, conversationController];
-
-  if (![PFUser currentUser]) {
-    
-    LSWelcomeSigninViewController *signinController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
-    [tabBarController presentViewController:signinController animated:NO completion:nil];
-    
-  } else if ([self shouldDisplayWelcomeScreen]) {
-    
-    LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
-    [tabBarController presentViewController:welcomeViewController animated:NO completion:nil];
-
-  }
+  self.tabBarController.viewControllers = @[mapViewController, cameraController, conversationController];
   
-  tabBarController.delegate = self;
+  self.tabBarController.delegate = self;
 
 //  navController.navigationBarHidden = YES;
-  self.viewController = tabBarController;
+  self.viewController = self.tabBarController;
   self.window.rootViewController = self.viewController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
+  UIViewController *viewControllerToAppear = nil;
+  if (![PFUser currentUser]) {
+    
+    viewControllerToAppear = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
+    
+  } else if ([self shouldDisplayWelcomeScreen]) {
+    
+    LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
+    welcomeViewController.delegate = self;
+    viewControllerToAppear = welcomeViewController;
+    
+  }
+
   [self.window makeKeyAndVisible];
+  
+  if (viewControllerToAppear) {
+    [self.tabBarController presentViewController:viewControllerToAppear animated:NO completion:nil];
+  }
 
   return YES;
 }
@@ -126,6 +133,18 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
     return NO;
   }
   return YES;
+}
+
+#pragma mark - LSWelcomeControllerDelegate
+
+-(void)welcomeControllerDidEat:(LSWelcomeViewController *)controller
+{
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)welcomeControllerDidFeed:(LSWelcomeViewController *)controller
+{
+  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
