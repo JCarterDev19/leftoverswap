@@ -64,20 +64,28 @@ static TTTTimeIntervalFormatter *timeFormatter;
   [super viewDidLoad];
   
   self.imageView.backgroundColor = [UIColor clearColor];
-  self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
   self.imageView.file = [post objectForKey:kPostImageKey];
   
   [self.imageView loadInBackground];
+    NSString *postTitle = [post objectForKey:kPostTitleKey];
+    self.titleLabel.text = [NSString stringWithFormat:@" %@", postTitle];
+  
+//  [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//   NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
+//   self.sellerLabel.text = [NSString stringWithFormat:@"Posted by %@", name];
+//    [self.sellerLabel setNeedsDisplay];
+//  }];
 
-  self.titleLabel.text = [post objectForKey:kPostTitleKey];
+    NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[post createdAt]];
   
-  [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-    NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
-    self.sellerLabel.text = name;
-    [self.sellerLabel setNeedsDisplay];
-  }];
-  
-  self.postDateLabel.text = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[post createdAt]];
+  self.postDateLabel.text = [NSString stringWithFormat:@"about %@", postDate];
+    
+    [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
+    self.sellerLabel.text = [NSString stringWithFormat:@" Posted by %@ about %@", name, postDate];
+            [self.sellerLabel setNeedsDisplay];
+    }];
   
   self.description.text = [post objectForKey:kPostDescriptionKey];
 }
