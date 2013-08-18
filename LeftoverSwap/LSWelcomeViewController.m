@@ -12,6 +12,8 @@
 
 @implementation LSWelcomeViewController
 
+@synthesize delegate;
+
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 }
@@ -75,11 +77,11 @@
 #pragma mark - ()
 
 - (void)eatButtonAction:(id)sender {
-  [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+  [self.delegate welcomeControllerDidEat:self];
 }
 
 - (void)feedButtonAction:(id)sender {
-  
+  [self.delegate welcomeControllerDidFeed:self];
 }
 
 @end
