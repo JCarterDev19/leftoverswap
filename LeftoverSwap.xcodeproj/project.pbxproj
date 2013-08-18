@@ -58,6 +58,8 @@
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
 		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
+		5D1FE35617C11CA400378F43 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE35417C11CA300378F43 /* Default.png */; };
+		5D1FE35717C11CA400378F43 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE35517C11CA300378F43 /* welcome.png */; };
 		5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */; };
 		5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarProfile.png */; };
 		5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */; };
