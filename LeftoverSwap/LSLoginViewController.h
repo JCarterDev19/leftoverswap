@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LSLoginSignupViewController.h"
 
 @interface LSLoginViewController : UIViewController <UITextFieldDelegate>
 
@@ -17,5 +18,7 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
+
+@property (nonatomic, weak) id<LSLoginControllerDelegate> delegate;
 
 @end

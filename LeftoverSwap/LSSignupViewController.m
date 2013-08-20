@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
-#import "LSNewUserViewController.h"
+#import "LSSignupViewController.h"
 
 #import <Parse/Parse.h>
 #import "LSActivityView.h"
 #import "LSMapViewController.h"
 
-@interface LSNewUserViewController ()
+@interface LSSignupViewController ()
 
 - (void)processFieldEntries;
 - (void)textInputChanged:(NSNotification *)note;
@@ -20,11 +20,14 @@
 
 @end
 
-@implementation LSNewUserViewController
+@implementation LSSignupViewController
 
 @synthesize doneButton;
 @synthesize usernameField;
-@synthesize passwordField, passwordAgainField;
+@synthesize passwordField;
+@synthesize passwordAgainField;
+
+@synthesize delegate;
 
 #pragma mark - UIViewController
 
@@ -37,12 +40,12 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+  [super viewDidLoad];
+  // Do any additional setup after loading the view from its nib.
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:usernameField];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordField];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordAgainField];
-
+  
 	doneButton.enabled = NO;
 }
 
@@ -200,9 +203,8 @@
 		// Success!
 		[activityView.activityIndicator stopAnimating];
 		[activityView removeFromSuperview];
-
-    // TODO: may need to change this. 
-    [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.delegate loginControllerDidFinish];
 	}];
 }
 

@@ -6,12 +6,14 @@
 //  Copyright (c) 2013 Parse. All rights reserved.
 //
 
-#import "LSWelcomeSigninViewController.h"
+#import "LSLoginSignupViewController.h"
 
 #import "LSLoginViewController.h"
-#import "LSNewUserViewController.h"
+#import "LSSignupViewController.h"
 
-@implementation LSWelcomeSigninViewController
+@implementation LSLoginSignupViewController
+
+@synthesize delegate;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -22,12 +24,14 @@
 
 - (IBAction)loginButtonSelected:(id)sender {
 	LSLoginViewController *loginViewController = [[LSLoginViewController alloc] initWithNibName:nil bundle:nil];
+  loginViewController.delegate = self.delegate;
 	[self presentViewController:loginViewController animated:YES completion:nil];
 }
 
-- (IBAction)createButtonSelected:(id)sender {
-	LSNewUserViewController *newUserViewController = [[LSNewUserViewController alloc] initWithNibName:nil bundle:nil];
-	[self presentViewController:newUserViewController animated:YES completion:nil];
+- (IBAction)signUpSelected:(id)sender {
+	LSSignupViewController *signupViewController = [[LSSignupViewController alloc] initWithNibName:nil bundle:nil];
+  signupViewController.delegate = self.delegate;
+	[self presentViewController:signupViewController animated:YES completion:nil];
 }
 
 #pragma mark - View lifecycle

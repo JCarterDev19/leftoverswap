@@ -27,6 +27,8 @@
 @synthesize usernameField;
 @synthesize passwordField;
 
+@synthesize delegate;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:NSStringFromClass(self.class) bundle:nibBundleOrNil];
     if (self) {
@@ -65,7 +67,7 @@
 #pragma mark - IBActions
 
 - (IBAction)cancel:(id)sender {
-	[self.presentingViewController dismissModalViewControllerAnimated:YES];
+  [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)done:(id)sender {
@@ -167,14 +169,15 @@
 
 	[self.view addSubview:activityView];
 
+//  __weak LSLoginViewController *weakSelf = self;
+
 	[PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
 		// Tear down the activity view in all cases.
 		[activityView.activityIndicator stopAnimating];
 		[activityView removeFromSuperview];
 
 		if (user) {
-      // TODO: may need to change this.
-      [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
+      [self.delegate loginControllerDidFinish];
 
 		} else {
 			// Didn't get a user.

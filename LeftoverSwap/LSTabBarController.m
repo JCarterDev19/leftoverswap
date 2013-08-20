@@ -8,7 +8,7 @@
 
 #import "LSTabBarController.h"
 #import "LSWelcomeViewController.h"
-#import "LSWelcomeSigninViewController.h"
+#import "LSLoginSignupViewController.h"
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
@@ -53,7 +53,8 @@
 
 -(void)presentSignInView
 {
-  LSWelcomeSigninViewController *signInViewController = [[LSWelcomeSigninViewController alloc] initWithNibName:nil bundle:nil];
+  LSLoginSignupViewController *signInViewController = [[LSLoginSignupViewController alloc] initWithNibName:nil bundle:nil];
+  signInViewController.delegate = self;
   [self presentViewController:signInViewController animated:NO completion:nil];
 }
 
@@ -76,6 +77,12 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - LSLoginControllerDelegate
+
+-(void)loginControllerDidFinish
+{
+  [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - UITabBarControllerDelegate
 

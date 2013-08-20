@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LSWelcomeViewController.h"
+#import "LSLoginSignupViewController.h"
 
-@interface LSTabBarController : UITabBarController <LSWelcomeControllerDelegate, UITabBarControllerDelegate>
+@interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, LSWelcomeControllerDelegate, UITabBarControllerDelegate>
 
 - (void)presentSignInView;
 - (void)presentWelcomeView;
