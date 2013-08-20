@@ -16,9 +16,13 @@
 
 @interface LSTabBarController ()
 
+@property (nonatomic) LSCameraPresenterController *cameraController;
+
 @end
 
 @implementation LSTabBarController
+
+@synthesize cameraController;
 
 - (id)init
 {
@@ -29,7 +33,7 @@
     self.delegate = self;
 
     LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
-    LSCameraPresenterController *cameraController = [[LSCameraPresenterController alloc] init];
+    self.cameraController = [[LSCameraPresenterController alloc] init];
     LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
     
     self.viewControllers = @[mapViewController, cameraController, conversationController];
@@ -74,7 +78,8 @@
 
 -(void)welcomeControllerDidFeed:(LSWelcomeViewController *)controller
 {
-  [self dismissViewControllerAnimated:YES completion:nil];
+  [self dismissViewControllerAnimated:NO completion:nil];
+  [self.cameraController presentCameraPickerController];
 }
 
 #pragma mark - LSLoginControllerDelegate
