@@ -15,6 +15,10 @@
 		0823B42D17A0B11500FE86FF /* LSWelcomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B42C17A0B11500FE86FF /* LSWelcomeButton.m */; };
 		0823B44517A0D4C400FE86FF /* LSListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44417A0D3F600FE86FF /* LSListingCell.m */; };
 		0823B44617A0D4C700FE86FF /* LSLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */; };
+		0837080E17C3791700576377 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0837080A17C3791700576377 /* HockeySDK.framework */; };
+		0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0837080C17C3791700576377 /* HockeySDK.xcconfig */; };
+		0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0837080D17C3791700576377 /* HockeySDKResources.bundle */; };
+		0837081217C3793C00576377 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0837081117C3793C00576377 /* CoreText.framework */; };
 		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
@@ -98,6 +102,10 @@
 		0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSLoadMoreCell.m; sourceTree = "<group>"; };
 		0823B44317A0D3F600FE86FF /* LSListingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSListingCell.h; sourceTree = "<group>"; };
 		0823B44417A0D3F600FE86FF /* LSListingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSListingCell.m; sourceTree = "<group>"; };
+		0837080A17C3791700576377 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		0837080C17C3791700576377 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
+		0837080D17C3791700576377 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		0837081117C3793C00576377 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0837081217C3793C00576377 /* CoreText.framework in Frameworks */,
 				08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */,
 				08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */,
 				08F455CB179F7D0A00CB7E2D /* SystemConfiguration.framework in Frameworks */,
@@ -206,6 +215,7 @@
 				08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */,
 				08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */,
 				08F455BB179F7CB100CB7E2D /* Parse.framework in Frameworks */,
+				0837080E17C3791700576377 /* HockeySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +307,24 @@
 				0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */,
 			);
 			name = UITableViewCells;
+			sourceTree = "<group>";
+		};
+		0837080917C3791700576377 /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				0837080A17C3791700576377 /* HockeySDK.framework */,
+				0837080B17C3791700576377 /* Resources */,
+			);
+			path = HockeySDK.embeddedframework;
+			sourceTree = "<group>";
+		};
+		0837080B17C3791700576377 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0837080C17C3791700576377 /* HockeySDK.xcconfig */,
+				0837080D17C3791700576377 /* HockeySDKResources.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		08786E2B179FAF9200CAA3D8 /* Assets */ = {
@@ -436,6 +464,8 @@
 		08F45596179F7C8200CB7E2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0837081117C3793C00576377 /* CoreText.framework */,
+				0837080917C3791700576377 /* HockeySDK.embeddedframework */,
 				08EB0F6F17B3589400C5E4FF /* MapKit.framework */,
 				08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */,
 				08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */,
@@ -563,6 +593,8 @@
 				5DA73C3017C4052A001ED879 /* Default-568h@2x.png in Resources */,
 				5DA73C3117C4052A001ED879 /* Default.png in Resources */,
 				5DA73C3217C4052A001ED879 /* Default@2x.png in Resources */,
+				0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */,
+				0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +714,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/HockeySDK.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeftoverSwap/LeftoverSwap-Prefix.pch";
@@ -702,6 +735,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/HockeySDK.embeddedframework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeftoverSwap/LeftoverSwap-Prefix.pch";
