@@ -132,12 +132,12 @@ static NSUInteger const kPostLimit = 20;
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
-	if (self.searchRadius == nil) {
-		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
-		[mapView addOverlay:self.searchRadius];
-	} else {
-		self.searchRadius.radius = filterDistance;
-	}
+//	if (self.searchRadius == nil) {
+//		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
+//		[mapView addOverlay:self.searchRadius];
+//	} else {
+//		self.searchRadius.radius = filterDistance;
+//	}
 
 	// Update our pins for the new filter distance:
 	[self updatePostsForLocation:currentLocation withNearbyDistance:filterDistance];
@@ -175,12 +175,12 @@ static NSUInteger const kPostLimit = 20;
 	} // else do nothing.
 
 	// If we haven't drawn the search radius on the map, initialize it.
-	if (self.searchRadius == nil) {
-		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
-		[mapView addOverlay:self.searchRadius];
-	} else {
-		self.searchRadius.coordinate = currentLocation.coordinate;
-	}
+//	if (self.searchRadius == nil) {
+//		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
+//		[mapView addOverlay:self.searchRadius];
+//	} else {
+//		self.searchRadius.coordinate = currentLocation.coordinate;
+//	}
 
 	// Update the map with new pins:
 	[self queryForAllPostsNearLocation:currentLocation withNearbyDistance:filterDistance];
@@ -202,12 +202,12 @@ static NSUInteger const kPostLimit = 20;
 	MKOverlayView *result = nil;
 	
 	// Only display the search radius in iOS 5.1+
-	if ([overlay isKindOfClass:[LSSearchRadius class]]) {
-		result = [[LSCircleView alloc] initWithSearchRadius:(LSSearchRadius *)overlay];
-		[(MKOverlayPathView *)result setFillColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.2f]];
-		[(MKOverlayPathView *)result setStrokeColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.7f]];
-		[(MKOverlayPathView *)result setLineWidth:2.0];
-	}
+//	if ([overlay isKindOfClass:[LSSearchRadius class]]) {
+//		result = [[LSCircleView alloc] initWithSearchRadius:(LSSearchRadius *)overlay];
+//		[(MKOverlayPathView *)result setFillColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.2f]];
+//		[(MKOverlayPathView *)result setStrokeColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.7f]];
+//		[(MKOverlayPathView *)result setLineWidth:2.0];
+//	}
 	return result;
 }
 
