@@ -304,8 +304,17 @@ static NSUInteger const kPostLimit = 20;
 	}
 }
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
 	self.mapPannedSinceLocationUpdate = YES;
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+  CLLocationCoordinate2D coordinates = self.mapView.centerCoordinate;
+  CLLocation *mapLocation = [[CLLocation alloc] initWithLatitude:coordinates.latitude longitude:coordinates.longitude];
+  
+	[self queryForAllPostsNearLocation:mapLocation withNearbyDistance:self.locationController.filterDistance];
 }
 
 #pragma mark - Fetch map pins
