@@ -54,7 +54,8 @@ static NSUInteger const kPostLimit = 20;
 @synthesize mapPannedSinceLocationUpdate;
 @synthesize locationController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self) {
 
@@ -70,7 +71,8 @@ static NSUInteger const kPostLimit = 20;
 	return self;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -79,7 +81,8 @@ static NSUInteger const kPostLimit = 20;
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
 
@@ -101,22 +104,26 @@ static NSUInteger const kPostLimit = 20;
   [locationController startUpdatingLocation];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
 	[locationController startUpdatingLocation];
 	[super viewWillAppear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated
+{
 	[locationController stopUpdatingLocation];
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[locationController stopUpdatingLocation];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSFilterDistanceChangeNotification object:nil];
@@ -128,7 +135,8 @@ static NSUInteger const kPostLimit = 20;
 
 #pragma mark - NSNotificationCenter notification handlers
 
-- (void)distanceFilterDidChange:(NSNotification *)note {
+- (void)distanceFilterDidChange:(NSNotification *)note
+{
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
@@ -160,7 +168,8 @@ static NSUInteger const kPostLimit = 20;
 	}
 }
 
-- (void)locationDidChange:(NSNotification *)note {
+- (void)locationDidChange:(NSNotification *)note
+{
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
@@ -188,7 +197,8 @@ static NSUInteger const kPostLimit = 20;
 	[self updatePostsForLocation:currentLocation withNearbyDistance:filterDistance];
 }
 
-- (void)postWasCreated:(NSNotification *)note {
+- (void)postWasCreated:(NSNotification *)note
+{
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
@@ -211,7 +221,8 @@ static NSUInteger const kPostLimit = 20;
 	return result;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id<MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
 	// Let the system handle user location annotations.
 	if ([annotation isKindOfClass:[MKUserLocation class]]) {
 		return nil;
@@ -267,7 +278,8 @@ static NSUInteger const kPostLimit = 20;
   [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
 	id<MKAnnotation> annotation = [view annotation];
 	if ([annotation isKindOfClass:[LSPost class]]) {
 //		LSPost *post = [view annotation];
@@ -283,7 +295,8 @@ static NSUInteger const kPostLimit = 20;
 	}
 }
 
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
 	id<MKAnnotation> annotation = [view annotation];
 	if ([annotation isKindOfClass:[LSPost class]]) {
 //		LSPost *post = [view annotation];
@@ -297,7 +310,8 @@ static NSUInteger const kPostLimit = 20;
 
 #pragma mark - Fetch map pins
 
-- (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance {
+- (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance
+{
 	PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
 
 	if (currentLocation == nil) {
@@ -384,7 +398,8 @@ static NSUInteger const kPostLimit = 20;
 }
 
 // When we update the search filter distance, we need to update our pins' titles to match.
-- (void)updatePostsForLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy) nearbyDistance {
+- (void)updatePostsForLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy) nearbyDistance
+{
 	for (LSPost *post in allPosts) {
 		CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:post.coordinate.latitude longitude:post.coordinate.longitude];
 		// if this post is outside the filter distance, don't show the regular callout.
