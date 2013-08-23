@@ -25,7 +25,7 @@
 // posts:
 @property (nonatomic) NSMutableArray *allPosts;
 
-- (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance;
+- (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location;
 - (void)centerMapOnCurrentLocation;
 
 // NSNotification callbacks
@@ -63,12 +63,12 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  // Do any additional setup after loading the view from its nib.
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kLSFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kLSLocationChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasCreated:) name:kLSPostCreatedNotification object:nil];
 
+  //FIXME: where is this?
 	self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.332495f, -122.029095f), MKCoordinateSpanMake(0.008516f, 0.021801f));
 	self.mapPannedSinceLocationUpdate = NO;
 
@@ -108,56 +108,29 @@
 
 - (void)distanceFilterDidChange:(NSNotification *)note
 {
-  CLLocation *currentLocation = locationController.currentLocation;
-  CLLocationAccuracy filterDistance = locationController.filterDistance;
-
-	// If they panned the map since our last location update, don't recenter it.
 	if (!self.mapPannedSinceLocationUpdate) {
-		// Set the map's region centered on their location at 2x filterDistance
-		MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, filterDistance * 2, filterDistance * 2);
-
-		[mapView setRegion:newRegion animated:YES];
-		self.mapPannedSinceLocationUpdate = NO;
-	} else {
-		// Just zoom to the new search radius (or maybe don't even do that?)
-		MKCoordinateRegion currentRegion = mapView.region;
-		MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(currentRegion.center, filterDistance * 2, filterDistance * 2);
-
-		BOOL oldMapPannedValue = self.mapPannedSinceLocationUpdate;
-		[mapView setRegion:newRegion animated:YES];
-		self.mapPannedSinceLocationUpdate = oldMapPannedValue;
+    [self centerMapOnCurrentLocation];
 	}
 }
 
 - (void)locationDidChange:(NSNotification *)note
 {
-  CLLocation *currentLocation = locationController.currentLocation;
-  CLLocationAccuracy filterDistance = locationController.filterDistance;
-
-	// If they panned the map since our last location update, don't recenter it.
 	if (!self.mapPannedSinceLocationUpdate) {
-		// Set the map's region centered on their new location at 2x filterDistance
-		MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, filterDistance * 2, filterDistance * 2);
+    [self centerMapOnCurrentLocation];
+	}
 
-		BOOL oldMapPannedValue = self.mapPannedSinceLocationUpdate;
-		[mapView setRegion:newRegion animated:YES];
-		self.mapPannedSinceLocationUpdate = oldMapPannedValue;
-	} // else do nothing.
-
-	// Update the map with new pins:
-	[self queryForAllPostsNearLocation:currentLocation withNearbyDistance:filterDistance];
+	[self queryForAllPostsNearLocation:locationController.currentLocation.coordinate];
 }
 
-- (void)postWasCreated:(NSNotification *)notification
+- (void)postWasCreated:(NSNotification *)note
 {
   NSLog(@"%s", __PRETTY_FUNCTION__);
 
-  PFObject *post = notification.userInfo[kLSPostKey];
+  PFObject *post = note.userInfo[kLSPostKey];
   PFGeoPoint *geoPoint = [post objectForKey:kPostLocationKey];
-  CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:geoPoint.latitude longitude:geoPoint.longitude];
-  CLLocationAccuracy filterDistance = locationController.filterDistance;
+  CLLocationCoordinate2D postLocation = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
 
-	[self queryForAllPostsNearLocation:postLocation withNearbyDistance:filterDistance];
+	[self queryForAllPostsNearLocation:postLocation];
 }
 
 #pragma mark - MKMapViewDelegate methods
@@ -208,23 +181,16 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
   // FIXME: this does way too many queries when scrolling
-  CLLocationCoordinate2D coordinates = self.mapView.centerCoordinate;
-  CLLocation *mapLocation = [[CLLocation alloc] initWithLatitude:coordinates.latitude longitude:coordinates.longitude];
-  
-	[self queryForAllPostsNearLocation:mapLocation withNearbyDistance:self.locationController.filterDistance];
+	[self queryForAllPostsNearLocation:self.mapView.centerCoordinate];
 }
 
 #pragma mark - Fetch map pins
 
-- (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance
+- (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location
 {
   static NSUInteger const kPostLimit = 20;
 
 	PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
-
-	if (currentLocation == nil) {
-		NSLog(@"%s got a nil location!", __PRETTY_FUNCTION__);
-	}
 
 	// If no objects are loaded in memory, we look to the cache first to fill the table
 	// and then subsequently do a query against the network.
@@ -233,7 +199,7 @@
 	}
 
 	// Query for posts sort of kind of near our current location.
-	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
+	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:location.latitude longitude:location.longitude];
 	[query whereKey:kPostLocationKey nearGeoPoint:point withinKilometers:100];
 	[query includeKey:kPostUserKey];
 	query.limit = kPostLimit;
@@ -284,10 +250,6 @@
 
 			// 3. Configure our new posts; these are about to go onto the map.
 			for (LSPost *newPost in newPosts) {
-				CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:newPost.coordinate.latitude longitude:newPost.coordinate.longitude];
-				// if this post is outside the filter distance, don't show the regular callout.
-				CLLocationDistance distanceFromCurrent = [currentLocation distanceFromLocation:objectLocation];
-				[newPost setTitleAndSubtitleOutsideDistance:( distanceFromCurrent > nearbyDistance ? YES : NO )];
 				// Animate all pins after the initial load:
 				newPost.animatesDrop = mapPinsPlaced;
 			}

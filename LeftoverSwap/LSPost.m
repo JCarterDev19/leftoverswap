@@ -38,6 +38,7 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 		self.title = aTitle;
 		self.subtitle = aSubtitle;
 		self.animatesDrop = NO;
+    self.pinColor = MKPinAnnotationColorGreen;
 	}
 	return self;
 }
@@ -77,18 +78,6 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 		}
 
 		return YES;
-	}
-}
-
-- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside {
-	if (outside) {
-		self.subtitle = nil;
-		self.title = kCantViewPostTitle;
-		self.pinColor = MKPinAnnotationColorRed;
-	} else {
-		self.title = [self.object objectForKey:kPostTitleKey];
-		self.subtitle = [self.object objectForKey:kPostDescriptionKey];
-		self.pinColor = MKPinAnnotationColorGreen;
 	}
 }
 

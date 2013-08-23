@@ -43,6 +43,4 @@ extern NSString *const kCantViewPostTitle;
 - (id)initWithPFObject:(PFObject *)object;
 - (BOOL)equalToPost:(LSPost *)aPost;
 
-- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside;
-
 @end

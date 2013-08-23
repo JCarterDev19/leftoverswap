@@ -58,10 +58,10 @@ static NSString * const kDefaultsLocationKey = @"currentLocation";
 
     if ([userDefaults doubleForKey:kDefaultsFilterDistanceKey]) {
       // use the ivar instead of self.accuracy to avoid an unnecessary write to NAND on launch.
-      self.filterDistance = [userDefaults doubleForKey:kDefaultsFilterDistanceKey];
+      filterDistance = [userDefaults doubleForKey:kDefaultsFilterDistanceKey];
     } else {
       // if we have no accuracy in defaults, set it to 1000 feet.
-      self.filterDistance = 1000 * kLSFeetToMeters;
+      filterDistance = 1000 * kLSFeetToMeters;
     }
 
   }
@@ -109,43 +109,29 @@ static NSString * const kDefaultsLocationKey = @"currentLocation";
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
 	switch (status) {
-		case kCLAuthorizationStatusAuthorized:
-			NSLog(@"kCLAuthorizationStatusAuthorized");
-			// Re-enable the post button if it was disabled before.
-//			self.navigationItem.rightBarButtonItem.enabled = YES;
-			[locationManager startUpdatingLocation];
-			break;
-		case kCLAuthorizationStatusDenied:
-			NSLog(@"kCLAuthorizationStatusDenied");
+    case kCLAuthorizationStatusAuthorized:
+      NSLog(@"kCLAuthorizationStatusAuthorized");
+      [locationManager startUpdatingLocation];
+      break;
+    case kCLAuthorizationStatusDenied:
+      NSLog(@"kCLAuthorizationStatusDenied");
     {{
-      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Anywall can’t access your current location.\n\nTo view nearby posts or create a post at your current location, turn on access for Anywall to your location in the Settings app under Location Services." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LeftoverSwap can’t access your current location.\n\nTo view nearby posts or create a post at your current location, turn on access for Anywall to your location in the Settings app under Location Services." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
       [alertView show];
-      // Disable the post button.
-//      self.navigationItem.rightBarButtonItem.enabled = NO;
     }}
-			break;
-		case kCLAuthorizationStatusNotDetermined:
-			NSLog(@"kCLAuthorizationStatusNotDetermined");
-			break;
-		case kCLAuthorizationStatusRestricted:
-			NSLog(@"kCLAuthorizationStatusRestricted");
-			break;
+      break;
+    default:
+      break;
 	}
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
-
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
 	self.currentLocation = newLocation;
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSLog(@"Error: %@", [error description]);
   
 	if (error.code == kCLErrorDenied) {
