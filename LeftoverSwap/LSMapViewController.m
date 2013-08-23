@@ -26,7 +26,6 @@
 @property (nonatomic) NSMutableArray *allPosts;
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location;
-- (void)centerMapOnCurrentLocation;
 
 // NSNotification callbacks
 - (void)distanceFilterDidChange:(NSNotification *)note;
@@ -269,7 +268,7 @@
 
 #pragma mark - Center on current location
 
-- (void)centerMapOnCurrentLocation
+- (IBAction)centerMapOnCurrentLocation
 {
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
