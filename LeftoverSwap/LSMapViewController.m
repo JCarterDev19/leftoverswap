@@ -27,6 +27,7 @@
 @property (nonatomic) NSMutableArray *allPosts;
 
 - (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance;
+- (void)centerMapOnCurrentLocation;
 
 // NSNotification callbacks
 - (void)distanceFilterDidChange:(NSNotification *)note;
@@ -150,12 +151,16 @@
 	[self queryForAllPostsNearLocation:currentLocation withNearbyDistance:filterDistance];
 }
 
-- (void)postWasCreated:(NSNotification *)note
+- (void)postWasCreated:(NSNotification *)notification
 {
-  CLLocation *currentLocation = locationController.currentLocation;
+  NSLog(@"%s", __PRETTY_FUNCTION__);
+
+  PFObject *post = notification.userInfo[kLSPostKey];
+  PFGeoPoint *geoPoint = [post objectForKey:kPostLocationKey];
+  CLLocation *postLocation = [[CLLocation alloc] initWithLatitude:geoPoint.latitude longitude:geoPoint.longitude];
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
-	[self queryForAllPostsNearLocation:currentLocation withNearbyDistance:filterDistance];
+	[self queryForAllPostsNearLocation:postLocation withNearbyDistance:filterDistance];
 }
 
 #pragma mark - MKMapViewDelegate methods

@@ -219,18 +219,18 @@
   }
   
   // create a photo object
-  PFObject *photo = [PFObject objectWithClassName:kPostClassKey];
-  [photo setObject:[PFUser currentUser] forKey:kPostUserKey];
-  [photo setObject:self.photoFile forKey:kPostImageKey];
-  [photo setObject:self.thumbnailFile forKey:kPostThumbnailKey];
-  [photo setObject:trimmedDescription forKey:kPostDescriptionKey];
-  [photo setObject:trimmedTitle forKey:kPostTitleKey];
-  [photo setObject:[self currentLocation] forKey:kPostLocationKey];
+  PFObject *post = [PFObject objectWithClassName:kPostClassKey];
+  [post setObject:[PFUser currentUser] forKey:kPostUserKey];
+  [post setObject:self.photoFile forKey:kPostImageKey];
+  [post setObject:self.thumbnailFile forKey:kPostThumbnailKey];
+  [post setObject:trimmedDescription forKey:kPostDescriptionKey];
+  [post setObject:trimmedTitle forKey:kPostTitleKey];
+  [post setObject:[self currentLocation] forKey:kPostLocationKey];
   
   // photos are public, but may only be modified by the user who uploaded them
   PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
   [photoACL setPublicReadAccess:YES];
-  photo.ACL = photoACL;
+  post.ACL = photoACL;
   
   // Request a background execution task to allow us to finish uploading the photo even if the app is backgrounded
   self.photoPostBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -238,12 +238,12 @@
   }];
 
   // save
-  [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+  [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (succeeded) {
       NSLog(@"Photo uploaded");
       
       NSLog(@"Successfully saved!");
-			NSLog(@"%@", photo);
+			NSLog(@"%@", post);
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil];
 			});
@@ -254,8 +254,14 @@
     }
     [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
   }];
-  
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil userInfo:@{kLSPostKey: post}];
+  });
+
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidFinishPosting:)]) {
+
+
     [delegate postPhotoControllerDidFinishPosting:self];
   }
 }

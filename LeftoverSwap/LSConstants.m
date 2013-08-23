@@ -41,4 +41,13 @@ NSString *const kConversationToUserKey = @"toUser";
 NSString *const kConversationTopicPostKey = @"topicPost";
 NSString *const kConversationMessageKey = @"message";
 
+# pragma mark - NSNotfication topics
+
+NSString * const kLSFilterDistanceChangeNotification = @"kLSFilterDistanceChangeNotification";
+NSString * const kLSFilterDistanceKey = @"filterDistance";
+
+NSString * const kLSLocationChangeNotification = @"kLSLocationChangeNotification";
+NSString * const kLSLocationKey = @"location";
+
 NSString *const kLSPostCreatedNotification = @"kPostCreatedNotification";
+NSString *const kLSPostKey = @"post";
