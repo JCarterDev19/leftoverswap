@@ -13,17 +13,12 @@
 #import "LSConstants.h"
 #import "LSAppDelegate.h"
 #import "LSLocationController.h"
-#import "LSSearchRadius.h"
-#import "LSCircleView.h"
 #import "LSPost.h"
-#import "LSPostDetailViewController.h"
 
 // private methods and properties
 @interface LSMapViewController ()
 
 @property (nonatomic) LSLocationController *locationController;
-@property (nonatomic) LSSearchRadius *searchRadius;
-@property (nonatomic) NSMutableArray *annotations;
 @property (nonatomic, copy) NSString *parseClassName;
 @property (nonatomic) BOOL mapPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
@@ -32,7 +27,6 @@
 @property (nonatomic) NSMutableArray *allPosts;
 
 - (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance;
-- (void)updatePostsForLocation:(CLLocation *)location withNearbyDistance:(CLLocationAccuracy) filterDistance;
 
 // NSNotification callbacks
 - (void)distanceFilterDidChange:(NSNotification *)note;
@@ -44,8 +38,6 @@
 @implementation LSMapViewController
 
 @synthesize mapView;
-@synthesize searchRadius;
-@synthesize annotations;
 @synthesize parseClassName;
 @synthesize allPosts;
 @synthesize mapPinsPlaced;
@@ -60,7 +52,6 @@
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"TabBarMap.png"] tag:0];
 
 		self.parseClassName = kPostClassKey;
-		annotations = [[NSMutableArray alloc] initWithCapacity:10];
 		allPosts = [[NSMutableArray alloc] initWithCapacity:10];
     
     LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -69,28 +60,12 @@
 	return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
-
-	// Set our nav bar items.
-//	[self.navigationController setNavigationBarHidden:YES animated:NO];
-//	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-//											  initWithTitle:@"Post" style:UIBarButtonItemStylePlain target:self action:@selector(postButtonSelected:)];
-//	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-//											 initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonSelected:)];
-//	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Anywall.png"]];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kLSFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kLSLocationChangeNotification object:nil];
@@ -138,16 +113,6 @@
   CLLocation *currentLocation = locationController.currentLocation;
   CLLocationAccuracy filterDistance = locationController.filterDistance;
 
-//	if (self.searchRadius == nil) {
-//		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
-//		[mapView addOverlay:self.searchRadius];
-//	} else {
-//		self.searchRadius.radius = filterDistance;
-//	}
-
-	// Update our pins for the new filter distance:
-	[self updatePostsForLocation:currentLocation withNearbyDistance:filterDistance];
-	
 	// If they panned the map since our last location update, don't recenter it.
 	if (!self.mapPannedSinceLocationUpdate) {
 		// Set the map's region centered on their location at 2x filterDistance
@@ -181,18 +146,8 @@
 		self.mapPannedSinceLocationUpdate = oldMapPannedValue;
 	} // else do nothing.
 
-	// If we haven't drawn the search radius on the map, initialize it.
-//	if (self.searchRadius == nil) {
-//		self.searchRadius = [[LSSearchRadius alloc] initWithCoordinate:currentLocation.coordinate radius:filterDistance];
-//		[mapView addOverlay:self.searchRadius];
-//	} else {
-//		self.searchRadius.coordinate = currentLocation.coordinate;
-//	}
-
 	// Update the map with new pins:
 	[self queryForAllPostsNearLocation:currentLocation withNearbyDistance:filterDistance];
-	// And update the existing pins to reflect any changes in filter distance:
-	[self updatePostsForLocation:currentLocation withNearbyDistance:filterDistance];
 }
 
 - (void)postWasCreated:(NSNotification *)note
@@ -205,58 +160,21 @@
 
 #pragma mark - MKMapViewDelegate methods
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
-{
-	MKOverlayView *result = nil;
-	
-	// Only display the search radius in iOS 5.1+
-//	if ([overlay isKindOfClass:[LSSearchRadius class]]) {
-//		result = [[LSCircleView alloc] initWithSearchRadius:(LSSearchRadius *)overlay];
-//		[(MKOverlayPathView *)result setFillColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.2f]];
-//		[(MKOverlayPathView *)result setStrokeColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.7f]];
-//		[(MKOverlayPathView *)result setLineWidth:2.0];
-//	}
-	return result;
-}
-
 - (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-	// Let the system handle user location annotations.
-	if ([annotation isKindOfClass:[MKUserLocation class]]) {
-		return nil;
-	}
-
-	static NSString *pinIdentifier = @"CustomPinAnnotation";
-
-	// Handle any custom annotations.
-	if ([annotation isKindOfClass:[LSPost class]])
-	{
-    LSPost *post = (LSPost *)annotation;
+	if ([annotation isKindOfClass:[LSPost class]]) {
+    static NSString *pinIdentifier = @"CustomPinAnnotation";    
 
 		// Try to dequeue an existing pin view first.
 		MKPinAnnotationView *pinView = (MKPinAnnotationView*)[aMapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
 
 		if (!pinView) {
 			// If an existing pin view was not available, create one.
-			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
-			                                          reuseIdentifier:pinIdentifier];
+			pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdentifier];
 		} else {
-			pinView.annotation = post;
+			pinView.annotation = annotation;
 		}
-		pinView.pinColor = [post pinColor];
-		pinView.animatesDrop = [post animatesDrop];
-		pinView.canShowCallout = YES;
-    
-    PFImageView *thumbnailView = [[PFImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-    thumbnailView.file = post.thumbnail;
-    pinView.leftCalloutAccessoryView = thumbnailView;
-    [thumbnailView loadInBackground];
-    
-    // note: when the detail disclosure button is tapped, we respond to it via:
-    //       calloutAccessoryControlTapped delegate method
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
-    pinView.rightCalloutAccessoryView = rightButton;
+    [(LSPost*)annotation setupAnnotationView:pinView];
 
 		return pinView;
 	}
@@ -266,39 +184,17 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-  if (![[view annotation] isKindOfClass:[LSPost class]]) return;
+  if (![[view annotation] isKindOfClass:[LSPost class]])
+    return;
   
-  NSLog(@"tapped on a post annotation: %s", __PRETTY_FUNCTION__);
-  
-  LSPost *post = (LSPost *)[view annotation];
-  
-  LSPostDetailViewController *viewController = [[LSPostDetailViewController alloc] initWithNibName:nil bundle:nil post:post.object];
-  [self presentViewController:viewController animated:YES completion:nil];
+  [self presentViewController:[(LSPost*)view.annotation viewControllerForPost] animated:YES completion:nil];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-	id<MKAnnotation> annotation = [view annotation];
-	if ([annotation isKindOfClass:[LSPost class]]) {
-//		LSPost *post = [view annotation];
-	} else if ([annotation isKindOfClass:[MKUserLocation class]]) {
-    CLLocation *currentLocation = locationController.currentLocation;
-    CLLocationAccuracy filterDistance = locationController.filterDistance;
-
-		// Center the map on the user's current location:
-		MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, filterDistance * 2, filterDistance * 2);
-
-		[self.mapView setRegion:newRegion animated:YES];
-		self.mapPannedSinceLocationUpdate = NO;
-	}
-}
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
-{
-	id<MKAnnotation> annotation = [view annotation];
-	if ([annotation isKindOfClass:[LSPost class]]) {
-//		LSPost *post = [view annotation];
-//		[wallPostsTableViewController unhighlightCellForPost:post];
+	id<MKAnnotation> annotation = view.annotation;
+  if ([annotation isKindOfClass:[MKUserLocation class]]) {
+    [self centerMapOnCurrentLocation];
 	}
 }
 
@@ -309,6 +205,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+  // FIXME: this does way too many queries when scrolling
   CLLocationCoordinate2D coordinates = self.mapView.centerCoordinate;
   CLLocation *mapLocation = [[CLLocation alloc] initWithLatitude:coordinates.latitude longitude:coordinates.longitude];
   
@@ -406,23 +303,18 @@
 	}];
 }
 
-// When we update the search filter distance, we need to update our pins' titles to match.
-- (void)updatePostsForLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy) nearbyDistance
+#pragma mark - Center on current location
+
+- (void)centerMapOnCurrentLocation
 {
-	for (LSPost *post in allPosts) {
-		CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:post.coordinate.latitude longitude:post.coordinate.longitude];
-		// if this post is outside the filter distance, don't show the regular callout.
-		CLLocationDistance distanceFromCurrent = [currentLocation distanceFromLocation:objectLocation];
-		if (distanceFromCurrent > nearbyDistance) { // Outside search radius
-			[post setTitleAndSubtitleOutsideDistance:YES];
-			[mapView viewForAnnotation:post];
-			[(MKPinAnnotationView *) [mapView viewForAnnotation:post] setPinColor:post.pinColor];
-		} else {
-			[post setTitleAndSubtitleOutsideDistance:NO]; // Inside search radius
-			[mapView viewForAnnotation:post];
-			[(MKPinAnnotationView *) [mapView viewForAnnotation:post] setPinColor:post.pinColor];
-		}
-	}
+  CLLocation *currentLocation = locationController.currentLocation;
+  CLLocationAccuracy filterDistance = locationController.filterDistance;
+  
+  // Center the map on the user's current location:
+  MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, filterDistance * 2, filterDistance * 2);
+  
+  [self.mapView setRegion:newRegion animated:YES];
+  self.mapPannedSinceLocationUpdate = NO;
 }
 
 @end
