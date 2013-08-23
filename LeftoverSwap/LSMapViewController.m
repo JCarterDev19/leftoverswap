@@ -18,8 +18,6 @@
 #import "LSPost.h"
 #import "LSPostDetailViewController.h"
 
-static NSUInteger const kPostLimit = 20;
-
 // private methods and properties
 @interface LSMapViewController ()
 
@@ -321,6 +319,8 @@ static NSUInteger const kPostLimit = 20;
 
 - (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance
 {
+  static NSUInteger const kPostLimit = 20;
+
 	PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
 
 	if (currentLocation == nil) {
