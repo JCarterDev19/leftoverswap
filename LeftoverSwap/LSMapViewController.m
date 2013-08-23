@@ -19,7 +19,6 @@
 @interface LSMapViewController ()
 
 @property (nonatomic) LSLocationController *locationController;
-@property (nonatomic, copy) NSString *parseClassName;
 @property (nonatomic) BOOL mapPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
 
@@ -39,7 +38,6 @@
 @implementation LSMapViewController
 
 @synthesize mapView;
-@synthesize parseClassName;
 @synthesize allPosts;
 @synthesize mapPinsPlaced;
 @synthesize mapPannedSinceLocationUpdate;
@@ -52,7 +50,6 @@
 
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"TabBarMap.png"] tag:0];
 
-		self.parseClassName = kPostClassKey;
 		allPosts = [[NSMutableArray alloc] initWithCapacity:10];
     
     LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -223,7 +220,7 @@
 {
   static NSUInteger const kPostLimit = 20;
 
-	PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
+	PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
 
 	if (currentLocation == nil) {
 		NSLog(@"%s got a nil location!", __PRETTY_FUNCTION__);
