@@ -21,8 +21,7 @@
 @property (nonatomic) LSLocationController *locationController;
 @property (nonatomic) BOOL mapPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
-
-// posts:
+@property (nonatomic) NSDate *lastQueriedDate;
 @property (nonatomic) NSMutableArray *allPosts;
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location;
@@ -37,10 +36,11 @@
 @implementation LSMapViewController
 
 @synthesize mapView;
-@synthesize allPosts;
+@synthesize locationController;
 @synthesize mapPinsPlaced;
 @synthesize mapPannedSinceLocationUpdate;
-@synthesize locationController;
+@synthesize lastQueriedDate;
+@synthesize allPosts;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,10 +49,11 @@
 
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"TabBarMap.png"] tag:0];
 
-		allPosts = [[NSMutableArray alloc] initWithCapacity:10];
+		self.allPosts = [[NSMutableArray alloc] initWithCapacity:10];
     
     LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
-    locationController = appDelegate.locationController;
+    self.locationController = appDelegate.locationController;
+    self.lastQueriedDate = [NSDate distantPast];
 	}
 	return self;
 }
@@ -187,6 +188,12 @@
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location
 {
+  NSDate *now = [NSDate date];
+  if ([now timeIntervalSinceDate:self.lastQueriedDate] < 2) {
+    return;
+  }
+  self.lastQueriedDate = now;
+
   static NSUInteger const kPostLimit = 20;
 
 	PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
