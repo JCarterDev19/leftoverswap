@@ -245,7 +245,7 @@
       NSLog(@"Successfully saved!");
 			NSLog(@"%@", post);
 			dispatch_async(dispatch_get_main_queue(), ^{
-				[[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil];
+				[[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil userInfo:@{kLSPostKey: post}];
 			});
     } else {
       NSLog(@"Photo failed to save: %@", error);
@@ -254,10 +254,6 @@
     }
     [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
   }];
-
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostCreatedNotification object:nil userInfo:@{kLSPostKey: post}];
-  });
 
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidFinishPosting:)]) {
 

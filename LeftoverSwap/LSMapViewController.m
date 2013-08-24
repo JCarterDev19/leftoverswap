@@ -21,7 +21,6 @@
 @property (nonatomic) LSLocationController *locationController;
 @property (nonatomic) BOOL mapPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
-@property (nonatomic) NSDate *lastQueriedDate;
 @property (nonatomic) NSMutableArray *allPosts;
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location;
@@ -39,7 +38,6 @@
 @synthesize locationController;
 @synthesize mapPinsPlaced;
 @synthesize mapPannedSinceLocationUpdate;
-@synthesize lastQueriedDate;
 @synthesize allPosts;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -53,7 +51,6 @@
     
     LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
     self.locationController = appDelegate.locationController;
-    self.lastQueriedDate = [NSDate distantPast];
 	}
 	return self;
 }
@@ -130,7 +127,9 @@
   PFGeoPoint *geoPoint = [post objectForKey:kPostLocationKey];
   CLLocationCoordinate2D postLocation = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
 
-	[self queryForAllPostsNearLocation:postLocation];
+  [self.mapView setCenterCoordinate:postLocation animated:YES];
+  //FIXME: change this to update the post without doing another query
+  [self queryForAllPostsNearLocation:postLocation];
 }
 
 #pragma mark - MKMapViewDelegate methods
@@ -180,7 +179,8 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-  // FIXME: this does way too many queries when scrolling
+  // FIXME: We should be smarter about only re-querying when the bounds from the previous
+  // query have been exceeded.
 	[self queryForAllPostsNearLocation:self.mapView.centerCoordinate];
 }
 
@@ -188,11 +188,6 @@
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location
 {
-  NSDate *now = [NSDate date];
-  if ([now timeIntervalSinceDate:self.lastQueriedDate] < 2) {
-    return;
-  }
-  self.lastQueriedDate = now;
 
   static NSUInteger const kPostLimit = 20;
 
