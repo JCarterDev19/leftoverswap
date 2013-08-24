@@ -188,7 +188,7 @@
 
 - (void)queryForAllPostsNearLocation:(CLLocationCoordinate2D)location
 {
-
+  // FIXME: 20 posts is probably not reasonable
   static NSUInteger const kPostLimit = 20;
 
 	PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
