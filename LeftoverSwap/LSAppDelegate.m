@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #import <HockeySDK/HockeySDK.h>
 
-static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
+static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 @interface LSAppDelegate ()
 
@@ -63,22 +63,24 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+  NSDate *now = [NSDate date];
+  [[NSUserDefaults standardUserDefaults] setObject:now forKey:kLastTimeOpenedKey];
+  [[NSUserDefaults standardUserDefaults] synchronize];  
+}
 
 #pragma mark - LSAppDelegate
 
 - (BOOL)shouldDisplayWelcomeScreen
 {
   BOOL shouldDisplay = NO;
-  NSString *lastOpenedTimeKey = @"lastTimeOpened";
   
-  NSDate *lastOpened = [[NSUserDefaults standardUserDefaults] objectForKey:lastOpenedTimeKey];
+  NSDate *lastOpened = [[NSUserDefaults standardUserDefaults] objectForKey:kLastTimeOpenedKey];
   NSDate *now = [NSDate date];
   if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 300) { // 5 minutes
     shouldDisplay = YES;
   }
-  [[NSUserDefaults standardUserDefaults] setObject:now forKey:lastOpenedTimeKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-  
   return shouldDisplay;
 }
 
