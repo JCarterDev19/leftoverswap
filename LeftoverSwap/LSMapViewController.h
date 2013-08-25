@@ -15,5 +15,7 @@
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 
+- (IBAction)centerMapOnCurrentLocation;
+
 @end
 

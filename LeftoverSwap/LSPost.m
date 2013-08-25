@@ -10,6 +10,7 @@
 
 #import "LSAppDelegate.h"
 #import "LSConstants.h"
+#import "LSPostDetailViewController.h"
 
 NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 
@@ -37,6 +38,7 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 		self.title = aTitle;
 		self.subtitle = aSubtitle;
 		self.animatesDrop = NO;
+    self.pinColor = MKPinAnnotationColorGreen;
 	}
 	return self;
 }
@@ -79,20 +81,31 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 	}
 }
 
-- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside {
-	if (outside) {
-		self.subtitle = nil;
-		self.title = kCantViewPostTitle;
-		self.pinColor = MKPinAnnotationColorRed;
-	} else {
-		self.title = [self.object objectForKey:kPostTitleKey];
-		self.subtitle = [self.object objectForKey:kPostDescriptionKey];
-		self.pinColor = MKPinAnnotationColorGreen;
-	}
-}
-
 -(PFFile *)thumbnail {
   return [self.object objectForKey:kPostThumbnailKey];
+}
+
+- (void)setupAnnotationView:(MKPinAnnotationView *)pinView
+{
+  pinView.pinColor = [self pinColor];
+  pinView.animatesDrop = [self animatesDrop];
+  pinView.canShowCallout = YES;
+  
+  PFImageView *thumbnailView = [[PFImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+  thumbnailView.file = self.thumbnail;
+  pinView.leftCalloutAccessoryView = thumbnailView;
+  [thumbnailView loadInBackground];
+  
+  // note: when the detail disclosure button is tapped, we respond to it via:
+  //       calloutAccessoryControlTapped delegate method
+  UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+  [rightButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+  pinView.rightCalloutAccessoryView = rightButton;
+}
+
+- (UIViewController *)viewControllerForPost
+{
+  return [[LSPostDetailViewController alloc] initWithNibName:nil bundle:nil post:self.object];
 }
 
 @end

@@ -33,8 +33,6 @@
 		08EB0F5D17B3113600C5E4FF /* LSLoginSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5C17B3113600C5E4FF /* LSLoginSignupViewController.xib */; };
 		08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */; };
 		08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6317B3496100C5E4FF /* LSMapViewController.m */; };
-		08EB0F6717B3501700C5E4FF /* LSSearchRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */; };
-		08EB0F6B17B353DB00C5E4FF /* LSCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */; };
 		08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6D17B3559D00C5E4FF /* LSPost.m */; };
 		08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EB0F6F17B3589400C5E4FF /* MapKit.framework */; };
 		08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */; };
@@ -62,6 +60,8 @@
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
 		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
+		08FD5B8917C722FE00C852B6 /* GPSicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD5B8717C722FE00C852B6 /* GPSicon.png */; };
+		08FD5B8A17C722FE00C852B6 /* GPSicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD5B8817C722FE00C852B6 /* GPSicon@2x.png */; };
 		5D1FE35717C11CA400378F43 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE35517C11CA300378F43 /* welcome.png */; };
 		5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */; };
 		5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarProfile.png */; };
@@ -129,10 +129,6 @@
 		08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLocationController.m; sourceTree = "<group>"; };
 		08EB0F6217B3496100C5E4FF /* LSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMapViewController.h; sourceTree = "<group>"; };
 		08EB0F6317B3496100C5E4FF /* LSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMapViewController.m; sourceTree = "<group>"; };
-		08EB0F6517B3501100C5E4FF /* LSSearchRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSearchRadius.h; sourceTree = "<group>"; };
-		08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSearchRadius.m; sourceTree = "<group>"; };
-		08EB0F6917B353DB00C5E4FF /* LSCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCircleView.h; sourceTree = "<group>"; };
-		08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCircleView.m; sourceTree = "<group>"; };
 		08EB0F6C17B3559D00C5E4FF /* LSPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPost.h; sourceTree = "<group>"; };
 		08EB0F6D17B3559D00C5E4FF /* LSPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPost.m; sourceTree = "<group>"; };
 		08EB0F6F17B3589400C5E4FF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -172,6 +168,8 @@
 		08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostPhotoViewController.xib; sourceTree = "<group>"; };
 		08F8DCC217AF7E6300A6AE60 /* LSPaddedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaddedTextField.h; sourceTree = "<group>"; };
 		08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaddedTextField.m; sourceTree = "<group>"; };
+		08FD5B8717C722FE00C852B6 /* GPSicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GPSicon.png; sourceTree = "<group>"; };
+		08FD5B8817C722FE00C852B6 /* GPSicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPSicon@2x.png"; sourceTree = "<group>"; };
 		5D1FE35517C11CA300378F43 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
 		5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarProfile@2x.png"; sourceTree = "<group>"; };
 		5D44DF9117B967EF000E0B9C /* TabBarProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarProfile.png; sourceTree = "<group>"; };
@@ -260,8 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				08AB64F517BEDC1000EF8D0D /* Conversation */,
-				08EB0F6917B353DB00C5E4FF /* LSCircleView.h */,
-				08EB0F6A17B353DB00C5E4FF /* LSCircleView.m */,
 				08EB0F5617B3024C00C5E4FF /* LSActivityView.h */,
 				08EB0F5717B3024C00C5E4FF /* LSActivityView.m */,
 				0823B44017A0D3DD00FE86FF /* UITableViewCells */,
@@ -332,6 +328,9 @@
 			children = (
 				5DA73C3517C55A0D001ED879 /* Default-568h@2x.png */,
 				5DA73C3617C55A0D001ED879 /* Default@2x.png */,
+				08FD5B8717C722FE00C852B6 /* GPSicon.png */,
+				08FD5B8817C722FE00C852B6 /* GPSicon@2x.png */,
+				5DA73C2D17C4052A001ED879 /* Default-568h@2x.png */,
 				5DA73C2E17C4052A001ED879 /* Default.png */,
 				5D6C3F4B17B44A710036BD08 /* Icon-72.png */,
 				5D6C3F4C17B44A710036BD08 /* Icon-small-50.png */,
@@ -415,8 +414,6 @@
 		08EB0F6817B3502100C5E4FF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				08EB0F6517B3501100C5E4FF /* LSSearchRadius.h */,
-				08EB0F6617B3501300C5E4FF /* LSSearchRadius.m */,
 				08EB0F6C17B3559D00C5E4FF /* LSPost.h */,
 				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
 			);
@@ -595,6 +592,8 @@
 				0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */,
 				5DA73C3717C55A0D001ED879 /* Default-568h@2x.png in Resources */,
 				5DA73C3817C55A0D001ED879 /* Default@2x.png in Resources */,
+				08FD5B8917C722FE00C852B6 /* GPSicon.png in Resources */,
+				08FD5B8A17C722FE00C852B6 /* GPSicon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,8 +622,6 @@
 				08EB0F5B17B303EA00C5E4FF /* LSLoginSignupViewController.m in Sources */,
 				08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */,
 				08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */,
-				08EB0F6717B3501700C5E4FF /* LSSearchRadius.m in Sources */,
-				08EB0F6B17B353DB00C5E4FF /* LSCircleView.m in Sources */,
 				08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */,
 				08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */,
 				08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */,
@@ -665,7 +662,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -698,7 +695,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

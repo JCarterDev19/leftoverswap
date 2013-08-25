@@ -35,11 +35,12 @@ extern NSString *const kCantViewPostTitle;
 @property (nonatomic, assign) BOOL animatesDrop;
 @property (nonatomic, readonly) MKPinAnnotationColor pinColor;
 
+- (void)setupAnnotationView:(MKPinAnnotationView*)pinView;
+- (UIViewController*)viewControllerForPost;
+
 // Designated initializer.
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate andTitle:(NSString *)title andSubtitle:(NSString *)subtitle;
 - (id)initWithPFObject:(PFObject *)object;
 - (BOOL)equalToPost:(LSPost *)aPost;
-
-- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside;
 
 @end

@@ -9,14 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-// NSNotification userInfo keys
-static NSString * const kLSFilterDistanceKey = @"filterDistance";
-static NSString * const kLSLocationKey = @"location";
-
-// NSNotification notifications
-static NSString * const kLSFilterDistanceChangeNotification = @"kLSFilterDistanceChangeNotification";
-static NSString * const kLSLocationChangeNotification = @"kLSLocationChangeNotification";
-
 /** Handles and owns the current location and current filter distance for the application. */
 @interface LSLocationController : NSObject <CLLocationManagerDelegate>
 
