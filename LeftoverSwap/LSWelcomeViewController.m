@@ -19,14 +19,14 @@
 }
 
 - (void)viewDidLoad {
-  self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"welcome"]];
+  self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenblock"]];
 
   NSInteger screenWidth = [UIScreen mainScreen].bounds.size.width;
 
  {
    NSString *text = @"LeftoverSwap";
    CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:36.0f]];
-   UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake( (screenWidth - textSize.width)/2.0f, 180.0f, textSize.width, textSize.height)];
+   UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake((screenWidth - textSize.width)/2.0f, 180.0f, textSize.width, textSize.height)];
  [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:36.0f]];
    [textLabel setText:text];
    [textLabel setTextColor:[UIColor blackColor]];
@@ -34,8 +34,16 @@
    [textLabel setTextAlignment:UITextAlignmentCenter];
    
    [self.view addSubview:textLabel];
- }
+ 
 
+    UIImage *watermelonLogo = [UIImage imageNamed:@"plain.png"];
+        UIImageView *logoView = [[UIImageView alloc] initWithImage:watermelonLogo];
+        CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
+        [logoView setFrame:logoFrame];
+         [logoView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:logoView];
+     
+    }
   {
     NSString *text = @"eat";
     CGSize dimens = CGSizeMake(240, 80);

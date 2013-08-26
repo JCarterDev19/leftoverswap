@@ -22,4 +22,5 @@
 
 @property (nonatomic, weak) id<LSWelcomeControllerDelegate> delegate;
 
+
 @end
