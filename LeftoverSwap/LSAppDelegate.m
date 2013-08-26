@@ -73,7 +73,7 @@ static NSString * const defaultsLastOpenedTimestampKey = @"lastOpenedTimestamp";
   
   NSDate *lastOpened = [[NSUserDefaults standardUserDefaults] objectForKey:lastOpenedTimeKey];
   NSDate *now = [NSDate date];
-  if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 3600) { // 1 hour
+  if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 300) { // 5 minutes
     shouldDisplay = YES;
   }
   [[NSUserDefaults standardUserDefaults] setObject:now forKey:lastOpenedTimeKey];

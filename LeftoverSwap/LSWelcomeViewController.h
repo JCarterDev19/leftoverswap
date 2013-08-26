@@ -21,6 +21,7 @@
 @interface LSWelcomeViewController : UIViewController
 
 @property (nonatomic, weak) id<LSWelcomeControllerDelegate> delegate;
-
-
+@property (nonatomic, strong) UIImageView *logoView;
+@property (nonatomic, strong) NSArray *watermelons;
+@property int arrayIndex;
 @end

@@ -13,6 +13,9 @@
 @implementation LSWelcomeViewController
 
 @synthesize delegate;
+@synthesize logoView;
+@synthesize watermelons;
+@synthesize arrayIndex;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
@@ -36,13 +39,20 @@
    [self.view addSubview:textLabel];
  
 
-    UIImage *watermelonLogo = [UIImage imageNamed:@"plain.png"];
-        UIImageView *logoView = [[UIImageView alloc] initWithImage:watermelonLogo];
+    
+     watermelons = [[NSArray alloc] initWithObjects: @"plain2.png", @"plain3.png", @"plain4.png", @"plain.png", nil];
+     arrayIndex = 3;
+     logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
         CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
         [logoView setFrame:logoFrame];
          [logoView setContentMode:UIViewContentModeScaleAspectFit];
-        [self.view addSubview:logoView];
-     
+       [logoView setUserInteractionEnabled:YES];
+     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+     singleTap.numberOfTapsRequired = 1;
+     singleTap.numberOfTouchesRequired = 1;
+     [logoView addGestureRecognizer:singleTap];
+      [self.view addSubview:logoView];
+
     }
   {
     NSString *text = @"eat";
@@ -91,5 +101,51 @@
 - (void)feedButtonAction:(id)sender {
   [self.delegate welcomeControllerDidFeed:self];
 }
+
+- (void)imageTapped:(UIGestureRecognizer *)recognizer
+{
+    NSLog(@"tapped");
+    NSInteger screenWidth = [UIScreen mainScreen].bounds.size.width;
+    logoView.image = nil;
+    if (arrayIndex == 3)
+    {   arrayIndex = 0;
+        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
+        NSLog(@"%i", arrayIndex);
+        CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
+        [logoView setFrame:logoFrame];
+        [logoView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:logoView];
+        }
+    else if (arrayIndex == 0)
+    {   arrayIndex = 1;
+        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
+        NSLog(@"%i", arrayIndex);
+        CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
+        [logoView setFrame:logoFrame];
+        [logoView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:logoView];
+    }
+      else if (arrayIndex == 1)
+    {   arrayIndex = 2;
+        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
+        NSLog(@"%i", arrayIndex);
+        CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
+        [logoView setFrame:logoFrame];
+        [logoView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:logoView];
+    }
+       else if (arrayIndex == 2)
+    {   arrayIndex = 3;
+        logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
+        NSLog(@"%i", arrayIndex);
+        CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
+        [logoView setFrame:logoFrame];
+        [logoView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:logoView];
+    };
+}
+
+
+
 
 @end

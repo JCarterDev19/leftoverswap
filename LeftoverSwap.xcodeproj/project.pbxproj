@@ -19,7 +19,6 @@
 		0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0837080C17C3791700576377 /* HockeySDK.xcconfig */; };
 		0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0837080D17C3791700576377 /* HockeySDKResources.bundle */; };
 		0837081217C3793C00576377 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0837081117C3793C00576377 /* CoreText.framework */; };
-		08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */ = {isa = PBXBuildFile; fileRef = 08786E2C179FB1A100CAA3D8 /* swaplogo200.png */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
@@ -62,7 +61,6 @@
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
 		08FD5B8917C722FE00C852B6 /* GPSicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD5B8717C722FE00C852B6 /* GPSicon.png */; };
 		08FD5B8A17C722FE00C852B6 /* GPSicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD5B8817C722FE00C852B6 /* GPSicon@2x.png */; };
-		5D1FE35717C11CA400378F43 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D1FE35517C11CA300378F43 /* welcome.png */; };
 		5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */; };
 		5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarProfile.png */; };
 		5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */; };
@@ -78,8 +76,6 @@
 		5D6C3F5617B44A710036BD08 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F4F17B44A710036BD08 /* Icon@2x.png */; };
 		5D6C3F5717B44A710036BD08 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F5017B44A710036BD08 /* iTunesArtwork.png */; };
 		5D6C3F5817B44A710036BD08 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F5117B44A710036BD08 /* iTunesArtwork@2x.png */; };
-		5D6C3F7817B4657B0036BD08 /* welcome-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F7517B4657B0036BD08 /* welcome-568h@2x.png */; };
-		5D6C3F7A17B4657B0036BD08 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F7717B4657B0036BD08 /* welcome@2x.png */; };
 		5DA3557A17CAE4CA00CEC3D3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557917CAE4CA00CEC3D3 /* greenblock.png */; };
 		5DA3557F17CAE8C700CEC3D3 /* plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557B17CAE8C700CEC3D3 /* plain.png */; };
 		5DA3558017CAE8C700CEC3D3 /* plain2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557C17CAE8C700CEC3D3 /* plain2.png */; };
@@ -111,7 +107,6 @@
 		0837080C17C3791700576377 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
 		0837080D17C3791700576377 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		0837081117C3793C00576377 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		08786E2C179FB1A100CAA3D8 /* swaplogo200.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swaplogo200.png; sourceTree = "<group>"; };
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
 		08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostDetailViewController.xib; sourceTree = "<group>"; };
@@ -175,7 +170,6 @@
 		08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaddedTextField.m; sourceTree = "<group>"; };
 		08FD5B8717C722FE00C852B6 /* GPSicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GPSicon.png; sourceTree = "<group>"; };
 		08FD5B8817C722FE00C852B6 /* GPSicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPSicon@2x.png"; sourceTree = "<group>"; };
-		5D1FE35517C11CA300378F43 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
 		5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarProfile@2x.png"; sourceTree = "<group>"; };
 		5D44DF9117B967EF000E0B9C /* TabBarProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarProfile.png; sourceTree = "<group>"; };
 		5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPost@2x.png"; sourceTree = "<group>"; };
@@ -191,8 +185,6 @@
 		5D6C3F4F17B44A710036BD08 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		5D6C3F5017B44A710036BD08 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork.png; path = ../iTunesArtwork.png; sourceTree = "<group>"; };
 		5D6C3F5117B44A710036BD08 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "../iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		5D6C3F7517B4657B0036BD08 /* welcome-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome-568h@2x.png"; path = "../welcome-568h@2x.png"; sourceTree = "<group>"; };
-		5D6C3F7717B4657B0036BD08 /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome@2x.png"; path = "../welcome@2x.png"; sourceTree = "<group>"; };
 		5DA3557917CAE4CA00CEC3D3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenblock.png; sourceTree = "<group>"; };
 		5DA3557B17CAE8C700CEC3D3 /* plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain.png; sourceTree = "<group>"; };
 		5DA3557C17CAE8C700CEC3D3 /* plain2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain2.png; sourceTree = "<group>"; };
@@ -353,7 +345,6 @@
 				5D6C3F4F17B44A710036BD08 /* Icon@2x.png */,
 				5D6C3F5017B44A710036BD08 /* iTunesArtwork.png */,
 				5D6C3F5117B44A710036BD08 /* iTunesArtwork@2x.png */,
-				08786E2C179FB1A100CAA3D8 /* swaplogo200.png */,
 				5D44DF9717B967EF000E0B9C /* TabBarMap.png */,
 				5D44DF9617B967EF000E0B9C /* TabBarMap@2x.png */,
 				5D44DF9517B967EF000E0B9C /* TabBarMessage.png */,
@@ -362,9 +353,6 @@
 				5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */,
 				5D44DF9117B967EF000E0B9C /* TabBarProfile.png */,
 				5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */,
-				5D6C3F7517B4657B0036BD08 /* welcome-568h@2x.png */,
-				5D1FE35517C11CA300378F43 /* welcome.png */,
-				5D6C3F7717B4657B0036BD08 /* welcome@2x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -575,7 +563,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F455A2179F7C8200CB7E2D /* InfoPlist.strings in Resources */,
-				08786E2D179FB1A100CAA3D8 /* swaplogo200.png in Resources */,
 				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
 				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
 				08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */,
@@ -597,10 +584,7 @@
 				5D6C3F5617B44A710036BD08 /* Icon@2x.png in Resources */,
 				5D6C3F5717B44A710036BD08 /* iTunesArtwork.png in Resources */,
 				5D6C3F5817B44A710036BD08 /* iTunesArtwork@2x.png in Resources */,
-				5D6C3F7817B4657B0036BD08 /* welcome-568h@2x.png in Resources */,
-				5D6C3F7A17B4657B0036BD08 /* welcome@2x.png in Resources */,
 				08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */,
-				5D1FE35717C11CA400378F43 /* welcome.png in Resources */,
 				5DA73C3117C4052A001ED879 /* Default.png in Resources */,
 				0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */,
 				0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */,
