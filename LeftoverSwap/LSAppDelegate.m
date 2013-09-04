@@ -106,16 +106,6 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 }
 
-#pragma mark - BITHockerManagerDelegate
-
-- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
-#ifndef CONFIGURATION_AppStore
-  if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
-    return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-#endif
-  return nil;
-}
-
 #pragma mark - Remote notifications
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
