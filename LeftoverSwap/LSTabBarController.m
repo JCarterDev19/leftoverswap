@@ -13,6 +13,7 @@
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
 #import "LSConversationSummaryViewController.h"
+#import "LSMeViewController.h"
 
 @interface LSTabBarController ()
 
@@ -35,8 +36,9 @@
     LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
     self.cameraController = [[LSCameraPresenterController alloc] init];
     LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
+      LSMeViewController *meController = [[LSMeViewController alloc] init];
     
-    self.viewControllers = @[mapViewController, cameraController, conversationController];
+    self.viewControllers = @[mapViewController, cameraController, conversationController, meController];
   }
   return self;
 }

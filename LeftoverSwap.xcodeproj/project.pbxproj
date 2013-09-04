@@ -59,8 +59,8 @@
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
 		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
-		5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */; };
-		5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarProfile.png */; };
+		5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */; };
+		5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarMe.png */; };
 		5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */; };
 		5D44DF9B17B967EF000E0B9C /* TabBarPost.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9317B967EF000E0B9C /* TabBarPost.png */; };
 		5D44DF9C17B967EF000E0B9C /* TabBarMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */; };
@@ -76,6 +76,8 @@
 		5D6C3F5817B44A710036BD08 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D6C3F5117B44A710036BD08 /* iTunesArtwork@2x.png */; };
 		5D77658517D781F500F34A02 /* GPSicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658317D781F400F34A02 /* GPSicon.png */; };
 		5D77658617D781F500F34A02 /* GPSicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658417D781F400F34A02 /* GPSicon@2x.png */; };
+		5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D77658E17D79F8700F34A02 /* LSMeViewController.m */; };
+		5D77659117D79F8700F34A02 /* LSMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658F17D79F8700F34A02 /* LSMeViewController.xib */; };
 		5DA3557A17CAE4CA00CEC3D3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557917CAE4CA00CEC3D3 /* greenblock.png */; };
 		5DA3557F17CAE8C700CEC3D3 /* plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557B17CAE8C700CEC3D3 /* plain.png */; };
 		5DA3558017CAE8C700CEC3D3 /* plain2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557C17CAE8C700CEC3D3 /* plain2.png */; };
@@ -168,8 +170,8 @@
 		08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostPhotoViewController.xib; sourceTree = "<group>"; };
 		08F8DCC217AF7E6300A6AE60 /* LSPaddedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaddedTextField.h; sourceTree = "<group>"; };
 		08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaddedTextField.m; sourceTree = "<group>"; };
-		5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarProfile@2x.png"; sourceTree = "<group>"; };
-		5D44DF9117B967EF000E0B9C /* TabBarProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarProfile.png; sourceTree = "<group>"; };
+		5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMe@2x.png"; sourceTree = "<group>"; };
+		5D44DF9117B967EF000E0B9C /* TabBarMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarMe.png; sourceTree = "<group>"; };
 		5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarPost@2x.png"; sourceTree = "<group>"; };
 		5D44DF9317B967EF000E0B9C /* TabBarPost.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarPost.png; sourceTree = "<group>"; };
 		5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMessage@2x.png"; sourceTree = "<group>"; };
@@ -185,6 +187,9 @@
 		5D6C3F5117B44A710036BD08 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "../iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		5D77658317D781F400F34A02 /* GPSicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GPSicon.png; sourceTree = "<group>"; };
 		5D77658417D781F400F34A02 /* GPSicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPSicon@2x.png"; sourceTree = "<group>"; };
+		5D77658D17D79F8700F34A02 /* LSMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMeViewController.h; sourceTree = "<group>"; };
+		5D77658E17D79F8700F34A02 /* LSMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMeViewController.m; sourceTree = "<group>"; };
+		5D77658F17D79F8700F34A02 /* LSMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMeViewController.xib; sourceTree = "<group>"; };
 		5DA3557917CAE4CA00CEC3D3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenblock.png; sourceTree = "<group>"; };
 		5DA3557B17CAE8C700CEC3D3 /* plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain.png; sourceTree = "<group>"; };
 		5DA3557C17CAE8C700CEC3D3 /* plain2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain2.png; sourceTree = "<group>"; };
@@ -276,6 +281,7 @@
 			children = (
 				08AB64F617C034D400EF8D0D /* LSTabBarController.h */,
 				08AB64F717C034D600EF8D0D /* LSTabBarController.m */,
+				5D77658717D7916E00F34A02 /* Me */,
 				08EB0F4B17B300C900C5E4FF /* Signup / login */,
 				08AB64F917C03A1500EF8D0D /* Welcome */,
 				08AB64EF17BEB18D00EF8D0D /* Detail */,
@@ -351,8 +357,8 @@
 				5D44DF9417B967EF000E0B9C /* TabBarMessage@2x.png */,
 				5D44DF9317B967EF000E0B9C /* TabBarPost.png */,
 				5D44DF9217B967EF000E0B9C /* TabBarPost@2x.png */,
-				5D44DF9117B967EF000E0B9C /* TabBarProfile.png */,
-				5D44DF9017B967EF000E0B9C /* TabBarProfile@2x.png */,
+				5D44DF9117B967EF000E0B9C /* TabBarMe.png */,
+				5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -510,6 +516,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5D77658717D7916E00F34A02 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				5D77658D17D79F8700F34A02 /* LSMeViewController.h */,
+				5D77658E17D79F8700F34A02 /* LSMeViewController.m */,
+				5D77658F17D79F8700F34A02 /* LSMeViewController.xib */,
+			);
+			name = Me;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -569,8 +585,8 @@
 				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
 				08EB0F5D17B3113600C5E4FF /* LSLoginSignupViewController.xib in Resources */,
 				08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */,
-				5D44DF9817B967EF000E0B9C /* TabBarProfile@2x.png in Resources */,
-				5D44DF9917B967EF000E0B9C /* TabBarProfile.png in Resources */,
+				5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */,
+				5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */,
 				5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */,
 				5D44DF9B17B967EF000E0B9C /* TabBarPost.png in Resources */,
 				5D44DF9C17B967EF000E0B9C /* TabBarMessage@2x.png in Resources */,
@@ -597,6 +613,7 @@
 				5DA3558217CAE8C700CEC3D3 /* plain4.png in Resources */,
 				5D77658517D781F500F34A02 /* GPSicon.png in Resources */,
 				5D77658617D781F500F34A02 /* GPSicon@2x.png in Resources */,
+				5D77659117D79F8700F34A02 /* LSMeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +651,7 @@
 				08EB0F8817B8857200C5E4FF /* LSConversationSummaryCell.m in Sources */,
 				08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */,
 				08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */,
+				5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
