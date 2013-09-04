@@ -41,7 +41,6 @@ extern NSString *const kConversationMessageKey;
 
 #pragma mark - NSNotitication keys
 
-
 // NSNotification notifications
 extern NSString * const kLSFilterDistanceChangeNotification;
 extern NSString * const kLSFilterDistanceKey;
@@ -51,3 +50,7 @@ extern NSString * const kLSLocationKey;
 
 extern NSString * const kLSPostCreatedNotification;
 extern NSString * const kLSPostKey;
+
+#pragma mark - PFInstallation keys
+
+extern NSString * const kLSInstallationChannelsKey;

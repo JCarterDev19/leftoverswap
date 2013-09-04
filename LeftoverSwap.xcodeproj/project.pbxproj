@@ -23,6 +23,7 @@
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
+		08E05CEC17D7A53800393A3D /* PFUser+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */; };
 		08EB0F5017B300D600C5E4FF /* LSSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */; };
 		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
 		08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5217B3011500C5E4FF /* LSSignupViewController.xib */; };
@@ -116,6 +117,8 @@
 		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
+		08E05CEA17D7A53800393A3D /* PFUser+PrivateChannelName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFUser+PrivateChannelName.h"; sourceTree = "<group>"; };
+		08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFUser+PrivateChannelName.m"; sourceTree = "<group>"; };
 		08EB0F4C17B300D600C5E4FF /* LSSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSignupViewController.h; sourceTree = "<group>"; };
 		08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSignupViewController.m; sourceTree = "<group>"; };
 		08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
@@ -424,6 +427,8 @@
 			children = (
 				08EB0F6C17B3559D00C5E4FF /* LSPost.h */,
 				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
+				08E05CEA17D7A53800393A3D /* PFUser+PrivateChannelName.h */,
+				08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -652,6 +657,7 @@
 				08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */,
 				08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */,
 				5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */,
+				08E05CEC17D7A53800393A3D /* PFUser+PrivateChannelName.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +687,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Newman (RVLM9MGQXH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 3;
@@ -697,6 +704,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "C2B8FB61-891F-4DFF-88D4-C753D81C17B5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -714,6 +723,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Daniel Newman (653PB2MCQP)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 3;
@@ -723,6 +733,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "F42F3B76-065E-4878-B165-266005D22219";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

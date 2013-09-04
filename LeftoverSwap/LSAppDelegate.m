@@ -9,6 +9,8 @@
 #import "LSAppDelegate.h"
 #import "LSTabBarController.h"
 #import <Parse/Parse.h>
+#import "PFUser+PrivateChannelName.h"
+#import "LSConstants.h"
 #import <HockeySDK/HockeySDK.h>
 
 static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
@@ -51,7 +53,9 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   self.window.rootViewController = self.viewController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-  
+
+  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
+
   [self.window makeKeyAndVisible];
 
   if (![PFUser currentUser]) {
@@ -110,6 +114,26 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
 #endif
   return nil;
+}
+
+#pragma mark - Remote notifications
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
+{
+  PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+  [currentInstallation setDeviceTokenFromData:newDeviceToken];
+  
+  PFUser *user = [PFUser currentUser];
+  if (user) {
+    [currentInstallation addUniqueObject:[user privateChannelName] forKey:kLSInstallationChannelsKey];
+  }
+
+  [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+  [PFPush handlePush:userInfo];
 }
 
 @end

@@ -14,6 +14,8 @@
 #import "LSCameraPresenterController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
+#import "PFUser+PrivateChannelName.h"
+#import "LSConstants.h"
 
 @interface LSTabBarController ()
 
@@ -89,6 +91,10 @@
 -(void)loginControllerDidFinish
 {
   [self dismissViewControllerAnimated:YES completion:nil];
+  
+  PFUser *user = [PFUser currentUser];
+  [[PFInstallation currentInstallation] addUniqueObject:[user privateChannelName] forKey:kLSInstallationChannelsKey];
+  [[PFInstallation currentInstallation] saveEventually];
 }
 
 #pragma mark - UITabBarControllerDelegate
