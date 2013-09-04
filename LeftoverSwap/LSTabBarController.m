@@ -38,7 +38,7 @@
     LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
     self.cameraController = [[LSCameraPresenterController alloc] init];
     LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
-      LSMeViewController *meController = [[LSMeViewController alloc] init];
+    LSMeViewController *meController = [[LSMeViewController alloc] init];
     
     self.viewControllers = @[mapViewController, cameraController, conversationController, meController];
   }
