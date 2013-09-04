@@ -26,6 +26,7 @@
 @synthesize usernameField;
 @synthesize passwordField;
 @synthesize passwordAgainField;
+@synthesize emailField;
 
 @synthesize delegate;
 
@@ -45,6 +46,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:usernameField];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordField];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordAgainField];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:emailField];
   
 	doneButton.enabled = NO;
 }
@@ -63,6 +65,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:usernameField];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:passwordField];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:passwordAgainField];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:emailField];
 }
 
 
@@ -77,8 +80,11 @@
 	}
 	if (textField == passwordAgainField) {
 		[passwordAgainField resignFirstResponder];
-		[self processFieldEntries];
 	}
+  if (textField == emailField) {
+    [emailField resignFirstResponder];
+    [self processFieldEntries];
+  }
 
 	return YES;
 }
@@ -92,7 +98,9 @@
 		passwordField.text != nil &&
 		passwordField.text.length > 0 &&
 		passwordAgainField.text != nil &&
-		passwordAgainField.text.length > 0) {
+		passwordAgainField.text.length > 0 &&
+    emailField.text != nil &&
+    emailField.text.length > 0) {
 		enableDoneButton = YES;
 	}
 	return enableDoneButton;
@@ -110,6 +118,7 @@
 	[usernameField resignFirstResponder];
 	[passwordField resignFirstResponder];
 	[passwordAgainField resignFirstResponder];
+  [emailField resignFirstResponder];
 	[self processFieldEntries];
 }
 
@@ -121,19 +130,25 @@
 	NSString *username = usernameField.text;
 	NSString *password = passwordField.text;
 	NSString *passwordAgain = passwordAgainField.text;
+  NSString *email = emailField.text;
 	NSString *errorText = @"Please ";
 	NSString *usernameBlankText = @"enter a username";
 	NSString *passwordBlankText = @"enter a password";
+  NSString *emailBlankText = @"enter an email address";
 	NSString *joinText = @", and ";
 	NSString *passwordMismatchText = @"enter the same password twice";
 
 	BOOL textError = NO;
 
 	// Messaging nil will return 0, so these checks implicitly check for nil text.
-	if (username.length == 0 || password.length == 0 || passwordAgain.length == 0) {
+	if (username.length == 0 || password.length == 0 || passwordAgain.length == 0 || email.length == 0) {
 		textError = YES;
 
 		// Set up the keyboard for the first field missing input:
+    if (email.length == 0) {
+      [emailField becomeFirstResponder];
+    }
+
 		if (passwordAgain.length == 0) {
 			[passwordAgainField becomeFirstResponder];
 		}
@@ -144,12 +159,17 @@
 			[usernameField becomeFirstResponder];
 		}
 
+    BOOL anyErrors = NO;
 		if (username.length == 0) {
 			errorText = [errorText stringByAppendingString:usernameBlankText];
-		}
+      anyErrors = YES;
+		} else if (email.length == 0) {
+      errorText = [errorText stringByAppendingString:emailBlankText];
+      anyErrors = YES;
+    }
 
 		if (password.length == 0 || passwordAgain.length == 0) {
-			if (username.length == 0) { // We need some joining text in the error:
+			if (anyErrors) { // We need some joining text in the error:
 				errorText = [errorText stringByAppendingString:joinText];
 			}
 			errorText = [errorText stringByAppendingString:passwordBlankText];
@@ -187,6 +207,7 @@
 	PFUser *user = [PFUser user];
 	user.username = username;
 	user.password = password;
+  user.email = email;
 
 	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		if (error) {
