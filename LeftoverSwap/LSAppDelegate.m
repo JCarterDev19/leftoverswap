@@ -69,9 +69,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  NSDate *now = [NSDate date];
-  [[NSUserDefaults standardUserDefaults] setObject:now forKey:kLastTimeOpenedKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];  
+  // Only do a "last-time opened" save when we've moved on from welcome / sign-in views.
+  if (!self.tabBarController.presentedViewController) {
+    NSDate *now = [NSDate date];
+    [[NSUserDefaults standardUserDefaults] setObject:now forKey:kLastTimeOpenedKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+  }
 }
 
 #pragma mark - LSAppDelegate
