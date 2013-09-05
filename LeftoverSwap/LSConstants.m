@@ -51,3 +51,7 @@ NSString * const kLSLocationKey = @"location";
 
 NSString *const kLSPostCreatedNotification = @"kPostCreatedNotification";
 NSString *const kLSPostKey = @"post";
+
+#pragma mark - PFInstallation keys
+
+NSString *const kLSInstallationChannelsKey = @"channels";
