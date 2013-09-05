@@ -85,7 +85,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   
   NSDate *lastOpened = [[NSUserDefaults standardUserDefaults] objectForKey:kLastTimeOpenedKey];
   NSDate *now = [NSDate date];
-  if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 300) { // 5 minutes
+  if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 1800) { // 30 minutes
     shouldDisplay = YES;
   }
   return shouldDisplay;
