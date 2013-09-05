@@ -8,6 +8,7 @@
 
 #import "LSCameraPresenterController.h"
 #import "LSPostPhotoViewController.h"
+#import "LSCameraOverlayRect.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -52,13 +53,16 @@
 #pragma mark - ()
 
 - (void)presentCameraPickerController {
+  
   UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
   cameraUI.mediaTypes = @[(NSString*)kUTTypeImage];
   
   if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-    
+  
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     cameraUI.showsCameraControls = YES;
+    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
+
     
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
       cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;

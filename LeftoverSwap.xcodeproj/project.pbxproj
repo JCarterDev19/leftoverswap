@@ -122,6 +122,7 @@
 		5D77658617D781F500F34A02 /* GPSicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658417D781F400F34A02 /* GPSicon@2x.png */; };
 		5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D77658E17D79F8700F34A02 /* LSMeViewController.m */; };
 		5D77659117D79F8700F34A02 /* LSMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658F17D79F8700F34A02 /* LSMeViewController.xib */; };
+		5D77659717D8242500F34A02 /* LSCameraOverlayRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D77659617D8242500F34A02 /* LSCameraOverlayRect.m */; };
 		5DA3557A17CAE4CA00CEC3D3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557917CAE4CA00CEC3D3 /* greenblock.png */; };
 		5DA3557F17CAE8C700CEC3D3 /* plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557B17CAE8C700CEC3D3 /* plain.png */; };
 		5DA3558017CAE8C700CEC3D3 /* plain2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557C17CAE8C700CEC3D3 /* plain2.png */; };
@@ -290,6 +291,8 @@
 		5D77658D17D79F8700F34A02 /* LSMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMeViewController.h; sourceTree = "<group>"; };
 		5D77658E17D79F8700F34A02 /* LSMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMeViewController.m; sourceTree = "<group>"; };
 		5D77658F17D79F8700F34A02 /* LSMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMeViewController.xib; sourceTree = "<group>"; };
+		5D77659517D8242500F34A02 /* LSCameraOverlayRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCameraOverlayRect.h; sourceTree = "<group>"; };
+		5D77659617D8242500F34A02 /* LSCameraOverlayRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCameraOverlayRect.m; sourceTree = "<group>"; };
 		5DA3557917CAE4CA00CEC3D3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenblock.png; sourceTree = "<group>"; };
 		5DA3557B17CAE8C700CEC3D3 /* plain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain.png; sourceTree = "<group>"; };
 		5DA3557C17CAE8C700CEC3D3 /* plain2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plain2.png; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 				0823B42C17A0B11500FE86FF /* LSWelcomeButton.m */,
 				08F8DCC217AF7E6300A6AE60 /* LSPaddedTextField.h */,
 				08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */,
+				5D77659517D8242500F34A02 /* LSCameraOverlayRect.h */,
+				5D77659617D8242500F34A02 /* LSCameraOverlayRect.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -884,6 +889,7 @@
 				083D473517D7FB310081FE4B /* UIColor+JSMessagesView.m in Sources */,
 				083D473617D7FB310081FE4B /* UIImage+JSMessagesView.m in Sources */,
 				083D473717D7FB310081FE4B /* UIView+AnimationOptionsForCurve.m in Sources */,
+				5D77659717D8242500F34A02 /* LSCameraOverlayRect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
