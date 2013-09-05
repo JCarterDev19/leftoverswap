@@ -12,6 +12,7 @@
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
+#import "LSConversationViewController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
 #import "PFUser+PrivateChannelName.h"
@@ -37,10 +38,13 @@
 
     LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
     self.cameraController = [[LSCameraPresenterController alloc] init];
+    
     LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
+    UINavigationController *conversationNavigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
+
     LSMeViewController *meController = [[LSMeViewController alloc] init];
     
-    self.viewControllers = @[mapViewController, cameraController, conversationController, meController];
+    self.viewControllers = @[mapViewController, cameraController, conversationNavigationController, meController];
   }
   return self;
 }
@@ -66,12 +70,12 @@
   [self presentViewController:signInViewController animated:NO completion:nil];
 }
 
--(void)presentWelcomeView {
+-(void)presentWelcomeView
+{
   LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
   welcomeViewController.delegate = self;
   [self presentViewController:welcomeViewController animated:NO completion:nil];
 }
-
 
 #pragma mark - LSWelcomeControllerDelegate
 
@@ -99,8 +103,7 @@
 
 #pragma mark - UITabBarControllerDelegate
 
--(BOOL)tabBarController:(UITabBarController *)tabBarController
-shouldSelectViewController:(UIViewController *)aViewController
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)aViewController
 {
   // Intercept tab event, and trigger its own modal UI instead
   if ([aViewController isKindOfClass:[LSCameraPresenterController class]]) {
