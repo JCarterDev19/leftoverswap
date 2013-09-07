@@ -161,7 +161,8 @@
   if (![[view annotation] isKindOfClass:[LSPost class]])
     return;
   
-  [self presentViewController:[(LSPost*)view.annotation viewControllerForPost] animated:YES completion:nil];
+  // Have the TabBarController present this post view so the contact view => message view transition works as expected.
+  [self.tabBarController presentViewController:[(LSPost*)view.annotation viewControllerForPost] animated:YES completion:nil];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
