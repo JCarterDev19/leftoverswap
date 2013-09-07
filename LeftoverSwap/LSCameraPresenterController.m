@@ -61,7 +61,7 @@
   
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     cameraUI.showsCameraControls = YES;
-    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
+//    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
 
     
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
