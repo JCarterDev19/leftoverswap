@@ -27,17 +27,12 @@ extern NSString *const kPostLocationKey;
 #pragma mark - PFObject Conversation Class
 // Class key
 extern NSString *const kConversationClassKey;
-extern NSString *const kConversationTypeKey;
-
-// Type key
-extern NSString *const kConversationTypeTopicKey;
-extern NSString *const kConversationTypeMessageKey;
 
 // Field keys
 extern NSString *const kConversationFromUserKey;
 extern NSString *const kConversationToUserKey;
-extern NSString *const kConversationTopicPostKey;
 extern NSString *const kConversationMessageKey;
+extern NSString *const kConversationPostKey;
 
 #pragma mark - NSNotitication keys
 
