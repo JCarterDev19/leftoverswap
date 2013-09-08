@@ -9,6 +9,7 @@
 #import "LSPostDetailViewController.h"
 #import "LSConstants.h"
 #import "TTTTimeIntervalFormatter.h"
+#import "LSTabBarController.h"
 
 @interface LSPostDetailViewController ()
 
@@ -65,10 +66,10 @@ static TTTTimeIntervalFormatter *timeFormatter;
   
   self.imageView.backgroundColor = [UIColor clearColor];
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.file = [post objectForKey:kPostImageKey];
+  self.imageView.file = [self.post objectForKey:kPostImageKey];
   
   [self.imageView loadInBackground];
-    NSString *postTitle = [post objectForKey:kPostTitleKey];
+    NSString *postTitle = [self.post objectForKey:kPostTitleKey];
     self.titleLabel.text = [NSString stringWithFormat:@" %@", postTitle];
   
 //  [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
@@ -77,7 +78,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 //    [self.sellerLabel setNeedsDisplay];
 //  }];
 
-    NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[post createdAt]];
+    NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
   
   self.postDateLabel.text = [NSString stringWithFormat:@"about %@", postDate];
     
@@ -87,7 +88,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
             [self.sellerLabel setNeedsDisplay];
     }];
   
-  self.description.text = [post objectForKey:kPostDescriptionKey];
+  self.description.text = [self.post objectForKey:kPostDescriptionKey];
 }
 
 #pragma mark UINavigationBar-based actions
@@ -100,8 +101,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 - (void)contact:(id)sender
 {
   NSLog(@"You contacted the sender!");
-  
-  [self.presentingViewController dismissModalViewControllerAnimated:YES];
+  [(LSTabBarController*)self.presentingViewController presentNewConversationForPost:self.post];
 }
 
 @end
