@@ -8,6 +8,8 @@
 
 #import "LSMeViewController.h"
 #import "LSConstants.h"
+#import "LSLoginSignupViewController.h"
+#import "LSAppDelegate.h"
 
 @interface LSMeViewController ()
 @property (nonatomic) IBOutlet UILabel *userLabel;
@@ -32,7 +34,7 @@
     [super viewDidLoad];
         PFUser *currentUser= [PFUser currentUser];
         NSString *name = [currentUser objectForKey:kUserDisplayNameKey];
-        self.userLabel.text = [NSString stringWithFormat:@"%@", name];
+        self.userLabel.text = [NSString stringWithFormat:@" %@", name];
 
 
 
@@ -43,5 +45,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)logoutButton:(id)sender {
+  [PFUser logOut];
+  //FIXME: after logging out, and logging in or signing up, the login and signup view remains undismissed.
+  LSLoginSignupViewController *loginSignupViewController = [[LSLoginSignupViewController alloc] initWithNibName:nil bundle:nil];
+  
+	[self presentViewController:loginSignupViewController animated:YES completion:nil];
+
+}
+
 
 @end

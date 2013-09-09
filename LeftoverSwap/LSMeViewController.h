@@ -10,5 +10,6 @@
 #import <Parse/Parse.h>
 
 @interface LSMeViewController : UIViewController
+- (IBAction)logoutButton:(id)sender;
 
 @end
