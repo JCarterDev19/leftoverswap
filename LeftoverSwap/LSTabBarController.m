@@ -12,7 +12,7 @@
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
-#import "LSConversationViewController.h"
+#import "LSNewConversationViewController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
 #import "PFUser+PrivateChannelName.h"
@@ -21,12 +21,16 @@
 @interface LSTabBarController ()
 
 @property (nonatomic) LSCameraPresenterController *cameraController;
+@property (nonatomic) UINavigationController *conversationNavigationController;
+@property (nonatomic) LSConversationSummaryViewController *conversationSummaryController;
 
 @end
 
 @implementation LSTabBarController
 
 @synthesize cameraController;
+@synthesize conversationNavigationController;
+@synthesize conversationSummaryController;
 
 - (id)init
 {
@@ -39,26 +43,14 @@
     LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
     self.cameraController = [[LSCameraPresenterController alloc] init];
     
-    LSConversationSummaryViewController *conversationController = [[LSConversationSummaryViewController alloc] init];
-    UINavigationController *conversationNavigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
+    self.conversationSummaryController = [[LSConversationSummaryViewController alloc] init];
+    self.conversationNavigationController = [[UINavigationController alloc] initWithRootViewController:self.conversationSummaryController];
 
     LSMeViewController *meController = [[LSMeViewController alloc] init];
     
     self.viewControllers = @[mapViewController, cameraController, conversationNavigationController, meController];
   }
   return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - instance methods
@@ -75,6 +67,14 @@
   LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
   welcomeViewController.delegate = self;
   [self presentViewController:welcomeViewController animated:NO completion:nil];
+}
+
+- (void)presentNewConversationForPost:(PFObject *)post
+{
+  [self dismissModalViewControllerAnimated:NO];
+  LSNewConversationViewController *conversationController = [[LSNewConversationViewController alloc] initWithPost:post];
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
+  [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - LSWelcomeControllerDelegate

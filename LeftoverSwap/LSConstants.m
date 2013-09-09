@@ -29,17 +29,12 @@ NSString *const kPostLocationKey = @"location";
 #pragma mark - PFObject Comment Class
 // Class key
 NSString *const kConversationClassKey = @"Conversation";
-NSString *const kConversationTypeKey = @"type";
-
-// Type key
-NSString *const kConversationTypeTopicKey = @"topic";
-NSString *const kConversationTypeMessageKey = @"message";
 
 // Field keys
 NSString *const kConversationFromUserKey = @"fromUser";
 NSString *const kConversationToUserKey = @"toUser";
-NSString *const kConversationTopicPostKey = @"topicPost";
 NSString *const kConversationMessageKey = @"message";
+NSString *const kConversationPostKey = @"post";
 
 # pragma mark - NSNotfication topics
 

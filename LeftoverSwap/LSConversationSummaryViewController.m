@@ -53,7 +53,7 @@
   
   [query includeKey:kConversationFromUserKey];
   [query includeKey:kConversationToUserKey];
-  [query includeKey:kConversationTopicPostKey];
+  [query includeKey:kConversationPostKey];
   
   [query orderByDescending:@"createdAt"];
   

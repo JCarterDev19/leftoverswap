@@ -62,6 +62,14 @@
 //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward
 //                                                                                         target:self
 //                                                                                         action:@selector(buttonPressed:)];
+//  self.navigationItem.title = @"New Conversation";
+//  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed:)];
+//  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(postPressed:)];
+}
+
+- (void)cancelPressed:(id)sender
+{
+  [self.presentingViewController dismissModalViewControllerAnimated:YES];
 }
 
 //- (void)buttonPressed:(UIButton*)sender

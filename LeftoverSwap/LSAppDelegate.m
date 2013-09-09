@@ -96,17 +96,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   
   // set the global navigation bar tint
 
-//  [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.411 green:0.858 blue:0.509 alpha:1.000]];
-//  [[UINavigationBar appearance] setTranslucent:YES];
-
-//  [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.498f green:0.388f blue:0.329f alpha:1.0f]];
-//  [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                        [UIColor whiteColor],UITextAttributeTextColor,
-//                                                        [UIColor colorWithWhite:0.0f alpha:0.750f],UITextAttributeTextShadowColor,
-//                                                        [NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)],UITextAttributeTextShadowOffset,
-//                                                        nil]];
-
+  [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.411 green:0.858 blue:0.509 alpha:1.000]];
 }
 
 #pragma mark - Remote notifications
