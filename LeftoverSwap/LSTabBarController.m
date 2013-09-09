@@ -12,7 +12,7 @@
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
-#import "LSConversationViewController.h"
+#import "LSNewConversationViewController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
 #import "PFUser+PrivateChannelName.h"
@@ -72,7 +72,7 @@
 - (void)presentNewConversationForPost:(PFObject *)post
 {
   [self dismissModalViewControllerAnimated:NO];
-  LSConversationViewController *conversationController = [[LSConversationViewController alloc] init];
+  LSNewConversationViewController *conversationController = [[LSNewConversationViewController alloc] initWithPost:post];
   UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
   [self presentViewController:navigationController animated:YES completion:nil];
 }
