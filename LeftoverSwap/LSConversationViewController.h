@@ -28,13 +28,21 @@
 
 #import "JSMessagesViewController.h"
 
-@class PFObject;
+@class PFObject, LSConversationViewController;
+
+@protocol LSConversationControllerDelegate <NSObject>
+@required
+
+- (void)conversationController:(LSConversationViewController*)conversationController didAddConversation:(PFObject*)conversation;
+
+@end
 
 @interface LSConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
 
 @property (nonatomic) NSMutableArray *conversations; /* PFObject */
 @property (nonatomic) PFObject *post; /* nilable */
 @property (nonatomic) PFObject *recipient;
+@property (nonatomic, weak) id<LSConversationControllerDelegate> conversationDelegate;
 
 - (void)addMessage:(NSString*)text;
 

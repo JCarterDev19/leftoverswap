@@ -8,8 +8,9 @@
 
 #import <Parse/Parse.h>
 #import <UIKit/UIKit.h>
+#import "LSConversationViewController.h"
 
-@interface LSConversationSummaryViewController : PFQueryTableViewController
+@interface LSConversationSummaryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, LSConversationControllerDelegate>
 
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post;
 

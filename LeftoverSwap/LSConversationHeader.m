@@ -84,7 +84,6 @@
   
   PFImageView *imageView = [[PFImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDim, imageDim)];
   imageView.file = [self.post objectForKey:kPostThumbnailKey];
-  imageView.backgroundColor = [UIColor blackColor];
   imageView.contentMode = UIViewContentModeScaleAspectFit;
   [imageView loadInBackground];
   [self addSubview:imageView];

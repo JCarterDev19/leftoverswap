@@ -111,6 +111,9 @@
   }];
   [self.tableView reloadData];
   [self scrollToBottomAnimated:NO];
+  
+  if (self.conversationDelegate)
+    [self.conversationDelegate conversationController:self didAddConversation:newConversation];
 }
 
 #pragma mark - Table view data source
@@ -129,7 +132,11 @@
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
   }];
+
   [self finishSend];
+
+  if (self.conversationDelegate)
+    [self.conversationDelegate conversationController:self didAddConversation:newConversation];
 
 //  if((self.conversations.count - 1) % 2)
 //    
