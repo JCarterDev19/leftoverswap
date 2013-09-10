@@ -15,10 +15,10 @@
 {
   PFObject *toUser = [self objectForKey:kConversationToUserKey];
   PFObject *fromUser = [self objectForKey:kConversationFromUserKey];
-  if (toUser != [PFUser currentUser]) {
-    return toUser;
-  } else {
+  if ([[toUser objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
     return fromUser;
+  } else {
+    return toUser;
   }
 }
 

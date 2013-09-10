@@ -31,6 +31,7 @@
 #import "LSConversationViewController.h"
 #import "LSConversationHeader.h"
 #import "LSConstants.h"
+#import "PFObject+Conversation.h"
 
 @interface LSConversationViewController ()
 
@@ -66,15 +67,11 @@
 //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(postPressed:)];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-  [self scrollToBottomAnimated:YES];
-}
-
 - (void)setConversations:(NSMutableArray *)conversations
 {
   _conversations = conversations;
   [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];
 }
 
 - (void)setPost:(PFObject *)post
@@ -147,11 +144,8 @@
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([[self.conversations[indexPath.row] objectForKey:kConversationFromUserKey] isEqual:[PFUser currentUser]]) {
-    return JSBubbleMessageTypeOutgoing;
-  } else {
-    return JSBubbleMessageTypeIncoming;
-  }
+  PFObject *fromUser = [self.conversations[indexPath.row] objectForKey:kConversationFromUserKey];
+  return [[fromUser objectId] isEqualToString:[[PFUser currentUser] objectId]] ? JSBubbleMessageTypeOutgoing : JSBubbleMessageTypeIncoming;
 }
 
 - (JSBubbleMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath
