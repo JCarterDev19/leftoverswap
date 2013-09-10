@@ -31,7 +31,19 @@
   CGContextSetLineWidth(context, 2.0);
 //  CGContextFillRect(context, rectangle);
   CGContextStrokeRect(context, rectangle);    //this will draw the border
+  NSString *text = @"try to center food inside";
+  CGSize textSize = [text sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12.0f]];
+  UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake((screenWidth/3.5), (screenRect.origin.y + 290), textSize.width, textSize.height)];
+  [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12.0f]];
+  [textLabel setText:text];
+  [textLabel setTextColor:[UIColor greenColor]];
+  [textLabel setAlpha:0.5];
+  [textLabel setTextAlignment:UITextAlignmentCenter];
+  [textLabel setBackgroundColor:[UIColor clearColor]];
+  [self addSubview:textLabel];
 }
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

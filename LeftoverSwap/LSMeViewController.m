@@ -55,5 +55,12 @@
 
 }
 
+- (IBAction)TOSbutton:(id)sender {
+//  NSURL *currentURL = [NSURL URLWithString:@"http://www.leftoverswap.com/TOS.html"];
+//  UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+//  [webView loadRequest:[NSURLRequest requestWithURL:currentURL]];
+//  [self.view addSubview:webView];
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.leftoverswap.com/tos.html"]];
+}
 
 @end

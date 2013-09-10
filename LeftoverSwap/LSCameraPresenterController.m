@@ -61,7 +61,7 @@
   
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     cameraUI.showsCameraControls = YES;
-//    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
+    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
 
     
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
@@ -79,7 +79,7 @@
              && [[UIImagePickerController availableMediaTypesForSourceType:sourceType] containsObject:(NSString *)kUTTypeImage], @"Device must support photo rolls");
     
     cameraUI.sourceType = sourceType;
-    
+  
   }
   
   cameraUI.allowsEditing = NO;
