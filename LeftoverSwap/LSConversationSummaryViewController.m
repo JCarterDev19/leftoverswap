@@ -178,8 +178,6 @@
   
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:NO];
-  NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
-
 }
 
 @end

@@ -105,26 +105,15 @@
 {
   self.post = post;
 
-  PFObject *newConversation = [self conversationForMessage:text];
-  [newConversation setObject:post forKey:kConversationPostKey];
+  PFObject *newConversation = [self conversationForMessage:text post:post];
   [self.conversations addObject:newConversation];
   
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
+    NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
   }];
   [self.tableView reloadData];
   [self scrollToBottomAnimated:NO];
-}
-
-- (void)addMessage:(NSString*)text
-{
-  PFObject *newConversation = [self conversationForMessage:text];
-  [self.conversations addObject:newConversation];
-  
-  // TODO: maybe only add this when it's been saved instead?
-  [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    [JSMessageSoundEffect playMessageSentSound];
-  }];
 }
 
 #pragma mark - Table view data source
@@ -136,7 +125,13 @@
 #pragma mark - Messages view delegate
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
-  [self addMessage:text];
+  PFObject *newConversation = [self conversationForMessage:text post:self.post];
+  [self.conversations addObject:newConversation];
+  
+  // TODO: maybe only add this when it's been saved instead?
+  [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [JSMessageSoundEffect playMessageSentSound];
+  }];
   [self finishSend];
 
 //  if((self.conversations.count - 1) % 2)
@@ -204,12 +199,13 @@
 
 #pragma mark - Private methods
 
-- (PFObject*)conversationForMessage:(NSString*)text
+- (PFObject*)conversationForMessage:(NSString*)text post:(PFObject*)post
 {
   PFObject *newConversation = [PFObject objectWithClassName:kConversationClassKey];
   [newConversation setObject:text forKey:kConversationMessageKey];
   [newConversation setObject:[PFUser currentUser] forKey:kConversationFromUserKey];
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
+  [newConversation setObject:post forKey:kConversationPostKey];
   return newConversation;
 }
 
