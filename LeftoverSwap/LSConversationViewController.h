@@ -28,9 +28,13 @@
 
 #import "JSMessagesViewController.h"
 
+@class PFObject;
+
 @interface LSConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
 
 @property (nonatomic) NSMutableArray *messages;
 @property (nonatomic) NSMutableArray *timestamps;
+
+@property (nonatomic) PFObject *post;
 
 @end

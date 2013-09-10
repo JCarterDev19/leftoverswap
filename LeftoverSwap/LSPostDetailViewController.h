@@ -9,11 +9,21 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
+@class LSPostDetailViewController;
+
+@protocol LSPostDetailDelegate <NSObject>
+
+- (void)postDetailControllerDidContact:(LSPostDetailViewController *)postDetailController forPost:(PFObject*)post;
+
+@end
+
 @interface LSPostDetailViewController : UIViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(PFObject*)post;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)contact:(id)sender;
+
+@property (nonatomic, weak) id<LSPostDetailDelegate> delegate;
 
 @end

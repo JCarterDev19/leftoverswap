@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "LSWelcomeViewController.h"
 #import "LSLoginSignupViewController.h"
+#import "LSNewConversationViewController.h"
+#import "LSPostDetailViewController.h"
 
 @class PFObject;
 
-@interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, LSWelcomeControllerDelegate, UITabBarControllerDelegate>
+@interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, LSWelcomeControllerDelegate, UITabBarControllerDelegate, LSNewConversationDelegate, LSPostDetailDelegate>
 
 - (void)presentSignInView;
 - (void)presentWelcomeView;
-- (void)presentNewConversationForPost:(PFObject*)post;
 
 @end

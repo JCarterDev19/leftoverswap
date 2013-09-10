@@ -26,7 +26,10 @@
 //  OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#import <Parse/Parse.h>
+
 #import "LSConversationViewController.h"
+#import "LSConversationHeader.h"
 
 @implementation LSConversationViewController
 
@@ -39,9 +42,16 @@
 }
 
 #pragma mark - View lifecycle
+
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+
+  LSConversationHeader *header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+  header.post = self.post;
+  self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:header.frame];
+  [self.view addSubview:header];
+  
   self.delegate = self;
   self.dataSource = self;
 

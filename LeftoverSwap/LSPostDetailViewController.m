@@ -100,8 +100,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)contact:(id)sender
 {
-  NSLog(@"You contacted the sender!");
-  [(LSTabBarController*)self.presentingViewController presentNewConversationForPost:self.post];
+  if (self.delegate)
+    [self.delegate postDetailControllerDidContact:self forPost:self.post];
 }
 
 @end

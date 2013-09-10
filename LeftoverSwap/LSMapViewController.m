@@ -14,6 +14,8 @@
 #import "LSAppDelegate.h"
 #import "LSLocationController.h"
 #import "LSPost.h"
+#import "LSPostDetailViewController.h"
+#import "LSTabBarController.h"
 
 // private methods and properties
 @interface LSMapViewController ()
@@ -162,7 +164,9 @@
     return;
   
   // Have the TabBarController present this post view so the contact view => message view transition works as expected.
-  [self.tabBarController presentViewController:[(LSPost*)view.annotation viewControllerForPost] animated:YES completion:nil];
+  LSPostDetailViewController *detailController = (LSPostDetailViewController*)[(LSPost*)view.annotation viewControllerForPost];
+  detailController.delegate = (LSTabBarController*)self.tabBarController;
+  [self.tabBarController presentViewController:detailController animated:YES completion:nil];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view

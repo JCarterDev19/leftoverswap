@@ -8,9 +8,17 @@
 
 #import "JSMessagesViewController.h"
 
-@class PFObject;
+@class PFObject, LSNewConversationViewController;
 
-@interface LSNewConversationViewController : JSMessagesViewController
+@protocol LSNewConversationDelegate <NSObject>
+
+- (void)conversationController:(LSNewConversationViewController*)conversation didSendText:(NSString*)text forPost:(PFObject*)post;
+
+@end
+
+@interface LSNewConversationViewController : JSMessagesViewController <JSMessagesViewDelegate>
+
+@property (nonatomic, weak) id<LSNewConversationDelegate> conversationDelegate;
 
 -initWithPost:(PFObject*)post;
 

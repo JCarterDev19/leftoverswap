@@ -11,4 +11,6 @@
 
 @interface LSConversationSummaryViewController : PFQueryTableViewController
 
+- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post;
+
 @end

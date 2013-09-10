@@ -11,6 +11,8 @@
 
 @interface LSNewConversationViewController ()
 
+@property (nonatomic) PFObject *post;
+
 @end
 
 @implementation LSNewConversationViewController
@@ -20,7 +22,8 @@
   self = [super init];
   if (self) {
     LSConversationHeader *header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    header.post = post;
+    header.post = self.post = post;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:header.frame];
     [self.view addSubview:header];
   }
   return self;
@@ -38,6 +41,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  self.delegate = self;
+
   self.navigationItem.title = @"New Conversation";
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed:)];
 }
@@ -54,9 +59,37 @@
 }
 
 #pragma mark - Messages view delegate
+
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
+  if (self.conversationDelegate)
+    [self.conversationDelegate conversationController:self didSendText:text forPost:self.post];
   [self finishSend];
+}
+
+- (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return (indexPath.row % 2) ? JSBubbleMessageTypeIncoming : JSBubbleMessageTypeOutgoing;
+}
+
+- (JSBubbleMessageStyle)messageStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return JSBubbleMessageStyleSquare;
+}
+
+- (JSMessagesViewTimestampPolicy)timestampPolicy
+{
+  return JSMessagesViewTimestampPolicyEveryThree;
+}
+
+- (JSMessagesViewAvatarPolicy)avatarPolicy
+{
+  return JSMessagesViewAvatarPolicyNone;
+}
+
+- (JSAvatarStyle)avatarStyle
+{
+  return JSAvatarStyleSquare;
 }
 
 @end

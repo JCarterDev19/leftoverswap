@@ -12,7 +12,6 @@
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
 #import "LSCameraPresenterController.h"
-#import "LSNewConversationViewController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
 #import "PFUser+PrivateChannelName.h"
@@ -69,14 +68,6 @@
   [self presentViewController:welcomeViewController animated:NO completion:nil];
 }
 
-- (void)presentNewConversationForPost:(PFObject *)post
-{
-  [self dismissModalViewControllerAnimated:NO];
-  LSNewConversationViewController *conversationController = [[LSNewConversationViewController alloc] initWithPost:post];
-  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
-  [self presentViewController:navigationController animated:YES completion:nil];
-}
-
 #pragma mark - LSWelcomeControllerDelegate
 
 -(void)welcomeControllerDidEat:(LSWelcomeViewController *)controller
@@ -111,6 +102,31 @@
     return NO;
   }
   return YES;
+}
+
+#pragma mark - LSNewConversationDelegate
+
+- (void)conversationController:(LSNewConversationViewController *)conversation didSendText:(NSString *)text forPost:(PFObject *)post
+{
+  // TODO: set conversation view controller w/ conversation summary controller
+  // and present this to the end of a view.
+
+  self.selectedViewController = self.conversationNavigationController;
+  [self.conversationSummaryController addNewConversation:text forPost:post];
+
+  self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+  [self dismissViewControllerAnimated:NO completion:nil];
+  
+}
+
+#pragma mark - LSPostDetailViewController
+
+- (void)postDetailControllerDidContact:(LSPostDetailViewController *)postDetailController forPost:(PFObject*)post
+{
+  LSNewConversationViewController *conversationController = [[LSNewConversationViewController alloc] initWithPost:post];
+  conversationController.conversationDelegate = self;
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:conversationController];
+  [postDetailController presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

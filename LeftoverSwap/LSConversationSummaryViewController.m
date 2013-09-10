@@ -138,4 +138,11 @@
   //    [self.navigationController pushViewController:accountViewController animated:YES];
 }
 
+#pragma mark - Instance methods
+
+- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
+{
+  NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
+}
+
 @end
