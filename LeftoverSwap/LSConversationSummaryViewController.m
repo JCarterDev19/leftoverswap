@@ -143,8 +143,14 @@
 
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithMessage:text];
-  conversationViewController.post = post;
+  PFObject *toUser = [post objectForKey:kPostUserKey];
+  NSArray *previousConversations = [self.objects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+    return [[(PFObject *)evaluatedObject objectForKey:kConversationFromUserKey] isEqual:toUser]
+      || [[(PFObject *)evaluatedObject objectForKey:kConversationToUserKey] isEqual:toUser];
+  }]];
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:previousConversations recipient:toUser];
+  [conversationViewController addMessage:text withPost:post];
+
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:NO];
   NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
