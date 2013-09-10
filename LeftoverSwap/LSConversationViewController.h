@@ -37,6 +37,5 @@
 @property (nonatomic) PFObject *recipient;
 
 - (void)addMessage:(NSString*)text;
-- (void)addMessage:(NSString*)text withPost:(PFObject*)post;
 
 @end

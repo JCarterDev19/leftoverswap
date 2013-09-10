@@ -80,17 +80,12 @@
   if (self.header)
     [self.header removeFromSuperview];
 
-  if (self.post) {
-    self.header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    self.header.post = self.post;
-    
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:self.header.frame];
-    [self.view addSubview:self.header];
-  } else {
+  self.header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+  self.header.post = self.post;
+  [self.view addSubview:self.header];
 
-    self.tableView.tableHeaderView = nil;
-  }
-  [self.view setNeedsDisplay];
+  self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:self.header.frame];
+  [self.tableView setNeedsDisplay];
 }
 
 //- (void)buttonPressed:(UIButton*)sender
@@ -101,16 +96,14 @@
 //}
 #pragma mark - Instance methods
 
-- (void)addMessage:(NSString*)text withPost:(PFObject*)post
+- (void)addMessage:(NSString*)text
 {
-  self.post = post;
-
-  PFObject *newConversation = [self conversationForMessage:text post:post];
+  PFObject *newConversation = [self conversationForMessage:text];
   [self.conversations addObject:newConversation];
   
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
-    NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
+    NSLog(@"Sent message for post %@ and text %@", [self.post objectId], text);
   }];
   [self.tableView reloadData];
   [self scrollToBottomAnimated:NO];
@@ -125,7 +118,7 @@
 #pragma mark - Messages view delegate
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
-  PFObject *newConversation = [self conversationForMessage:text post:self.post];
+  PFObject *newConversation = [self conversationForMessage:text];
   [self.conversations addObject:newConversation];
   
   // TODO: maybe only add this when it's been saved instead?
@@ -199,26 +192,15 @@
 
 #pragma mark - Private methods
 
-- (PFObject*)conversationForMessage:(NSString*)text post:(PFObject*)post
+- (PFObject*)conversationForMessage:(NSString*)text
 {
+  NSAssert(self.post, @"post must not be nil");
   PFObject *newConversation = [PFObject objectWithClassName:kConversationClassKey];
   [newConversation setObject:text forKey:kConversationMessageKey];
   [newConversation setObject:[PFUser currentUser] forKey:kConversationFromUserKey];
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
-  [newConversation setObject:post forKey:kConversationPostKey];
+  [newConversation setObject:self.post forKey:kConversationPostKey];
   return newConversation;
-}
-
-- latestPost
-{
-  NSEnumerator *reverseEnumerator = [self.conversations reverseObjectEnumerator];
-  PFObject *conversation;
-  while ((conversation = [reverseEnumerator nextObject])) {
-    PFObject *post = [conversation objectForKey:kConversationPostKey];
-    if (post)
-      return post;
-  }
-  return nil;
 }
 
 @end

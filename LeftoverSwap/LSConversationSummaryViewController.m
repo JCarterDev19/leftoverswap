@@ -164,15 +164,13 @@
 
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
   conversationViewController.recipient = toUser;
-
-  // For caching reasons
   conversationViewController.post = post;
 
   // This should never block, as we get into this state only by viewing previous screens
   [query findObjectsInBackgroundWithBlock:^(NSArray *previousConversations, NSError *error) {
     if (!error) {
       conversationViewController.conversations = [NSMutableArray arrayWithArray:previousConversations];
-      [conversationViewController addMessage:text withPost:post];
+      [conversationViewController addMessage:text];
     }
   }];
   
