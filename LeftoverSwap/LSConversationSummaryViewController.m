@@ -9,6 +9,7 @@
 #import "LSConversationSummaryViewController.h"
 #import "LSConversationSummaryCell.h"
 #import "LSConstants.h"
+#import "LSConversationViewController.h"
 
 @implementation LSConversationSummaryViewController
 
@@ -142,6 +143,9 @@
 
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithMessage:text];
+  conversationViewController.post = post;
+  [self.navigationController pushViewController:conversationViewController animated:NO];
   NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
 }
 

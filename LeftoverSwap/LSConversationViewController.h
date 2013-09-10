@@ -37,4 +37,6 @@
 
 @property (nonatomic) PFObject *post;
 
+- (id)initWithMessage:(NSString*)text;
+
 @end

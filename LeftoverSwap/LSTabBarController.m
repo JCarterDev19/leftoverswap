@@ -114,9 +114,8 @@
   self.selectedViewController = self.conversationNavigationController;
   [self.conversationSummaryController addNewConversation:text forPost:post];
 
-  self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+  self.presentedViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
   [self dismissViewControllerAnimated:NO completion:nil];
-  
 }
 
 #pragma mark - LSPostDetailViewController

@@ -34,6 +34,18 @@
 @implementation LSConversationViewController
 
 #pragma mark - Initialization
+
+- (id)initWithMessage:(NSString *)text
+{
+  self = [super init];
+  if (self) {
+    self.messages = [NSMutableArray arrayWithObject:text];
+    self.timestamps = [NSMutableArray arrayWithObject:[NSDate date]];
+  }
+
+  return self;
+}
+
 - (UIButton *)sendButton
 {
   // Override to use a custom send button
@@ -55,19 +67,6 @@
   self.delegate = self;
   self.dataSource = self;
 
-  self.messages = [[NSMutableArray alloc] initWithObjects:
-                   @"Testing some messages here.",
-                   @"Options for avatars: none, circles, or squares",
-                   @"This is a complete re-write and refactoring.",
-                   @"It's easy to implement. Sound effects and images included. Animations are smooth and messages can be of arbitrary size!",
-                   nil];
-  
-  self.timestamps = [[NSMutableArray alloc] initWithObjects:
-                     [NSDate distantPast],
-                     [NSDate distantPast],
-                     [NSDate distantPast],
-                     [NSDate date],
-                     nil];
 //  
 //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward
 //                                                                                         target:self
