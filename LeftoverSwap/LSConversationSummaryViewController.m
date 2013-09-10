@@ -56,8 +56,9 @@
   [query includeKey:kConversationPostKey];
   
   [query orderByDescending:@"createdAt"];
-  
-  [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
+
+  // TODO: We should re-evaluate this when we have more information
+  [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
   
   return query;
 }
