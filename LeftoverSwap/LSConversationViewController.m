@@ -34,10 +34,6 @@
 
 @interface LSConversationViewController ()
 
-@property (nonatomic) NSMutableArray *conversations; /* PFObject */
-@property (nonatomic) PFObject *post; /* nilable */
-@property (nonatomic) PFObject *recipient;
-
 @property (nonatomic) LSConversationHeader *header;
 
 @end
@@ -45,17 +41,6 @@
 @implementation LSConversationViewController
 
 #pragma mark - Initialization
-
-- (id)initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient
-{
-  self = [super init];
-  if (self) {
-    self.conversations = [NSMutableArray arrayWithArray:conversations];
-    // TODO: find latest post associated with this conversation
-    self.recipient = recipient;
-  }
-  return self;
-}
 
 - (UIButton *)sendButton
 {
@@ -69,8 +54,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
-  [self setPostHeader];
   
   self.delegate = self;
   self.dataSource = self;
@@ -84,6 +67,32 @@
 //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(postPressed:)];
 }
 
+- (void)setConversations:(NSMutableArray *)conversations
+{
+  _conversations = conversations;
+  [self.tableView reloadData];
+}
+
+- (void)setPost:(PFObject *)post
+{
+  _post = post;
+
+  if (self.header)
+    [self.header removeFromSuperview];
+
+  if (self.post) {
+    self.header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    self.header.post = self.post;
+    
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:self.header.frame];
+    [self.view addSubview:self.header];
+  } else {
+
+    self.tableView.tableHeaderView = nil;
+  }
+  [self.view setNeedsDisplay];
+}
+
 //- (void)buttonPressed:(UIButton*)sender
 //{
 //  // Testing pushing/popping messages view
@@ -94,9 +103,6 @@
 
 - (void)addMessage:(NSString*)text withPost:(PFObject*)post
 {
-  self.post = post;
-  [self setPostHeader];
-
   PFObject *newConversation = [self conversationForMessage:text];
   [newConversation setObject:post forKey:kConversationPostKey];
   [self.conversations addObject:newConversation];
@@ -104,6 +110,8 @@
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
   }];
+  [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];
 }
 
 - (void)addMessage:(NSString*)text
@@ -203,22 +211,16 @@
   return newConversation;
 }
 
-- (void)setPostHeader
+- latestPost
 {
-  if (self.header)
-    [self.header removeFromSuperview];
-
-  // TODO Find the post for the latest conversation
-  if (self.post) {
-    self.header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    self.header.post = self.post;
-    
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:self.header.frame];
-    [self.view addSubview:self.header];
-    
-  } else {
-    self.tableView.tableHeaderView = nil;
+  NSEnumerator *reverseEnumerator = [self.conversations reverseObjectEnumerator];
+  PFObject *conversation;
+  while ((conversation = [reverseEnumerator nextObject])) {
+    PFObject *post = [conversation objectForKey:kConversationPostKey];
+    if (post)
+      return post;
   }
+  return nil;
 }
 
 @end

@@ -144,16 +144,42 @@
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
   PFObject *toUser = [post objectForKey:kPostUserKey];
-  NSArray *previousConversations = [self.objects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-    return [[(PFObject *)evaluatedObject objectForKey:kConversationFromUserKey] isEqual:toUser]
-      || [[(PFObject *)evaluatedObject objectForKey:kConversationToUserKey] isEqual:toUser];
-  }]];
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:previousConversations recipient:toUser];
-  [conversationViewController addMessage:text withPost:post];
+  
+  PFQuery *toUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [toUserQuery whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
+  [toUserQuery whereKey:kConversationFromUserKey equalTo:toUser];
+  
+  PFQuery *fromUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [fromUserQuery whereKey:kConversationFromUserKey equalTo:[PFUser currentUser]];
+  [fromUserQuery whereKey:kConversationToUserKey equalTo:toUser];
+  
+  PFQuery *query = [PFQuery orQueryWithSubqueries:@[toUserQuery, fromUserQuery]];
+  
+  [query includeKey:kConversationFromUserKey];
+  [query includeKey:kConversationToUserKey];
+  [query includeKey:kConversationPostKey];
+  
+  [query orderByDescending:@"createdAt"];
+  query.cachePolicy = kPFCachePolicyCacheElseNetwork;
 
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
+  conversationViewController.recipient = toUser;
+
+  // For caching reasons
+  conversationViewController.post = post;
+
+  // This should never block, as we get into this state only by viewing previous screens
+  [query findObjectsInBackgroundWithBlock:^(NSArray *previousConversations, NSError *error) {
+    if (!error) {
+      conversationViewController.conversations = [NSMutableArray arrayWithArray:previousConversations];
+      [conversationViewController addMessage:text withPost:post];
+    }
+  }];
+  
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:NO];
   NSLog(@"Sent conversation for post %@ and text %@", [post objectId], text);
+
 }
 
 @end
