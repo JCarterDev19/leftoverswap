@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class LSConversationSummaryCell, PFObject;
+
+@protocol LSConversationSummaryCellDelegate <NSObject>
+@optional
+
+- (void)cell:(LSConversationSummaryCell*)cellView didTapConversation:(PFObject*)conversation;
+
+@end
+
 @interface LSConversationSummaryCell : UITableViewCell
+
+@property (nonatomic) PFObject *conversation;
+@property (nonatomic, weak) id<LSConversationSummaryCellDelegate> delegate;
 
 @end

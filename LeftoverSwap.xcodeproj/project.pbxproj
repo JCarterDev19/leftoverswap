@@ -64,6 +64,7 @@
 		083D473717D7FB310081FE4B /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D470C17D7FB310081FE4B /* UIView+AnimationOptionsForCurve.m */; };
 		083D474017DD2C670081FE4B /* LSNewConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D473F17DD2C670081FE4B /* LSNewConversationViewController.m */; };
 		083D474317DD31CA0081FE4B /* LSConversationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D474217DD31CA0081FE4B /* LSConversationHeader.m */; };
+		083D474817DF964C0081FE4B /* PFObject+Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D474717DF964C0081FE4B /* PFObject+Conversation.m */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
@@ -214,6 +215,8 @@
 		083D473F17DD2C670081FE4B /* LSNewConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSNewConversationViewController.m; sourceTree = "<group>"; };
 		083D474117DD31CA0081FE4B /* LSConversationHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationHeader.h; sourceTree = "<group>"; };
 		083D474217DD31CA0081FE4B /* LSConversationHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationHeader.m; sourceTree = "<group>"; };
+		083D474617DF964B0081FE4B /* PFObject+Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Conversation.h"; sourceTree = "<group>"; };
+		083D474717DF964C0081FE4B /* PFObject+Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Conversation.m"; sourceTree = "<group>"; };
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
 		08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostDetailViewController.xib; sourceTree = "<group>"; };
@@ -625,6 +628,8 @@
 				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
 				08E05CEA17D7A53800393A3D /* PFUser+PrivateChannelName.h */,
 				08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */,
+				083D474617DF964B0081FE4B /* PFObject+Conversation.h */,
+				083D474717DF964C0081FE4B /* PFObject+Conversation.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -902,6 +907,7 @@
 				5D77659717D8242500F34A02 /* LSCameraOverlayRect.m in Sources */,
 				083D474017DD2C670081FE4B /* LSNewConversationViewController.m in Sources */,
 				083D474317DD31CA0081FE4B /* LSConversationHeader.m in Sources */,
+				083D474817DF964C0081FE4B /* PFObject+Conversation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

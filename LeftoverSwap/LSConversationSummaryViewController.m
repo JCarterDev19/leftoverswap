@@ -10,6 +10,13 @@
 #import "LSConversationSummaryCell.h"
 #import "LSConstants.h"
 #import "LSConversationViewController.h"
+#import "PFObject+Conversation.h"
+
+@interface LSConversationSummaryViewController ()
+
+@property (nonatomic) BOOL needsReload;
+
+@end
 
 @implementation LSConversationSummaryViewController
 
@@ -26,15 +33,25 @@
     self.parseClassName = kConversationClassKey;
     self.pullToRefreshEnabled = NO;
     self.paginationEnabled = NO;
+    self.needsReload = NO;
   }
   return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [self loadObjects];
+//  if (self.needsReload) {
+//    self.needsReload = NO;
+//    
+//  }
 }
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return 44;
+  return 60;
 }
 
 #pragma mark - PFQueryTableViewController
@@ -71,15 +88,6 @@
   if (self.objects.count == 0 && ![[self queryForTable] hasCachedResult]) {
     self.tableView.scrollEnabled = NO;
     self.navigationController.tabBarItem.badgeValue = nil;
-    
-    //        if (!self.blankTimelineView.superview) {
-    //            self.blankTimelineView.alpha = 0.0f;
-    //            self.tableView.tableHeaderView = self.blankTimelineView;
-    //
-    //            [UIView animateWithDuration:0.200f animations:^{
-    //                self.blankTimelineView.alpha = 1.0f;
-    //            }];
-    //        }
   } else {
     self.tableView.tableHeaderView = nil;
     self.tableView.scrollEnabled = YES;
@@ -102,8 +110,9 @@
   if (cell == nil) {
     cell = [[LSConversationSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 //    [cell setDelegate:self];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
   }
+  
+  cell.conversation = object;
   
   //  [cell setActivity:object];
   
@@ -117,6 +126,28 @@
 //  [cell hideSeparator:(indexPath.row == self.objects.count - 1)];
   
   return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  PFObject *conversation = self.objects[indexPath.row];
+  PFObject *recipient = [conversation recipient];
+  PFQuery *query = [self queryForRecipient:recipient];
+//  query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+  
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
+  conversationViewController.recipient = recipient;
+  conversationViewController.post = [conversation objectForKey:kConversationPostKey];
+  
+  // This should never block, as we get into this state only by viewing previous screens
+  [query findObjectsInBackgroundWithBlock:^(NSArray *previousConversations, NSError *error) {
+    if (!error) {
+      conversationViewController.conversations = [NSMutableArray arrayWithArray:previousConversations];
+    }
+  }];
+
+  conversationViewController.hidesBottomBarWhenPushed = YES;
+  [self.navigationController pushViewController:conversationViewController animated:YES];
 }
 
 #pragma mark - LSConversationCellDelegate Methods
@@ -144,22 +175,8 @@
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
   PFObject *toUser = [post objectForKey:kPostUserKey];
+  PFQuery *query = [self queryForRecipient:toUser];
   
-  PFQuery *toUserQuery = [PFQuery queryWithClassName:self.parseClassName];
-  [toUserQuery whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
-  [toUserQuery whereKey:kConversationFromUserKey equalTo:toUser];
-  
-  PFQuery *fromUserQuery = [PFQuery queryWithClassName:self.parseClassName];
-  [fromUserQuery whereKey:kConversationFromUserKey equalTo:[PFUser currentUser]];
-  [fromUserQuery whereKey:kConversationToUserKey equalTo:toUser];
-  
-  PFQuery *query = [PFQuery orQueryWithSubqueries:@[toUserQuery, fromUserQuery]];
-  
-  [query includeKey:kConversationFromUserKey];
-  [query includeKey:kConversationToUserKey];
-  [query includeKey:kConversationPostKey];
-  
-  [query orderByDescending:@"createdAt"];
   query.cachePolicy = kPFCachePolicyCacheElseNetwork;
 
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
@@ -174,8 +191,30 @@
     }
   }];
   
+  self.needsReload = YES;
+  
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:NO];
+}
+
+- (PFQuery*)queryForRecipient:(PFObject*)recipient
+{
+  PFQuery *toUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [toUserQuery whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
+  [toUserQuery whereKey:kConversationFromUserKey equalTo:recipient];
+  
+  PFQuery *fromUserQuery = [PFQuery queryWithClassName:self.parseClassName];
+  [fromUserQuery whereKey:kConversationFromUserKey equalTo:[PFUser currentUser]];
+  [fromUserQuery whereKey:kConversationToUserKey equalTo:recipient];
+  
+  PFQuery *query = [PFQuery orQueryWithSubqueries:@[toUserQuery, fromUserQuery]];
+  
+  [query includeKey:kConversationFromUserKey];
+  [query includeKey:kConversationToUserKey];
+  [query includeKey:kConversationPostKey];
+  
+  [query orderByDescending:@"createdAt"];
+  return query;
 }
 
 @end
