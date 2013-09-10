@@ -103,6 +103,8 @@
 
 - (void)addMessage:(NSString*)text withPost:(PFObject*)post
 {
+  self.post = post;
+
   PFObject *newConversation = [self conversationForMessage:text];
   [newConversation setObject:post forKey:kConversationPostKey];
   [self.conversations addObject:newConversation];
