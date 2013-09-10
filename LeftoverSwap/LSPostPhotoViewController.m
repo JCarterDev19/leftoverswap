@@ -114,6 +114,12 @@
   return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+  
+  NSUInteger newLength = [textField.text length] + [string length] - range.length;
+  return (newLength > 33) ? NO : YES;
+}
+
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
@@ -292,5 +298,6 @@
     return nil;
   }
 }
+
 
 @end
