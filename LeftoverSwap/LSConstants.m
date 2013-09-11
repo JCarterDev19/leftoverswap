@@ -25,6 +25,7 @@ NSString *const kPostUserKey = @"user";
 NSString *const kPostTitleKey = @"title";
 NSString *const kPostDescriptionKey = @"description";
 NSString *const kPostLocationKey = @"location";
+NSString *const kPostTakenKey = @"taken";
 
 #pragma mark - PFObject Comment Class
 // Class key

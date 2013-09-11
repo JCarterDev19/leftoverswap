@@ -10,6 +10,7 @@
 #import "LSConstants.h"
 #import "TTTTimeIntervalFormatter.h"
 #import "LSTabBarController.h"
+#import "PFObject+Utilities.h"
 
 @interface LSPostDetailViewController ()
 
@@ -18,6 +19,8 @@
 @property (nonatomic) IBOutlet UILabel *sellerLabel;
 @property (nonatomic) IBOutlet UILabel *postDateLabel;
 @property (nonatomic) IBOutlet UITextView *description;
+@property (nonatomic) IBOutlet UIButton *contactButton;
+@property (nonatomic) IBOutlet UIBarButtonItem *contactBarButtonItem;
 
 @property (nonatomic) PFObject *post;
 @property (nonatomic) PFUser *seller;
@@ -64,6 +67,11 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
+  if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+    [self.contactButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
+    [self.contactBarButtonItem setTitle:@"Mark as taken"];
+  }
+
   self.imageView.backgroundColor = [UIColor clearColor];
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
   self.imageView.file = [self.post objectForKey:kPostImageKey];
@@ -80,8 +88,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
     NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
   
-  self.postDateLabel.text = [NSString stringWithFormat:@"about %@", postDate];
-    
+//  self.postDateLabel.text = [NSString stringWithFormat:@"about %@", postDate];
+  
     [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
     self.sellerLabel.text = [NSString stringWithFormat:@" Posted by %@ about %@", name, postDate];
@@ -100,8 +108,13 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)contact:(id)sender
 {
-  if (self.delegate)
-    [self.delegate postDetailControllerDidContact:self forPost:self.post];
+  if (self.delegate) {
+    if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+      [self.delegate postDetailControllerDidMarkAsTaken:self forPost:self.post];
+    } else {
+      [self.delegate postDetailControllerDidContact:self forPost:self.post];
+    }
+  }
 }
 
 @end

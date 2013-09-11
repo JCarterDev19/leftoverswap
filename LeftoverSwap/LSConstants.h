@@ -23,6 +23,7 @@ extern NSString *const kPostUserKey;
 extern NSString *const kPostTitleKey;
 extern NSString *const kPostDescriptionKey;
 extern NSString *const kPostLocationKey;
+extern NSString *const kPostTakenKey;
 
 #pragma mark - PFObject Conversation Class
 // Class key

@@ -13,6 +13,7 @@
 
 @protocol LSPostDetailDelegate <NSObject>
 
+- (void)postDetailControllerDidMarkAsTaken:(LSPostDetailViewController*)postDetailController forPost:(PFObject*)post;
 - (void)postDetailControllerDidContact:(LSPostDetailViewController *)postDetailController forPost:(PFObject*)post;
 
 @end
