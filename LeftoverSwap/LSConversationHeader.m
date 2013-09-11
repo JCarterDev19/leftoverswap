@@ -52,11 +52,11 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
 - (void)setPost:(PFObject *)post
 {
   _post = post;
-  
-  if ([[self.post objectForKey:kPostUserKey] isCurrentUser])
-    self.state = LSConversationHeaderStateSeller;
-  else if ([[self.post objectForKey:kPostTakenKey] boolValue])
+
+  if ([[self.post objectForKey:kPostTakenKey] boolValue])
     self.state = LSConversationHeaderStateTaken;
+  else if ([[self.post objectForKey:kPostUserKey] isCurrentUser])
+    self.state = LSConversationHeaderStateSeller;
   
   [self setViewsForState:self.state];
 
@@ -66,11 +66,21 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
 - (void)markAsTaken:(id)sender
 {
   [self.post setObject:@(YES) forKey:kPostTakenKey];
+
+  self.state = LSConversationHeaderStateTaken;
+  [self setViewsForState:self.state];
+
   [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (succeeded) {
       NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
-      self.state = LSConversationHeaderStateTaken;
-      [self setViewsForState:self.state];
+    } else {
+      [self.post setObject:@(NO) forKey:kPostTakenKey];
+      if ([[self.post objectForKey:kPostUserKey] isCurrentUser])
+        self.state = LSConversationHeaderStateSeller;
+      else
+        self.state = LSConversationHeaderStateDefault;
+
+      [self setViewsForState:self.state];      
     }
   }];
 }
@@ -94,20 +104,25 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
       
       takenButton = [UIButton buttonWithType:UIButtonTypeCustom];
       [takenButton addTarget:self action:@selector(markAsTaken:) forControlEvents:UIControlEventTouchUpInside];
+      takenButton.backgroundColor = [UIColor whiteColor];
+      [takenButton setTitleColor:[UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000] forState:UIControlStateNormal];
+      [takenButton setTitleColor:[UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000] forState:UIControlStateHighlighted];
+      [takenButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
       takenButton.frame = CGRectMake(198, 12, 112, 26);
       takenButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
-      takenButton.titleLabel.textColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
-      takenButton.titleLabel.text = @"Mark as taken";
-      takenButton.titleLabel.backgroundColor = [UIColor clearColor];
+//      takenButton.titleLabel.textColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+//      takenButton.titleLabel.text = @"Mark as taken";
+//      takenButton.titleLabel.backgroundColor = [UIColor clearColor];
       [self addSubview:takenButton];
       
       break;
     case LSConversationHeaderStateTaken:
       
-      takenLabel = [[UILabel alloc] initWithFrame:CGRectMake(262, 13, 47, 26)];
-      takenLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
+      takenLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 13, 50, 25)];
+      takenLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:17];
       takenLabel.textColor = [UIColor colorWithWhite:0.537 alpha:1.000];
       takenLabel.text = @"Taken";
+      takenLabel.textAlignment = NSTextAlignmentRight;
       takenLabel.backgroundColor = [UIColor clearColor];
       [self addSubview:takenLabel];
       

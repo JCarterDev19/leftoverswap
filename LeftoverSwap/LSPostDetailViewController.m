@@ -67,12 +67,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
-  if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
-    [self.contactButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
-    self.contactButton.backgroundColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
-    self.contactBarButtonItem.title = @"Mark as taken";
-    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
-  }
+  [self setContactButtonView];
 
   self.imageView.backgroundColor = [UIColor clearColor];
   self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -110,12 +105,43 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)contact:(id)sender
 {
-  if (self.delegate) {
-    if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+  if ([[self.post objectForKey:kPostTakenKey] boolValue]) {
+    return;
+  } else if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+    [self.post setObject:@(YES) forKey:kPostTakenKey];
+    [self setContactButtonView];
+    [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+      if (succeeded) {
+        NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
+      } else {
+        [self.post setObject:@(NO) forKey:kPostTakenKey];
+        [self setContactButtonView];
+      }
+    }];
+    if (self.delegate)
       [self.delegate postDetailControllerDidMarkAsTaken:self forPost:self.post];
-    } else {
+  } else {
+    if (self.delegate)
       [self.delegate postDetailControllerDidContact:self forPost:self.post];
-    }
+  }
+}
+
+- (void)setContactButtonView
+{
+  if ([[self.post objectForKey:kPostTakenKey] boolValue]) {
+    [self.contactButton setTitle:@"Taken" forState:UIControlStateNormal];
+    self.contactButton.backgroundColor = [UIColor colorWithWhite:0.537 alpha:1.000];
+    self.navigationItem.rightBarButtonItem = nil;
+//    self.contactBarButtonItem.title = @"Taken";
+//    self.contactBarButtonItem.tintColor = [UIColor colorWithWhite:0.537 alpha:1.000];
+  } else if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+    [self.contactButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
+    self.contactButton.backgroundColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+    
+    // re-add this, as we could've removed it previously
+    self.navigationItem.rightBarButtonItem = self.contactBarButtonItem;
+    self.contactBarButtonItem.title = @"Mark as taken";
+    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
   }
 }
 

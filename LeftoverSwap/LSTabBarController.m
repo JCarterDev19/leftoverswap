@@ -130,8 +130,6 @@
 
 - (void)postDetailControllerDidMarkAsTaken:(LSPostDetailViewController *)postDetailController forPost:(PFObject *)post
 {
-  [post setObject:@(YES) forKey:kPostTakenKey];
-  // TODO: alert others in a conversation that this item is taken
 }
 
 @end

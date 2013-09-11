@@ -309,6 +309,22 @@
 					<int key="connectionID">569</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">contactBarButtonItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="557902302"/>
+					</object>
+					<int key="connectionID">570</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">navigationItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="331810083"/>
+					</object>
+					<int key="connectionID">571</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">contact:</string>
 						<reference key="source" ref="988567752"/>
@@ -1169,7 +1185,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">569</int>
+			<int key="maxID">571</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

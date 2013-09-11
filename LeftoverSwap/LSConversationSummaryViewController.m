@@ -38,7 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   if (self.needsReload) {
-    self.needsReload = NO;
+//    self.needsReload = NO;
     [[self queryForTable] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
       self.summarizedObjects = [self partitionConversationsByRecipient:objects];
       [self.tableView reloadData];
