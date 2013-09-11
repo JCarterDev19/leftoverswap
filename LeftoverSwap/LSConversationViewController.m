@@ -35,6 +35,7 @@
 
 @interface LSConversationViewController ()
 
+@property (nonatomic) NSMutableArray *conversations; /* PFObject */
 @property (nonatomic) LSConversationHeader *header;
 
 @end
@@ -42,6 +43,20 @@
 @implementation LSConversationViewController
 
 #pragma mark - Initialization
+
+- initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post
+{
+  self = [super init];
+  if (self) {
+    // Ensure proper sorting for conversations
+    self.conversations = [NSMutableArray arrayWithArray:[conversations sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+      return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
+    }]];
+    self.post = post;
+    self.recipient = recipient;
+  }
+  return self;
+}
 
 - (UIButton *)sendButton
 {
@@ -65,13 +80,6 @@
 //  self.navigationItem.title = @"New Conversation";
 //  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed:)];
 //  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(postPressed:)];
-}
-
-- (void)setConversations:(NSMutableArray *)conversations
-{
-  _conversations = conversations;
-  [self.tableView reloadData];
-  [self scrollToBottomAnimated:NO];
 }
 
 - (void)setPost:(PFObject *)post
@@ -105,12 +113,12 @@
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
     NSLog(@"Sent message for post %@ and text %@", [self.post objectId], text);
+    
+    if (self.conversationDelegate)
+      [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
   [self.tableView reloadData];
   [self scrollToBottomAnimated:NO];
-  
-  if (self.conversationDelegate)
-    [self.conversationDelegate conversationController:self didAddConversation:newConversation];
 }
 
 #pragma mark - Table view data source

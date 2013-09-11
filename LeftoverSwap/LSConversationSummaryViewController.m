@@ -14,6 +14,7 @@
 
 @interface LSConversationSummaryViewController ()
 
+@property (nonatomic) NSDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
 @property (nonatomic) BOOL needsReload;
 
@@ -37,10 +38,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  PFQuery *query = [self queryForTable];
   if (self.needsReload) {
-//    self.needsReload = NO;
-    [[self queryForTable] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-      self.summarizedObjects = [self partitionConversationsByRecipient:objects];
+    self.needsReload = NO;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+      [self partitionConversationsByRecipient:objects];
       [self.tableView reloadData];
     }];
   }
@@ -57,21 +60,9 @@
 {
   PFObject *conversation = self.summarizedObjects[indexPath.row][0];
   PFObject *recipient = [conversation recipient];
-  PFQuery *query = [self queryForRecipient:recipient];
-  //  query.cachePolicy = kPFCachePolicyCacheElseNetwork;
   
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:[conversation objectForKey:kConversationPostKey]];
   conversationViewController.conversationDelegate = self;
-  conversationViewController.recipient = recipient;
-  conversationViewController.post = [conversation objectForKey:kConversationPostKey];
-  
-  // This should never block, as we get into this state only by viewing previous screens
-  [query findObjectsInBackgroundWithBlock:^(NSArray *previousConversations, NSError *error) {
-    if (!error) {
-      conversationViewController.conversations = [NSMutableArray arrayWithArray:previousConversations];
-    }
-  }];
-  
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:YES];
 }
@@ -119,7 +110,7 @@
   [query includeKey:kConversationPostKey];
   
   [query orderByDescending:@"createdAt"];
-  
+
   return query;
 }
 
@@ -127,58 +118,31 @@
 
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
-  PFObject *toUser = [post objectForKey:kPostUserKey];
-  PFQuery *query = [self queryForRecipient:toUser];
-  
-  query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+  PFObject *recipient = [post objectForKey:kPostUserKey];
 
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] init];
+  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:post];
   conversationViewController.conversationDelegate = self;
-  conversationViewController.recipient = toUser;
-  conversationViewController.post = post;
-
-  // This should never block, as we get into this state only by viewing previous screens
-  [query findObjectsInBackgroundWithBlock:^(NSArray *previousConversations, NSError *error) {
-    if (!error) {
-      conversationViewController.conversations = [NSMutableArray arrayWithArray:previousConversations];
-      [conversationViewController addMessage:text];
-    }
-  }];
-
   conversationViewController.hidesBottomBarWhenPushed = YES;
   [self.navigationController pushViewController:conversationViewController animated:NO];
+  [conversationViewController addMessage:text];
 }
 
 #pragma mark - LSConversationControllerDelegate
 
 - (void)conversationController:(LSConversationViewController *)conversationController didAddConversation:(PFObject *)conversation
 {
-  self.needsReload = YES;
+  [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
+  [self.tableView reloadData];
 }
 
 #pragma mark - Private methods
 
-- (PFQuery*)queryForRecipient:(PFObject*)recipient
+- (NSMutableArray*)conversationsForRecipient:(PFObject*)recipient
 {
-  PFQuery *toUserQuery = [PFQuery queryWithClassName:kConversationClassKey];
-  [toUserQuery whereKey:kConversationToUserKey equalTo:[PFUser currentUser]];
-  [toUserQuery whereKey:kConversationFromUserKey equalTo:recipient];
-  
-  PFQuery *fromUserQuery = [PFQuery queryWithClassName:kConversationClassKey];
-  [fromUserQuery whereKey:kConversationFromUserKey equalTo:[PFUser currentUser]];
-  [fromUserQuery whereKey:kConversationToUserKey equalTo:recipient];
-  
-  PFQuery *query = [PFQuery orQueryWithSubqueries:@[toUserQuery, fromUserQuery]];
-  
-  [query includeKey:kConversationFromUserKey];
-  [query includeKey:kConversationToUserKey];
-  [query includeKey:kConversationPostKey];
-  
-  [query orderByAscending:@"createdAt"];
-  return query;
+  return self.recipientConversations[[recipient objectId]];
 }
 
-- (NSArray*)partitionConversationsByRecipient:(NSArray*)conversations
+- (void)partitionConversationsByRecipient:(NSArray*)conversations
 {
   NSMutableDictionary *recipientConversations = [NSMutableDictionary dictionary];
   for (PFObject* conversation in conversations) {
@@ -188,8 +152,10 @@
       recipientConversations[recipientId] = conversationsForRecipient = [NSMutableArray array];
     [conversationsForRecipient addObject:conversation];
   }
+  self.recipientConversations = recipientConversations;
+  
   // Ensure all results are sorted by recency
-  return [[recipientConversations allValues] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+  self.summarizedObjects = [[recipientConversations allValues] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
     return [[(PFObject*)((NSArray*)obj2[0]) createdAt] compare:[(PFObject*)((NSArray*)obj1[0]) createdAt]];
   }];
 }
