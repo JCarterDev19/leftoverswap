@@ -182,7 +182,10 @@
 
 - (NSDate *)timestampForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  return [self.conversations[indexPath.row] createdAt];
+  NSDate *conversationDate = [self.conversations[indexPath.row] createdAt];
+  if (!conversationDate)
+    conversationDate = [NSDate date];
+  return conversationDate;
 }
 
 - (UIImage *)avatarImageForIncomingMessage
