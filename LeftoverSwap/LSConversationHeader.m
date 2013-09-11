@@ -10,31 +10,18 @@
 #import <Parse/Parse.h>
 #import "LSConstants.h"
 #import "UIImage+RoundedCornerAdditions.h"
+#import "PFObject+Utilities.h"
 
-#define baseHorizontalOffset 20
-#define baseWidth 280
-
-#define horiBorderSpacing 6
-#define horiMediumSpacing 8
-
-#define vertBorderSpacing 6
-#define vertSmallSpacing 2
-
-#define imageX horiBorderSpacing
-#define imageY vertBorderSpacing
-#define imageDim 35
-
-#define titleLabelX imageX+imageDim+horiMediumSpacing
-#define titleLabelY vertBorderSpacing
-#define titleLabelMaxWidth baseWidth - (horiBorderSpacing+imageDim+horiMediumSpacing+horiBorderSpacing)
-#define titleLabelHeight 21
-
-#define descriptionLabelX titleLabelX
-#define descriptionLabelY titleLabelHeight+vertSmallSpacing
-#define descriptionMaxWidth titleLabelMaxWidth
-#define descriptionLabelHeight 22
+typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
+  LSConversationHeaderStateDefault,
+  LSConversationHeaderStateSeller,
+  LSConversationHeaderStateTaken
+};
 
 @interface LSConversationHeader ()
+
+@property (nonatomic) PFImageView *imageView;
+@property (nonatomic) LSConversationHeaderState state;
 
 @end
 
@@ -45,6 +32,7 @@
     self = [super initWithFrame:frame];
     if (self) {
       self.backgroundColor = [UIColor whiteColor];
+      self.state = LSConversationHeaderStateDefault;
 
 //      NSString *timeString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
 //      CGSize timeLabelSize = [timeString sizeWithFont:[UIFont systemFontOfSize:11] constrainedToSize:CGSizeMake(nameLabelMaxWidth, CGFLOAT_MAX) lineBreakMode:UILineBreakModeTailTruncation];
@@ -64,33 +52,93 @@
 - (void)setPost:(PFObject *)post
 {
   _post = post;
+  
+  if ([[self.post objectForKey:kPostUserKey] isCurrentUser])
+    self.state = LSConversationHeaderStateSeller;
+  else if ([[self.post objectForKey:kPostTakenKey] boolValue])
+    self.state = LSConversationHeaderStateTaken;
+  
+  [self setViewsForState:self.state];
 
-  UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelMaxWidth, titleLabelHeight)];
-  titleLabel.font = [UIFont boldSystemFontOfSize:17];
+  [self setNeedsDisplay];
+}
+
+- (void)markAsTaken:(id)sender
+{
+  [self.post setObject:@(YES) forKey:kPostTakenKey];
+  [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (succeeded) {
+      NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
+      self.state = LSConversationHeaderStateTaken;
+      [self setViewsForState:self.state];
+    }
+  }];
+}
+
+- (void)setViewsForState:(LSConversationHeaderState)state
+{
+  for(UIView *subview in [self subviews]) {
+    [subview removeFromSuperview];
+  }
+  
+  CGFloat labelMaxWidth = 200;
+  
+  UIButton *takenButton;
+  UILabel *takenLabel;
+  
+  switch (state) {
+    case LSConversationHeaderStateDefault:
+      break;
+    case LSConversationHeaderStateSeller:
+      labelMaxWidth = 150;
+      
+      takenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+      [takenButton addTarget:self action:@selector(markAsTaken:) forControlEvents:UIControlEventTouchUpInside];
+      takenButton.frame = CGRectMake(198, 12, 112, 26);
+      takenButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
+      takenButton.titleLabel.textColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
+      takenButton.titleLabel.text = @"Mark as taken";
+      takenButton.titleLabel.backgroundColor = [UIColor clearColor];
+      [self addSubview:takenButton];
+      
+      break;
+    case LSConversationHeaderStateTaken:
+      
+      takenLabel = [[UILabel alloc] initWithFrame:CGRectMake(262, 13, 47, 26)];
+      takenLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
+      takenLabel.textColor = [UIColor colorWithWhite:0.537 alpha:1.000];
+      takenLabel.text = @"Taken";
+      takenLabel.backgroundColor = [UIColor clearColor];
+      [self addSubview:takenLabel];
+      
+      break;
+  }
+  
+  UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(49, 6, labelMaxWidth, 18)];
+  titleLabel.font = [UIFont boldSystemFontOfSize:15];
   titleLabel.textColor = [UIColor blackColor];
   titleLabel.text = [self.post objectForKey:kPostTitleKey];
   titleLabel.numberOfLines = 1;
   titleLabel.backgroundColor = [UIColor clearColor];
   [self addSubview:titleLabel];
   
-  NSString *descriptionString = [self.post objectForKey:kPostDescriptionKey];
-  UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(descriptionLabelX, descriptionLabelY, descriptionMaxWidth, descriptionLabelHeight)];
-  descriptionLabel.text = descriptionString;
+  UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(49, 26, labelMaxWidth, 14)];
+  descriptionLabel.text = [self.post objectForKey:kPostDescriptionKey];
   descriptionLabel.font = [UIFont systemFontOfSize:12];
   descriptionLabel.textColor = [UIColor blackColor];
   descriptionLabel.numberOfLines = 1;
   descriptionLabel.backgroundColor = [UIColor clearColor];
   [self addSubview:descriptionLabel];
   
-  PFImageView *imageView = [[PFImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDim, imageDim)];
-  imageView.file = [self.post objectForKey:kPostThumbnailKey];
-  imageView.contentMode = UIViewContentModeScaleAspectFit;
-  [imageView loadInBackground];
-  [self addSubview:imageView];
-  
-  [self setNeedsDisplay];
+  // For caching reasons, keep a reference to this so we only load once
+  if (!self.imageView) {
+    self.imageView = [[PFImageView alloc] initWithFrame:CGRectMake(8, 7, 35, 35)];
+    self.imageView.file = [self.post objectForKey:kPostThumbnailKey];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.imageView loadInBackground];
+  }
+  [self addSubview:self.imageView];
 }
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -69,7 +69,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
   
   if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
     [self.contactButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
-    [self.contactBarButtonItem setTitle:@"Mark as taken"];
+    self.contactButton.backgroundColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
+    self.contactBarButtonItem.title = @"Mark as taken";
+    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.929 green:0.110 blue:0.141 alpha:1];
   }
 
   self.imageView.backgroundColor = [UIColor clearColor];
