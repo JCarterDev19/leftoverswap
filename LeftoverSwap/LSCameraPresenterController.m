@@ -9,6 +9,8 @@
 #import "LSCameraPresenterController.h"
 #import "LSPostPhotoViewController.h"
 #import "LSCameraOverlayRect.h"
+#import "LSTabBarController.h"
+#import "LSMapViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -99,6 +101,7 @@
 
 - (void)postPhotoControllerDidFinishPosting:(LSPostPhotoViewController *)post
 {
+  self.tabBarController.selectedViewController = ((LSTabBarController*)self.tabBarController).mapViewController;
   [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 }
 

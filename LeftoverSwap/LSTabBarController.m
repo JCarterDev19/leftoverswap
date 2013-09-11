@@ -19,6 +19,7 @@
 
 @interface LSTabBarController ()
 
+@property (nonatomic) LSMapViewController *mapViewController;
 @property (nonatomic) LSCameraPresenterController *cameraController;
 @property (nonatomic) UINavigationController *conversationNavigationController;
 @property (nonatomic) LSConversationSummaryViewController *conversationSummaryController;
@@ -39,7 +40,7 @@
     // It makes sense, right?
     self.delegate = self;
 
-    LSMapViewController *mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
+    self.mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
     self.cameraController = [[LSCameraPresenterController alloc] init];
     
     self.conversationSummaryController = [[LSConversationSummaryViewController alloc] init];
@@ -47,7 +48,7 @@
 
     LSMeViewController *meController = [[LSMeViewController alloc] init];
     
-    self.viewControllers = @[mapViewController, cameraController, conversationNavigationController, meController];
+    self.viewControllers = @[self.mapViewController, self.cameraController, self.conversationNavigationController, meController];
   }
   return self;
 }

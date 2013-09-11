@@ -47,6 +47,8 @@
       [self.tableView reloadData];
     }];
   }
+  // Need to refresh timestamps
+  [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate

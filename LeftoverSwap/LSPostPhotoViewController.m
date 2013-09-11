@@ -262,8 +262,6 @@
   }];
 
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidFinishPosting:)]) {
-
-
     [delegate postPhotoControllerDidFinishPosting:self];
   }
 }

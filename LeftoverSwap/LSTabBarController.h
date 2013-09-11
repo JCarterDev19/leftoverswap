@@ -12,9 +12,11 @@
 #import "LSNewConversationViewController.h"
 #import "LSPostDetailViewController.h"
 
-@class PFObject;
+@class PFObject, LSMapViewController;
 
 @interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, LSWelcomeControllerDelegate, UITabBarControllerDelegate, LSNewConversationDelegate, LSPostDetailDelegate>
+
+@property (nonatomic, readonly) LSMapViewController *mapViewController;
 
 - (void)presentSignInView;
 - (void)presentWelcomeView;
