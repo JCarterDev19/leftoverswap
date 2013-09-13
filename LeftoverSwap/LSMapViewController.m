@@ -207,6 +207,7 @@
 	// Query for posts sort of kind of near our current location.
 	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:location.latitude longitude:location.longitude];
 	[query whereKey:kPostLocationKey nearGeoPoint:point withinKilometers:100];
+  [query whereKey:kPostTakenKey notEqualTo:@(YES)]; // exclude taken posts
 	[query includeKey:kPostUserKey];
 	query.limit = kPostLimit;
 

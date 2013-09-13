@@ -64,7 +64,6 @@
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     cameraUI.showsCameraControls = YES;
     cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
-
     
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
       cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
@@ -89,7 +88,12 @@
   
   self.imagePickerController = cameraUI;
 
-  [self.tabBarController presentViewController:imagePickerController animated:YES completion:nil];
+  cameraUI.cameraOverlayView.alpha = 0;
+  [self.tabBarController presentViewController:imagePickerController animated:YES completion:^{
+    [UIView animateWithDuration:2 animations:^{
+      cameraUI.cameraOverlayView.alpha = 1;
+    }];
+  }];
 }
 
 #pragma mark - LSPostPhotoViewControllerDelegate

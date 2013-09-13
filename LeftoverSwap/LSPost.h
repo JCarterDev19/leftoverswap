@@ -38,8 +38,6 @@ extern NSString *const kCantViewPostTitle;
 - (void)setupAnnotationView:(MKPinAnnotationView*)pinView;
 - (UIViewController*)viewControllerForPost;
 
-// Designated initializer.
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate andTitle:(NSString *)title andSubtitle:(NSString *)subtitle;
 - (id)initWithPFObject:(PFObject *)object;
 - (BOOL)equalToPost:(LSPost *)aPost;
 

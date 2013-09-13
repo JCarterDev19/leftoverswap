@@ -20,7 +20,7 @@
 @property (nonatomic) IBOutlet UILabel *postDateLabel;
 @property (nonatomic) IBOutlet UITextView *description;
 @property (nonatomic) IBOutlet UIButton *contactButton;
-@property (nonatomic) IBOutlet UIBarButtonItem *contactBarButtonItem;
+//@property (nonatomic) IBOutlet UIBarButtonItem *contactBarButtonItem;
 
 @property (nonatomic) PFObject *post;
 @property (nonatomic) PFUser *seller;
@@ -131,7 +131,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
   if ([[self.post objectForKey:kPostTakenKey] boolValue]) {
     [self.contactButton setTitle:@"Taken" forState:UIControlStateNormal];
     self.contactButton.backgroundColor = [UIColor colorWithWhite:0.537 alpha:1.000];
-    self.navigationItem.rightBarButtonItem = nil;
+//    self.navigationItem.rightBarButtonItem = nil;
 //    self.contactBarButtonItem.title = @"Taken";
 //    self.contactBarButtonItem.tintColor = [UIColor colorWithWhite:0.537 alpha:1.000];
   } else if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
@@ -139,9 +139,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     self.contactButton.backgroundColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
     
     // re-add this, as we could've removed it previously
-    self.navigationItem.rightBarButtonItem = self.contactBarButtonItem;
-    self.contactBarButtonItem.title = @"Mark as taken";
-    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+//    self.navigationItem.rightBarButtonItem = self.contactBarButtonItem;
+//    self.contactBarButtonItem.title = @"Mark as taken";
+//    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
   }
 }
 

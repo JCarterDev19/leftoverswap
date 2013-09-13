@@ -31,29 +31,21 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 
 @implementation LSPost
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate andTitle:(NSString *)aTitle andSubtitle:(NSString *)aSubtitle {
-	self = [super init];
-	if (self) {
-		self.coordinate = aCoordinate;
-		self.title = aTitle;
-		self.subtitle = aSubtitle;
-		self.animatesDrop = NO;
-    self.pinColor = MKPinAnnotationColorGreen;
-	}
-	return self;
-}
-
 - (id)initWithPFObject:(PFObject *)anObject {
-	self.object = anObject;
-	self.geopoint = [anObject objectForKey:kPostLocationKey];
-	self.user = [anObject objectForKey:kPostUserKey];
+  self = [super init];
+	if (self) {
+    self.object = anObject;
+    self.geopoint = [anObject objectForKey:kPostLocationKey];
+    self.user = [anObject objectForKey:kPostUserKey];
 
-	[anObject fetchIfNeeded]; 
-	CLLocationCoordinate2D aCoordinate = CLLocationCoordinate2DMake(self.geopoint.latitude, self.geopoint.longitude);
-	NSString *aTitle = [anObject objectForKey:kPostTitleKey];
-	NSString *aSubtitle = [anObject objectForKey:kPostDescriptionKey];
-
-	return [self initWithCoordinate:aCoordinate andTitle:aTitle andSubtitle:aSubtitle];
+    [anObject fetchIfNeeded]; 
+    self.coordinate = CLLocationCoordinate2DMake(self.geopoint.latitude, self.geopoint.longitude);
+    self.title = [anObject objectForKey:kPostTitleKey];
+    self.subtitle = [anObject objectForKey:kPostDescriptionKey];
+    self.animatesDrop = NO;
+    self.pinColor = [[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]] ? MKPinAnnotationColorRed : MKPinAnnotationColorGreen;
+  }
+  return self;
 }
 
 - (BOOL)equalToPost:(LSPost *)aPost {

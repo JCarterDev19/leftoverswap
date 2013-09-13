@@ -15,13 +15,14 @@
   if ((self = [super initWithFrame:frame]))
   {
     self.opaque = NO;
-    setBackgroundColor:[UIColor clearColor];
+    [self setBackgroundColor:[UIColor clearColor]];    
   }
   return self;
 }
 
 - (void)drawRect:(CGRect)rect
-{ CGRect screenRect = [[UIScreen mainScreen] bounds];
+{
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenWidth = screenRect.size.width;
   CGFloat screenHeight = screenRect.size.height;
   CGRect rectangle = CGRectMake((screenWidth/6), (screenRect.origin.y + 50), (screenWidth-(screenWidth/3.0)), (screenHeight-(screenHeight/2.0)));
