@@ -168,7 +168,7 @@
 
 - (NSMutableArray*)conversationsForRecipient:(PFObject*)recipient
 {
-  return [self.recipientConversations[[recipient objectId]] mutableCopy];
+  return [self.recipientConversations[[recipient objectId]] copy];
 }
 
 - (void)partitionConversationsByRecipient:(NSArray*)conversations
