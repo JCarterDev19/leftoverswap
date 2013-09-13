@@ -47,8 +47,9 @@
     self.conversationNavigationController = [[UINavigationController alloc] initWithRootViewController:self.conversationSummaryController];
 
     LSMeViewController *meController = [[LSMeViewController alloc] init];
-    
-    self.viewControllers = @[self.mapViewController, self.cameraController, self.conversationNavigationController, meController];
+    UINavigationController *meNavigationController = [[UINavigationController alloc] initWithRootViewController:meController];
+
+    self.viewControllers = @[self.mapViewController, self.cameraController, self.conversationNavigationController, meNavigationController];
   }
   return self;
 }
