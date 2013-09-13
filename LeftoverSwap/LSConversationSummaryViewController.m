@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
+@property (nonatomic) LSConversationViewController *conversationController;
 
 @end
 
@@ -67,6 +68,7 @@
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:[conversation objectForKey:kConversationPostKey]];
   conversationViewController.conversationDelegate = self;
   conversationViewController.hidesBottomBarWhenPushed = YES;
+  self.conversationController = conversationViewController;
   [self.navigationController pushViewController:conversationViewController animated:YES];
 }
 
@@ -123,32 +125,27 @@
   query.cachePolicy = kPFCachePolicyCacheThenNetwork;
   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
     [self partitionConversationsByRecipient:objects];
+    
+    // If conversation controller exits, refresh its conversations at this point.
+    if (self.conversationController) {
+      self.conversationController.conversations = [self conversationsForRecipient:self.conversationController.recipient];
+    }
     [self.tableView reloadData];
   }];
 }
 
 #pragma mark - Instance methods
-//
-//- (void)presentConversationForPost:(PFObject*)post
-//{
-//  [self.navigationController pushViewController:[self conversationControllerForPost:post] animated:NO];
-//}
 
-- (LSConversationViewController*)conversationControllerForPost:(PFObject*)post
+- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
   PFObject *recipient = [post objectForKey:kPostUserKey];
   
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:post];
   conversationViewController.conversationDelegate = self;
   conversationViewController.hidesBottomBarWhenPushed = YES;
-  return conversationViewController;
-}
-
-- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
-{
-  LSConversationViewController *conversationController = [self conversationControllerForPost:post];
-  [self.navigationController pushViewController:conversationController animated:NO];
-  [conversationController addMessage:text];
+  self.conversationController = conversationViewController;
+  [self.navigationController pushViewController:conversationViewController animated:NO];
+  [conversationViewController addMessage:text];
 }
 
 #pragma mark - LSConversationControllerDelegate
@@ -161,6 +158,9 @@
 
 - (void)conversationCreated:(NSNotification*)notification
 {
+//  PFObject *conversation = notification.userInfo[@"c"];
+//  PFObject *recipient = [conversation objectForKey:kConversationToUserKey];
+//
   [self loadConversations];
 }
 
@@ -168,7 +168,7 @@
 
 - (NSMutableArray*)conversationsForRecipient:(PFObject*)recipient
 {
-  return self.recipientConversations[[recipient objectId]];
+  return [self.recipientConversations[[recipient objectId]] copy];
 }
 
 - (void)partitionConversationsByRecipient:(NSArray*)conversations

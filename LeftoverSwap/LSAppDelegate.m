@@ -54,17 +54,15 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
   
+  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
+
+  [self.window makeKeyAndVisible];
+  
   NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
   if (notificationPayload) {
     NSLog(@"notification payload received");
     [self application:application didReceiveRemoteNotification:notificationPayload];
-  }
-
-  [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
-
-  [self.window makeKeyAndVisible];
-
-  if (![PFUser currentUser]) {
+  } else if (![PFUser currentUser]) {
     [self.tabBarController presentSignInView];
   } else if ([self shouldDisplayWelcomeScreen]) {
     [self.tabBarController presentWelcomeView];
