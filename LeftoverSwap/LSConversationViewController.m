@@ -36,6 +36,7 @@
 
 @interface LSConversationViewController ()
 
+@property (nonatomic) NSMutableArray *conversations; /* PFObject */
 @property (nonatomic) LSConversationHeader *header;
 
 @end
@@ -44,27 +45,20 @@
 
 #pragma mark - Initialization
 
-- initWithConversations:(NSMutableArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post
+- initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post
 {
   self = [super init];
   if (self) {
     // Ensure proper sorting for conversations
-    self.conversations = conversations;
+    self.conversations = [NSMutableArray arrayWithArray:[conversations sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+      return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
+    }]];
     self.post = post;
     self.recipient = recipient;
     
     self.title = [recipient objectForKey:kUserDisplayNameKey];
   }
   return self;
-}
-
-- (void)setConversations:(NSMutableArray*)conversations
-{
-  [conversations sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-    return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
-  }];
-  _conversations = conversations;
-  [self.tableView reloadData];
 }
 
 - (UIButton *)sendButton
