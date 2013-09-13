@@ -51,7 +51,7 @@
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Terms" style:UIBarButtonItemStyleBordered target:self action:@selector(termsOfService:)];
 
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
-  self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+//  self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
 }
 
 #pragma mark - Table dataSource methods

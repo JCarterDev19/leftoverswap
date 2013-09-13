@@ -7,6 +7,7 @@
 //
 
 #import "LSConversationHeader.h"
+
 #import <Parse/Parse.h>
 #import "LSConstants.h"
 #import "UIImage+RoundedCornerAdditions.h"
@@ -102,16 +103,19 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
     case LSConversationHeaderStateDefault:
       break;
     case LSConversationHeaderStateSeller:
-      labelMaxWidth = 150;
+      labelMaxWidth = 140;
       
       takenButton = [UIButton buttonWithType:UIButtonTypeCustom];
       [takenButton addTarget:self action:@selector(markAsTaken:) forControlEvents:UIControlEventTouchUpInside];
       takenButton.backgroundColor = [UIColor whiteColor];
       [takenButton setTitleColor:[UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000] forState:UIControlStateNormal];
       [takenButton setTitleColor:[UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000] forState:UIControlStateHighlighted];
+//      [takenButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 1, 1)];
+//      [takenButton.layer setBorderColor:[UIColor colorWithWhite:0.797 alpha:1.000].CGColor];
+//      [takenButton.layer setBorderWidth:1];
       [takenButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
-      takenButton.frame = CGRectMake(198, 12, 112, 26);
-      takenButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
+      takenButton.frame = CGRectMake(190, 12, 120, 26);
+      takenButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
 //      takenButton.titleLabel.textColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
 //      takenButton.titleLabel.text = @"Mark as taken";
 //      takenButton.titleLabel.backgroundColor = [UIColor clearColor];
