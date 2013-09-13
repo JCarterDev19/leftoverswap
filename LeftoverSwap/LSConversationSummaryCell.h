@@ -19,6 +19,8 @@
 
 @interface LSConversationSummaryCell : UITableViewCell
 
++ (NSInteger)heightForCell;
+
 @property (nonatomic) PFObject *conversation;
 @property (nonatomic, weak) id<LSConversationSummaryCellDelegate> delegate;
 

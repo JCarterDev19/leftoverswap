@@ -54,6 +54,8 @@
     }]];
     self.post = post;
     self.recipient = recipient;
+    
+    self.title = [recipient objectForKey:kUserDisplayNameKey];
   }
   return self;
 }
