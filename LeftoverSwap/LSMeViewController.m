@@ -22,6 +22,11 @@
 
 @implementation LSMeViewController;
 
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
   self = [super initWithStyle:style];
@@ -37,6 +42,8 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasCreated:) name:kLSPostCreatedNotification object:nil];
 
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
   
@@ -72,7 +79,7 @@
   if (cell == nil) {
     cell = [[LSMePostCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
-  cell.post = self.objects[indexPath.row];
+  [cell setPost:self.objects[indexPath.row]];
   return cell;
 }
 
@@ -82,6 +89,11 @@
 }
 
 #pragma mark - Callbacks
+
+- (void)postWasCreated:(NSNotification *)note
+{
+  [self loadObjects];
+}
 
 - (void)logout:(id)sender
 {

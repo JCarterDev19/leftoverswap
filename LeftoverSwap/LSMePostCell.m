@@ -27,6 +27,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
       self.header = [[LSConversationHeader alloc] initWithFrame:self.bounds];
+      self.selectionStyle = UITableViewCellSelectionStyleNone;
       [self addSubview:self.header];
     }
     return self;

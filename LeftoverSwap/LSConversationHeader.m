@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
     if (self) {
       self.backgroundColor = [UIColor whiteColor];
       self.state = LSConversationHeaderStateDefault;
+      self.imageView = [[PFImageView alloc] initWithFrame:CGRectMake(8, 7, 35, 35)];
+      self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 
 //      NSString *timeString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
 //      CGSize timeLabelSize = [timeString sizeWithFont:[UIFont systemFontOfSize:11] constrainedToSize:CGSizeMake(nameLabelMaxWidth, CGFLOAT_MAX) lineBreakMode:UILineBreakModeTailTruncation];
@@ -145,11 +147,11 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
   descriptionLabel.backgroundColor = [UIColor clearColor];
   [self addSubview:descriptionLabel];
   
-  // For caching reasons, keep a reference to this so we only load once
-  if (!self.imageView) {
-    self.imageView = [[PFImageView alloc] initWithFrame:CGRectMake(8, 7, 35, 35)];
-    self.imageView.file = [self.post objectForKey:kPostThumbnailKey];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+  PFFile *thumbnail = [self.post objectForKey:kPostThumbnailKey];
+  
+  // Only load if the url changes
+  if (self.imageView.file.url != thumbnail.url) {
+    self.imageView.file = thumbnail;
     [self.imageView loadInBackground];
   }
   [self addSubview:self.imageView];
