@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface LSMeViewController : UIViewController
-- (IBAction)TOSbutton:(id)sender;
+@interface LSMeViewController : PFQueryTableViewController
+
+- (id)initWithStyle:(UITableViewStyle)style;
+
 @end
