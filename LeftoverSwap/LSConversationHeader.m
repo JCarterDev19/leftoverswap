@@ -76,6 +76,9 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
   [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (succeeded) {
       NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:self userInfo:@{kLSPostKey: self.post}];
+      });
     } else {
       [self.post setObject:@(NO) forKey:kPostTakenKey];
       if ([[self.post objectForKey:kPostUserKey] isCurrentUser])

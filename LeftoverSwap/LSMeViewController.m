@@ -25,6 +25,7 @@
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -43,7 +44,8 @@
 {
   [super viewDidLoad];
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasCreated:) name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostTakenNotification object:nil];
 
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
   
@@ -90,7 +92,7 @@
 
 #pragma mark - Callbacks
 
-- (void)postWasCreated:(NSNotification *)note
+- (void)postChanged:(NSNotification *)note
 {
   [self loadObjects];
 }

@@ -66,6 +66,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kLSFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kLSLocationChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasCreated:) name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
 
   //FIXME: where is this?
 	self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.332495f, -122.029095f), MKCoordinateSpanMake(0.008516f, 0.021801f));
@@ -99,6 +100,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSLocationChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
 	
 	self.mapPinsPlaced = NO; // reset this for the next time we show the map.
 }
@@ -132,6 +134,23 @@
   [self.mapView setCenterCoordinate:postLocation animated:YES];
   //FIXME: change this to update the post without doing another query
   [self queryForAllPostsNearLocation:postLocation];
+}
+
+- (void)postWasTaken:(NSNotification *)note
+{
+  PFObject *post = note.userInfo[kLSPostKey];
+  
+  LSPost *toRemove = nil;
+  for (LSPost *annotation in self.allPosts) {
+    if ([[annotation.object objectId] isEqualToString:[post objectId]]) {
+      toRemove = annotation;
+      break;
+    }
+  }
+  if (toRemove) {
+    [self.allPosts removeObject:toRemove];
+    [self.mapView removeAnnotation:toRemove];
+  }
 }
 
 #pragma mark - MKMapViewDelegate methods

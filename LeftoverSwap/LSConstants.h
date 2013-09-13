@@ -45,6 +45,7 @@ extern NSString * const kLSLocationChangeNotification;
 extern NSString * const kLSLocationKey;
 
 extern NSString * const kLSPostCreatedNotification;
+extern NSString * const kLSPostTakenNotification;
 extern NSString * const kLSPostKey;
 
 #pragma mark - PFInstallation keys

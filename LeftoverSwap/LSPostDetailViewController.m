@@ -40,6 +40,11 @@ static TTTTimeIntervalFormatter *timeFormatter;
 @synthesize post;
 @synthesize seller;
 
+- (void)dealloc
+{
+//  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(PFObject*)aPost
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,6 +72,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
+
   [self setContactButtonView];
 
   self.imageView.backgroundColor = [UIColor clearColor];
@@ -113,6 +120,9 @@ static TTTTimeIntervalFormatter *timeFormatter;
     [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
       if (succeeded) {
         NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:self userInfo:@{kLSPostKey: post}];
+        });
       } else {
         [self.post setObject:@(NO) forKey:kPostTakenKey];
         [self setContactButtonView];
@@ -144,5 +154,16 @@ static TTTTimeIntervalFormatter *timeFormatter;
 //    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
   }
 }
+
+//- (void)postWasTaken:(NSNotification *)note
+//{
+//  PFObject *aPost = note.userInfo[kLSPostKey];
+//  if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
+//    [self setContactButtonView];
+//    [self.post fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+//      [self setContactButtonView];
+//    }];
+//  }
+//}
 
 @end
