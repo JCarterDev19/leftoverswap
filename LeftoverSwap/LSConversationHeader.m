@@ -28,6 +28,11 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
 
 @implementation LSConversationHeader
 
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -36,6 +41,8 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
       self.state = LSConversationHeaderStateDefault;
       self.imageView = [[PFImageView alloc] initWithFrame:CGRectMake(8, 7, 35, 35)];
       self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
 
 //      NSString *timeString = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
 //      CGSize timeLabelSize = [timeString sizeWithFont:[UIFont systemFontOfSize:11] constrainedToSize:CGSizeMake(nameLabelMaxWidth, CGFLOAT_MAX) lineBreakMode:UILineBreakModeTailTruncation];
@@ -50,6 +57,15 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
 //
     }
     return self;
+}
+
+- (void)postWasTaken:(NSNotification*)notification
+{
+  PFObject *aPost = notification.userInfo[kLSPostKey];
+  if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
+    [self setViewsForState:LSConversationHeaderStateTaken];
+    [self setNeedsDisplay];
+  }
 }
 
 - (void)setPost:(PFObject *)post
