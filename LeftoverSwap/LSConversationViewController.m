@@ -32,6 +32,7 @@
 #import "LSConversationHeader.h"
 #import "LSConstants.h"
 #import "PFObject+Conversation.h"
+#import "PFObject+PrivateChannelName.h"
 
 @interface LSConversationViewController ()
 
@@ -115,6 +116,9 @@
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
     NSLog(@"Sent message for post %@ and text %@", [self.post objectId], text);
+  
+    [self sendPushForConversation:newConversation];
+//    [push setChannel:[newConversation objectForKey:kConversationToUserKey] privateChannelName]];
     
     if (self.conversationDelegate)
       [self.conversationDelegate conversationController:self didAddConversation:newConversation];
@@ -138,6 +142,7 @@
   // TODO: maybe only add this when it's been saved instead?
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
+    [self sendPushForConversation:newConversation];
   }];
 
   [self finishSend];
@@ -219,6 +224,23 @@
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
   [newConversation setObject:self.post forKey:kConversationPostKey];
   return newConversation;
+}
+
+- (void)sendPushForConversation:(PFObject*)conversation
+{
+  PFPush *push = [[PFPush alloc] init];
+  PFObject *recipient = [conversation objectForKey:kConversationToUserKey];
+  [push setChannel:[recipient privateChannelName]];
+  
+  PFObject *post = [conversation objectForKey:kConversationPostKey];
+
+  NSString *message = [NSString stringWithFormat:@"%@: %@", [post objectForKey:kPostTitleKey], [conversation objectForKey:kConversationMessageKey]];
+  
+  NSDictionary *data = @{@"alert": message,
+                         @"c": [conversation objectId]
+                         };
+  [push setData:data];
+  [push sendPushInBackground];
 }
 
 @end

@@ -16,13 +16,17 @@
 
 @property (nonatomic) NSDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
-@property (nonatomic) BOOL needsReload;
 
 @end
 
 @implementation LSConversationSummaryViewController
 
 #pragma mark - UIViewController
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSConversationCreatedNotification object:nil];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,22 +35,19 @@
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:[UIImage imageNamed:@"TabBarMessage"] tag:1];
     
     self.title = @"Conversations";
-    self.needsReload = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
   }
   return self;
 }
 
+- (void)viewDidLoad
+{
+  [self loadConversations];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
-  PFQuery *query = [self queryForTable];
-  if (self.needsReload) {
-    self.needsReload = NO;
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-      [self partitionConversationsByRecipient:objects];
-      [self.tableView reloadData];
-    }];
-  }
   // Need to refresh timestamps
   [self.tableView reloadData];
 }
@@ -116,17 +117,38 @@
   return query;
 }
 
-#pragma mark - Instance methods
+- (void)loadConversations
+{
+  PFQuery *query = [self queryForTable];
+  query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+  [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [self partitionConversationsByRecipient:objects];
+    [self.tableView reloadData];
+  }];
+}
 
-- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
+#pragma mark - Instance methods
+//
+//- (void)presentConversationForPost:(PFObject*)post
+//{
+//  [self.navigationController pushViewController:[self conversationControllerForPost:post] animated:NO];
+//}
+
+- (LSConversationViewController*)conversationControllerForPost:(PFObject*)post
 {
   PFObject *recipient = [post objectForKey:kPostUserKey];
-
+  
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:post];
   conversationViewController.conversationDelegate = self;
   conversationViewController.hidesBottomBarWhenPushed = YES;
-  [self.navigationController pushViewController:conversationViewController animated:NO];
-  [conversationViewController addMessage:text];
+  return conversationViewController;
+}
+
+- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
+{
+  LSConversationViewController *conversationController = [self conversationControllerForPost:post];
+  [self.navigationController pushViewController:conversationController animated:NO];
+  [conversationController addMessage:text];
 }
 
 #pragma mark - LSConversationControllerDelegate
@@ -135,6 +157,11 @@
 {
   [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
   [self.tableView reloadData];
+}
+
+- (void)conversationCreated:(NSNotification*)notification
+{
+  [self loadConversations];
 }
 
 #pragma mark - Private methods

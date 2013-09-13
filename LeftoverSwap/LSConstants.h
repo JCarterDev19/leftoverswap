@@ -48,6 +48,8 @@ extern NSString * const kLSPostCreatedNotification;
 extern NSString * const kLSPostTakenNotification;
 extern NSString * const kLSPostKey;
 
+extern NSString * const kLSConversationCreatedNotification;
+
 #pragma mark - PFInstallation keys
 
 extern NSString * const kLSInstallationChannelsKey;

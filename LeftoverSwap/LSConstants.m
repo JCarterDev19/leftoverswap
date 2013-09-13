@@ -49,6 +49,8 @@ NSString *const kLSPostCreatedNotification = @"kPostCreatedNotification";
 NSString *const kLSPostTakenNotification = @"kPostTakenNotification";
 NSString *const kLSPostKey = @"post";
 
+NSString *const kLSConversationCreatedNotification = @"kLSConversationCreatedNotification";
+
 #pragma mark - PFInstallation keys
 
 NSString *const kLSInstallationChannelsKey = @"channels";

@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface PFUser (PrivateChannelName)
+@interface PFObject (PrivateChannelName)
 
 - (NSString*)privateChannelName;
 

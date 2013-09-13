@@ -14,7 +14,7 @@
 #import "LSCameraPresenterController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
-#import "PFUser+PrivateChannelName.h"
+#import "PFObject+PrivateChannelName.h"
 #import "LSConstants.h"
 
 @interface LSTabBarController ()
@@ -55,6 +55,11 @@
 }
 
 #pragma mark - instance methods
+
+- (void)selectConversations
+{
+  self.selectedViewController = self.conversationNavigationController;
+}
 
 -(void)presentSignInView
 {

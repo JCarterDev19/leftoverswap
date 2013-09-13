@@ -71,7 +71,7 @@
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
-		08E05CEC17D7A53800393A3D /* PFUser+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */; };
+		08E05CEC17D7A53800393A3D /* PFObject+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */; };
 		08EB0F5017B300D600C5E4FF /* LSSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */; };
 		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
 		08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5217B3011500C5E4FF /* LSSignupViewController.xib */; };
@@ -230,8 +230,8 @@
 		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
 		08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSWelcomeViewController.m; sourceTree = "<group>"; };
-		08E05CEA17D7A53800393A3D /* PFUser+PrivateChannelName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFUser+PrivateChannelName.h"; sourceTree = "<group>"; };
-		08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFUser+PrivateChannelName.m"; sourceTree = "<group>"; };
+		08E05CEA17D7A53800393A3D /* PFObject+PrivateChannelName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+PrivateChannelName.h"; sourceTree = "<group>"; };
+		08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+PrivateChannelName.m"; sourceTree = "<group>"; };
 		08EB0F4C17B300D600C5E4FF /* LSSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSignupViewController.h; sourceTree = "<group>"; };
 		08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSignupViewController.m; sourceTree = "<group>"; };
 		08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
@@ -634,8 +634,8 @@
 			children = (
 				08EB0F6C17B3559D00C5E4FF /* LSPost.h */,
 				08EB0F6D17B3559D00C5E4FF /* LSPost.m */,
-				08E05CEA17D7A53800393A3D /* PFUser+PrivateChannelName.h */,
-				08E05CEB17D7A53800393A3D /* PFUser+PrivateChannelName.m */,
+				08E05CEA17D7A53800393A3D /* PFObject+PrivateChannelName.h */,
+				08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */,
 				083D474617DF964B0081FE4B /* PFObject+Conversation.h */,
 				083D474717DF964C0081FE4B /* PFObject+Conversation.m */,
 				083D474917E0BF2E0081FE4B /* PFObject+Utilities.h */,
@@ -902,7 +902,7 @@
 				08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */,
 				08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */,
 				5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */,
-				08E05CEC17D7A53800393A3D /* PFUser+PrivateChannelName.m in Sources */,
+				08E05CEC17D7A53800393A3D /* PFObject+PrivateChannelName.m in Sources */,
 				083D470D17D7FB310081FE4B /* JSBubbleMessageCell.m in Sources */,
 				083D470E17D7FB310081FE4B /* JSBubbleView.m in Sources */,
 				083D470F17D7FB310081FE4B /* JSDismissiveTextView.m in Sources */,

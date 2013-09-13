@@ -12,6 +12,7 @@
 
 @interface LSConversationSummaryViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, LSConversationControllerDelegate>
 
+//- (void)presentConversationForPost:(PFObject*)post;
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post;
 
 @end

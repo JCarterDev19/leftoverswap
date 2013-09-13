@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
-#import "PFUser+PrivateChannelName.h"
+#import "PFObject+PrivateChannelName.h"
 
-@implementation PFUser (PrivateChannelName)
+@implementation PFObject (PrivateChannelName)
 
 - (NSString *)privateChannelName
 {

@@ -18,6 +18,7 @@
 
 @property (nonatomic, readonly) LSMapViewController *mapViewController;
 
+- (void)selectConversations;
 - (void)presentSignInView;
 - (void)presentWelcomeView;
 

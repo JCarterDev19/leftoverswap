@@ -9,7 +9,7 @@
 #import "LSAppDelegate.h"
 #import "LSTabBarController.h"
 #import <Parse/Parse.h>
-#import "PFUser+PrivateChannelName.h"
+#import "PFObject+PrivateChannelName.h"
 #import "LSConstants.h"
 #import <HockeySDK/HockeySDK.h>
 
@@ -53,6 +53,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   self.window.rootViewController = self.viewController;
 
   [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+  
+  NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+  if (notificationPayload) {
+    NSLog(@"notification payload received");
+    [self application:application didReceiveRemoteNotification:notificationPayload];
+  }
 
   [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
 
@@ -115,9 +121,27 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   [currentInstallation saveInBackground];
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  if ([error code] != 3010) { // 3010 is for the iPhone Simulator
+    NSLog(@"Application failed to register for push notifications: %@", error);
+	}
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-  [PFPush handlePush:userInfo];
+  [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:userInfo];
+
+  if (application.applicationState == UIApplicationStateActive) {
+    // Something about increasing the conversation badge count
+  } else {
+    // The application was just brought from the background to the foreground,
+    // so we consider the app as having been "opened by a push notification."
+    [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    [self.tabBarController selectConversations];
+  }
+//
+//  [PFPush handlePush:userInfo];
 }
 
 @end
