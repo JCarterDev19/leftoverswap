@@ -17,7 +17,6 @@
 @interface LSCameraPresenterController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, LSPostPhotoViewControllerDelegate>
 
 - (id)init;
-
 - (void)presentCameraPickerController;
 
 @end

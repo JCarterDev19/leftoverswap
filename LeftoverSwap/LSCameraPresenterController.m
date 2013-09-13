@@ -45,8 +45,12 @@
   if (!image) {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
   }
-  
-  LSPostPhotoViewController *editPhotoController = [[LSPostPhotoViewController alloc] initWithNibName:nil bundle:nil image:image];
+
+  // presenting another VC from a UIPickerController will never set the status bar back to its original state.
+  [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+
+  LSPostPhotoViewController *editPhotoController = [[LSPostPhotoViewController alloc] initWithNibName:nil bundle:nil];
+  editPhotoController.image = image;
   editPhotoController.delegate = self;
   [imagePickerController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
   [imagePickerController presentViewController:editPhotoController animated:YES completion:nil];
@@ -74,13 +78,10 @@
     // Some iPods, simulator: use the Camera's photo roll
   } else {
     //    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
+    NSInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;    
     NSAssert([UIImagePickerController isSourceTypeAvailable:sourceType]
              && [[UIImagePickerController availableMediaTypesForSourceType:sourceType] containsObject:(NSString *)kUTTypeImage], @"Device must support photo rolls");
-    
     cameraUI.sourceType = sourceType;
-  
   }
   
   cameraUI.allowsEditing = NO;

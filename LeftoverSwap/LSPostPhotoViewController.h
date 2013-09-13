@@ -18,8 +18,9 @@
 
 @interface LSPostPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate, UITextViewDelegate>
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil image:(UIImage *)aImage;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
+@property (nonatomic) UIImage *image;
 @property (nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) IBOutlet LSPaddedTextField *titleTextField;

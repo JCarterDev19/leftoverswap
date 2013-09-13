@@ -17,8 +17,6 @@
 
 @interface LSPostPhotoViewController ()
 
-@property (nonatomic) UIImage *image;
-
 @property PFFile *photoFile;
 @property PFFile *thumbnailFile;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
@@ -36,8 +34,6 @@
 @synthesize descriptionTextView;
 @synthesize postButton;
 
-@synthesize image;
-
 @synthesize delegate;
 
 @synthesize photoFile;
@@ -47,50 +43,34 @@
 
 #pragma mark - NSObject
 
-- (void)dealloc {
-//  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+- (void)dealloc
+{
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil image:(UIImage *)aImage {
-  self = [super initWithNibName:NSStringFromClass(self.class) bundle:nibBundleOrNil];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+  self = [super initWithNibName:nil bundle:nibBundleOrNil];
   if (self) {
-    if (!aImage) {
-      return nil;
-    }
-    
-    self.image = aImage;
-    
     self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
     self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
-    
   }
   return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-    NSLog(@"Memory warning on Edit");
-}
-
-
 #pragma mark - UIViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   
   self.scrollView.delegate = self;
   self.scrollView.scrollEnabled = NO;
 
-  [self.navigationItem setHidesBackButton:YES];
-  
+  self.navigationItem.hidesBackButton = YES;
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPost:)];
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:self action:@selector(postPost:)];
   
-//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextViewTextDidChangeNotification object:nil];
   
   titleTextField.delegate = self;
@@ -109,38 +89,34 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
   [self.descriptionTextView becomeFirstResponder];
   return YES;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-  
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{  
   NSUInteger newLength = [textField.text length] + [string length] - range.length;
   return (newLength > 33) ? NO : YES;
 }
 
-#pragma mark - UITextFieldDelegate
-
--(BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
 //  [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(textView.frame)) animated:YES];
   return YES;
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
-}
-
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//  [self.titleTextField resignFirstResponder];
-//  [self.descriptionTextView resignFirstResponder];
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
 }
-
 
 #pragma mark - ()
 
-- (BOOL)shouldUploadImage:(UIImage *)anImage {
+- (BOOL)shouldUploadImage:(UIImage *)anImage
+{
     UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
     UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
     
@@ -178,27 +154,8 @@
     return YES;
 }
 
-- (void)keyboardWillShow:(NSNotification *)note {
-  CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-  CGSize scrollViewContentSize = self.scrollView.bounds.size;
-  scrollViewContentSize.height += keyboardFrameEnd.size.height;
-  [self.scrollView setContentSize:scrollViewContentSize];
-  
-  CGPoint scrollViewContentOffset = self.scrollView.contentOffset;
-  scrollViewContentOffset.y += keyboardFrameEnd.size.height;
-  [self.scrollView setContentOffset:scrollViewContentOffset animated:YES];
-}
-
-- (void)keyboardWillHide:(NSNotification *)note {
-  CGRect keyboardFrameEnd = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-  CGSize scrollViewContentSize = self.scrollView.bounds.size;
-  scrollViewContentSize.height -= keyboardFrameEnd.size.height;
-  [UIView animateWithDuration:0.200f animations:^{
-    [self.scrollView setContentSize:scrollViewContentSize];
-  }];
-}
-
-- (IBAction)postPost:(id)sender {
+- (IBAction)postPost:(id)sender
+{
   [titleTextField resignFirstResponder];
   [descriptionTextView resignFirstResponder];
   
@@ -217,11 +174,6 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
     [alert show];
     return;
-  }
-  
-  // both files have finished uploading
-  if (![PFUser currentUser]) {
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"user must be logged in to post" userInfo:nil];
   }
   
   // create a photo object
@@ -266,7 +218,8 @@
   }
 }
 
-- (IBAction)cancelPost:(id)sender {
+- (IBAction)cancelPost:(id)sender
+{
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidCancel:)]) {
     [delegate postPhotoControllerDidCancel:self];
   }
@@ -274,20 +227,23 @@
 
 #pragma mark UITextView nofitication methods
 
-- (void)textInputChanged:(NSNotification *)note {
+- (void)textInputChanged:(NSNotification *)note
+{
   postButton.enabled = [self findEmptyViews] == nil;
 }
 
 #pragma mark Private helper methods
 
--(PFGeoPoint*)currentLocation {
+-(PFGeoPoint*)currentLocation
+{
   LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
   CLLocationCoordinate2D currentCoordinate = appDelegate.locationController.currentLocation.coordinate;
 	PFGeoPoint *currentPoint = [PFGeoPoint geoPointWithLatitude:currentCoordinate.latitude longitude:currentCoordinate.longitude];
   return currentPoint;
 }
 
--(UIView*)findEmptyViews {
+-(UIView*)findEmptyViews
+{
   if (titleTextField.text.length == 0) {
     return titleTextField;
   } else if (descriptionTextView == 0) {
