@@ -45,6 +45,11 @@
 
 #pragma mark - Initialization
 
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSConversationCreatedNotification object:nil];
+}
+
 - initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post
 {
   self = [super init];
@@ -55,8 +60,9 @@
     }]];
     self.post = post;
     self.recipient = recipient;
-    
     self.title = [recipient objectForKey:kUserDisplayNameKey];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
   }
   return self;
 }
@@ -107,6 +113,20 @@
 //  [self.navigationController pushViewController:vc animated:YES];
 //}
 #pragma mark - Instance methods
+
+- (void)conversationCreated:(NSNotification*)notification
+{
+  NSString *objectId = notification.userInfo[@"c"];
+  if (objectId) {
+    PFObject *conversation = [PFObject objectWithoutDataWithClassName:kConversationClassKey objectId:objectId];
+    [conversation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+      if (!error && [[[object recipient] objectId] isEqualToString:[self.recipient objectId]])
+        [self.conversations addObject:object];
+    }];
+  }
+  [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];
+}
 
 - (void)addMessage:(NSString*)text
 {
