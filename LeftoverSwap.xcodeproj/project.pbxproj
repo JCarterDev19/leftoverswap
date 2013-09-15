@@ -67,6 +67,7 @@
 		083D474817DF964C0081FE4B /* PFObject+Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D474717DF964C0081FE4B /* PFObject+Conversation.m */; };
 		083D474B17E0BF2E0081FE4B /* PFObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D474A17E0BF2E0081FE4B /* PFObject+Utilities.m */; };
 		083D475217E3015C0081FE4B /* LSMePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D475117E3015B0081FE4B /* LSMePostCell.m */; };
+		083D475517E5323B0081FE4B /* LSConversationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D475417E5323B0081FE4B /* LSConversationUtils.m */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
@@ -223,6 +224,8 @@
 		083D474A17E0BF2E0081FE4B /* PFObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Utilities.m"; sourceTree = "<group>"; };
 		083D475017E3015B0081FE4B /* LSMePostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMePostCell.h; sourceTree = "<group>"; };
 		083D475117E3015B0081FE4B /* LSMePostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMePostCell.m; sourceTree = "<group>"; };
+		083D475317E5323A0081FE4B /* LSConversationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationUtils.h; sourceTree = "<group>"; };
+		083D475417E5323B0081FE4B /* LSConversationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationUtils.m; sourceTree = "<group>"; };
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
 		08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostDetailViewController.xib; sourceTree = "<group>"; };
@@ -653,6 +656,8 @@
 				08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */,
 				083D473E17DD2C670081FE4B /* LSNewConversationViewController.h */,
 				083D473F17DD2C670081FE4B /* LSNewConversationViewController.m */,
+				083D475317E5323A0081FE4B /* LSConversationUtils.h */,
+				083D475417E5323B0081FE4B /* LSConversationUtils.m */,
 			);
 			name = Conversation;
 			sourceTree = "<group>";
@@ -920,6 +925,7 @@
 				083D474817DF964C0081FE4B /* PFObject+Conversation.m in Sources */,
 				083D474B17E0BF2E0081FE4B /* PFObject+Utilities.m in Sources */,
 				083D475217E3015C0081FE4B /* LSMePostCell.m in Sources */,
+				083D475517E5323B0081FE4B /* LSConversationUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

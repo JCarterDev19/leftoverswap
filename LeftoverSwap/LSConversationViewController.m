@@ -116,16 +116,13 @@
 
 - (void)conversationCreated:(NSNotification*)notification
 {
-  NSString *objectId = notification.userInfo[@"c"];
-  if (objectId) {
-    PFObject *conversation = [PFObject objectWithoutDataWithClassName:kConversationClassKey objectId:objectId];
-    [conversation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-      if (!error && [[[object recipient] objectId] isEqualToString:[self.recipient objectId]])
-        [self.conversations addObject:object];
-    }];
+  PFObject *conversation = notification.userInfo[kLSConversationKey];
+  if ([[[conversation recipient] objectId] isEqualToString:[self.recipient objectId]]) {
+    [self.conversations addObject:conversation];
+    
+    [self.tableView reloadData];
+    [self scrollToBottomAnimated:NO];
   }
-  [self.tableView reloadData];
-  [self scrollToBottomAnimated:NO];
 }
 
 - (void)addMessage:(NSString*)text
@@ -256,9 +253,11 @@
 
   NSString *message = [NSString stringWithFormat:@"%@: %@", [post objectForKey:kPostTitleKey], [conversation objectForKey:kConversationMessageKey]];
   
-  NSDictionary *data = @{@"alert": message,
-                         @"c": [conversation objectId]
-                         };
+  NSDictionary *data = @{
+                         @"alert": message,
+                         @"c": [conversation objectId],
+                         @"badge": @"Increment" // +1 to application badge number
+                        };
   [push setData:data];
   [push sendPushInBackground];
 }

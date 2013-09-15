@@ -26,6 +26,7 @@
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSConversationCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -37,6 +38,7 @@
     self.title = @"Conversations";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
   }
   return self;
 }
@@ -48,8 +50,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+  // Reset badge values (we're looking at this view now)
+  self.navigationController.tabBarItem.badgeValue = nil;
+
   // Need to refresh timestamps
   [self.tableView reloadData];
+}
+
+- (void)didBecomeActive:(NSNotification*)notification
+{
+  [self viewWillAppear:NO];
 }
 
 #pragma mark - UITableViewDelegate
@@ -161,7 +171,22 @@
 
 - (void)conversationCreated:(NSNotification*)notification
 {
+  [self incrementBadgeValue];
   [self loadConversations];
+}
+
+- (void)incrementBadgeValue
+{
+  UITabBarItem *tabBarItem = self.navigationController.tabBarItem;
+  NSString *currentBadgeValue = tabBarItem.badgeValue;
+  
+  if (currentBadgeValue && currentBadgeValue.length > 0) {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    NSNumber *badgeValue = [numberFormatter numberFromString:currentBadgeValue];
+    tabBarItem.badgeValue = [numberFormatter stringFromNumber:@([badgeValue intValue] + 1)];
+  } else {
+    tabBarItem.badgeValue = @"1";
+  }
 }
 
 #pragma mark - Private methods

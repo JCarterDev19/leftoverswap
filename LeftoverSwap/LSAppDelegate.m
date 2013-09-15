@@ -43,6 +43,11 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   [Parse setApplicationId:@"rxURqAiZdT4w3QiLPpecMAOyFF2qzVxsLPD1FcGR"
                 clientKey:@"HF41j3NxMvnykjW2Cbu7LL48NA2Ebk98qUCT252h"];
   
+  if (application.applicationIconBadgeNumber != 0) {
+    application.applicationIconBadgeNumber = 0;
+    [[PFInstallation currentInstallation] saveEventually];
+  }
+  
   [self setupAppearance];
   
   self.locationController = [[LSLocationController alloc] init];
@@ -83,6 +88,14 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   }
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+  if (application.applicationIconBadgeNumber != 0) {
+    application.applicationIconBadgeNumber = 0;
+    [[PFInstallation currentInstallation] saveEventually];
+  }
+}
+
 #pragma mark - LSAppDelegate
 
 - (BOOL)shouldDisplayWelcomeScreen
@@ -109,7 +122,11 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 #pragma mark - Remote notifications
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
-{
+{  
+  if (application.applicationIconBadgeNumber != 0) {
+    application.applicationIconBadgeNumber = 0;
+  }
+
   PFInstallation *currentInstallation = [PFInstallation currentInstallation];
   [currentInstallation setDeviceTokenFromData:newDeviceToken];
   
@@ -130,18 +147,39 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-  [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:userInfo];
-
-  if (application.applicationState == UIApplicationStateActive) {
-    // Something about increasing the conversation badge count
-  } else {
+  if (![PFUser currentUser]) {
+    NSLog(@"Receiving a remote notification should only occur if we're signed in");
+    return;
+  }
+  
+  if (application.applicationState != UIApplicationStateActive) {
     // The application was just brought from the background to the foreground,
     // so we consider the app as having been "opened by a push notification."
     [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-    [self.tabBarController selectConversations];
   }
-//
-//  [PFPush handlePush:userInfo];
+
+  if (userInfo[@"c"]) { // conversation created
+    
+    NSString *objectId = userInfo[@"c"];
+    PFObject *conversation = [PFObject objectWithoutDataWithClassName:kConversationClassKey objectId:objectId];
+    [conversation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+      if (!error)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: object}];
+    }];
+
+    if (application.applicationState != UIApplicationStateActive) {
+      [self.tabBarController selectConversations];
+    }
+
+  } else if (userInfo[@"pt"]) { // post taken
+
+    PFObject *post = [PFObject objectWithoutDataWithClassName:kPostClassKey objectId:userInfo[@"pt"]];
+    [post fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+      if (!error)
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:nil userInfo:@{kLSPostKey: object}];
+    }];
+
+  }
 }
 
 @end

@@ -12,6 +12,7 @@
 #import "LSConstants.h"
 #import "UIImage+RoundedCornerAdditions.h"
 #import "PFObject+Utilities.h"
+#import "LSConversationUtils.h"
 
 typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
   LSConversationHeaderStateDefault,
@@ -61,6 +62,8 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
 
 - (void)postWasTaken:(NSNotification*)notification
 {
+  if (notification.object == self) return;
+
   PFObject *aPost = notification.userInfo[kLSPostKey];
   if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
     [self setViewsForState:LSConversationHeaderStateTaken];
@@ -94,6 +97,7 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
       NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
       dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:self userInfo:@{kLSPostKey: self.post}];
+        [LSConversationUtils sendTakenPushNotificationForPost:self.post];
       });
     } else {
       [self.post setObject:@(NO) forKey:kPostTakenKey];

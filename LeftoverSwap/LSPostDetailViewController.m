@@ -11,6 +11,7 @@
 #import "TTTTimeIntervalFormatter.h"
 #import "LSTabBarController.h"
 #import "PFObject+Utilities.h"
+#import "LSConversationUtils.h"
 
 @interface LSPostDetailViewController ()
 
@@ -42,7 +43,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)dealloc
 {
-//  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(PFObject*)aPost
@@ -72,7 +73,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 {
   [super viewDidLoad];
   
-//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
 
   [self setContactButtonView];
 
@@ -121,7 +122,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
       if (succeeded) {
         NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
         dispatch_async(dispatch_get_main_queue(), ^{
-          [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:self userInfo:@{kLSPostKey: post}];
+          [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:self userInfo:@{kLSPostKey: self.post}];
+          [LSConversationUtils sendTakenPushNotificationForPost:self.post];
         });
       } else {
         [self.post setObject:@(NO) forKey:kPostTakenKey];
@@ -155,15 +157,14 @@ static TTTTimeIntervalFormatter *timeFormatter;
   }
 }
 
-//- (void)postWasTaken:(NSNotification *)note
-//{
-//  PFObject *aPost = note.userInfo[kLSPostKey];
-//  if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
-//    [self setContactButtonView];
-//    [self.post fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//      [self setContactButtonView];
-//    }];
-//  }
-//}
+- (void)postWasTaken:(NSNotification *)note
+{
+  if (note.object == self) return;
+
+  PFObject *aPost = note.userInfo[kLSPostKey];
+  if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
+    [self setContactButtonView];
+  }
+}
 
 @end
