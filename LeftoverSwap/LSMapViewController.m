@@ -129,8 +129,10 @@
 {
   // The pins may have changed color when switching users
   for (LSPost *annotation in self.mapView.annotations) {
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[self.mapView viewForAnnotation:annotation];
-    annotationView.pinColor = annotation.pinColor;
+    MKAnnotationView *annotationView = [self.mapView viewForAnnotation:annotation];
+    if ([annotationView isKindOfClass:[MKPinAnnotationView class]]) {
+      ((MKPinAnnotationView*)annotationView).pinColor = annotation.pinColor;
+    }
   }
 //  [self queryForAllPostsNearLocation:locationController.currentLocation.coordinate];
 }
