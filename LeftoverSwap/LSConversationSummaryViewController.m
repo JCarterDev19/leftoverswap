@@ -98,12 +98,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   static NSString *const cellIdentifier = @"LSConversationSummaryCell";
-  
+
   LSConversationSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
     cell = [[LSConversationSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
-  
   cell.conversation = self.summarizedObjects[indexPath.row][0];
   return cell;
 }
@@ -178,8 +177,23 @@
 {
   [self incrementBadgeValue];
 
-  PFObject *conversation = notification.userInfo[kLSConversationKey];
-  [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
+  PFObject *newConversation = notification.userInfo[kLSConversationKey];
+  
+  NSMutableArray *conversations = [self conversationsForRecipient:[newConversation recipient]];
+  
+  // Only insert if the new conversation doesn't already exist.
+  // This can happen when we loadConversations, then a push
+  // notification payload containing the new object if also read.
+  BOOL doInsert = YES;
+  for(PFObject *conversation in conversations) {
+    if ([[conversation objectId] isEqualToString:[conversation objectId]]) {
+      doInsert = NO;
+      break;
+    }
+  }
+  if (doInsert)
+    [conversations insertObject:newConversation atIndex:0];
+
   [self updateSummarizedObjects];
   [self.tableView reloadData];
 }

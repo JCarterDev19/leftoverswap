@@ -161,22 +161,32 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   if (userInfo[@"c"]) { // conversation created
     
     NSString *objectId = userInfo[@"c"];
-    PFObject *conversation = [PFObject objectWithoutDataWithClassName:kConversationClassKey objectId:objectId];
-    [conversation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    
+    // Include from, to, post entries as well
+    PFQuery *query = [PFQuery queryWithClassName:kConversationClassKey];
+    [query includeKey:kConversationFromUserKey];
+    [query includeKey:kConversationToUserKey];
+    [query includeKey:kConversationPostKey];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query getObjectInBackgroundWithId:objectId block:^(PFObject *object, NSError *error) {      
       if (!error)
         dispatch_async(dispatch_get_main_queue(), ^{
           [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: object}];
         });
     }];
-
+    
     if (application.applicationState != UIApplicationStateActive) {
+      [self.tabBarController dismissViewControllerAnimated:NO completion:nil];
       [self.tabBarController selectConversations];
     }
 
   } else if (userInfo[@"pt"]) { // post taken
 
-    PFObject *post = [PFObject objectWithoutDataWithClassName:kPostClassKey objectId:userInfo[@"pt"]];
-    [post fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    NSString *objectId = userInfo[@"pt"];
+
+    PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
+    [query includeKey:kPostUserKey];
+    [query getObjectInBackgroundWithId:objectId block:^(PFObject *object, NSError *error) {
       if (!error)
         dispatch_async(dispatch_get_main_queue(), ^{
           [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:nil userInfo:@{kLSPostKey: object}];
