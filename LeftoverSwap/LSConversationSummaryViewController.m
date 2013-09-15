@@ -14,7 +14,7 @@
 
 @interface LSConversationSummaryViewController ()
 
-@property (nonatomic) NSDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
+@property (nonatomic) NSMutableDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
 
 @end
@@ -34,8 +34,8 @@
   self = [super initWithStyle:style];
   if (self) {
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:[UIImage imageNamed:@"TabBarMessage"] tag:1];
-    
     self.title = @"Conversations";
+    self.recipientConversations = [NSMutableDictionary dictionary];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -139,27 +139,16 @@
 }
 
 #pragma mark - Instance methods
-//
-//- (void)presentConversationForPost:(PFObject*)post
-//{
-//  [self.navigationController pushViewController:[self conversationControllerForPost:post] animated:NO];
-//}
 
-- (LSConversationViewController*)conversationControllerForPost:(PFObject*)post
+- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
 {
   PFObject *recipient = [post objectForKey:kPostUserKey];
   
   LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:post];
   conversationViewController.conversationDelegate = self;
   conversationViewController.hidesBottomBarWhenPushed = YES;
-  return conversationViewController;
-}
-
-- (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
-{
-  LSConversationViewController *conversationController = [self conversationControllerForPost:post];
-  [self.navigationController pushViewController:conversationController animated:NO];
-  [conversationController addMessage:text];
+  [self.navigationController pushViewController:conversationViewController animated:NO];
+  [conversationViewController addMessage:text];
 }
 
 #pragma mark - LSConversationControllerDelegate
@@ -167,6 +156,7 @@
 - (void)conversationController:(LSConversationViewController *)conversationController didAddConversation:(PFObject *)conversation
 {
   [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
+  [self updateSummarizedObjects];
   [self.tableView reloadData];
 }
 
@@ -194,7 +184,11 @@
 
 - (NSMutableArray*)conversationsForRecipient:(PFObject*)recipient
 {
-  return self.recipientConversations[[recipient objectId]];
+  NSString *recipientId = [recipient objectId];
+  NSMutableArray *conversations = self.recipientConversations[recipientId];
+  if (!conversations)
+    self.recipientConversations[recipientId] = conversations = [NSMutableArray array];
+  return conversations;
 }
 
 - (void)partitionConversationsByRecipient:(NSArray*)conversations
@@ -208,9 +202,13 @@
     [conversationsForRecipient addObject:conversation];
   }
   self.recipientConversations = recipientConversations;
-  
+  [self updateSummarizedObjects];
+}
+
+- (void)updateSummarizedObjects
+{
   // Ensure all results are sorted by recency
-  self.summarizedObjects = [[recipientConversations allValues] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+  self.summarizedObjects = [[self.recipientConversations allValues] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
     return [[(PFObject*)((NSArray*)obj2[0]) createdAt] compare:[(PFObject*)((NSArray*)obj1[0]) createdAt]];
   }];
 }
