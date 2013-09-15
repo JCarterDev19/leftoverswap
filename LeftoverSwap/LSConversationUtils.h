@@ -14,4 +14,6 @@
 
 + (void)sendTakenPushNotificationForPost:(PFObject*)post;
 
++ (BOOL)conversations:(NSMutableArray*)conversations containsConversation:(PFObject*)newConversation;
+
 @end

@@ -35,4 +35,16 @@
   }];
 }
 
++ (BOOL)conversations:(NSMutableArray*)conversations containsConversation:(PFObject*)newConversation
+{
+  BOOL doesExist = NO;
+  for(PFObject *conversation in conversations) {
+    if ([[conversation objectId] isEqualToString:[newConversation objectId]]) {
+      doesExist = YES;
+      break;
+    }
+  }
+  return doesExist;
+}
+
 @end

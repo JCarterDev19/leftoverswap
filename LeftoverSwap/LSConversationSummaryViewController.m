@@ -10,6 +10,7 @@
 #import "LSConversationSummaryCell.h"
 #import "LSConstants.h"
 #import "LSConversationViewController.h"
+#import "LSConversationUtils.h"
 #import "PFObject+Conversation.h"
 
 @interface LSConversationSummaryViewController ()
@@ -184,14 +185,7 @@
   // Only insert if the new conversation doesn't already exist.
   // This can happen when we loadConversations, then a push
   // notification payload containing the new object if also read.
-  BOOL doInsert = YES;
-  for(PFObject *conversation in conversations) {
-    if ([[conversation objectId] isEqualToString:[conversation objectId]]) {
-      doInsert = NO;
-      break;
-    }
-  }
-  if (doInsert)
+  if (![LSConversationUtils conversations:conversations containsConversation:newConversation])
     [conversations insertObject:newConversation atIndex:0];
 
   [self updateSummarizedObjects];

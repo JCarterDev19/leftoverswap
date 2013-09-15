@@ -31,6 +31,7 @@
 #import "LSConversationViewController.h"
 #import "LSConversationHeader.h"
 #import "LSConstants.h"
+#import "LSConversationUtils.h"
 #import "PFObject+Conversation.h"
 #import "PFObject+PrivateChannelName.h"
 
@@ -117,7 +118,8 @@
 - (void)conversationCreated:(NSNotification*)notification
 {
   PFObject *conversation = notification.userInfo[kLSConversationKey];
-  if ([[[conversation recipient] objectId] isEqualToString:[self.recipient objectId]]) {
+  if ([[[conversation recipient] objectId] isEqualToString:[self.recipient objectId]]
+      && ![LSConversationUtils conversations:self.conversations containsConversation:conversation]) {
     [self.conversations addObject:conversation];
     
     [self.tableView reloadData];
