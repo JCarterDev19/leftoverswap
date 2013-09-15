@@ -225,7 +225,7 @@
 		[activityView.activityIndicator stopAnimating];
 		[activityView removeFromSuperview];
     
-    [self.delegate loginControllerDidFinish];
+    [self.delegate signupControllerDidFinish];
 	}];
 }
 

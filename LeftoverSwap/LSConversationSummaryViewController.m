@@ -59,6 +59,7 @@
 
 - (void)didBecomeActive:(NSNotification*)notification
 {
+  if (![PFUser currentUser]) return;
   [self viewWillAppear:NO];
 }
 

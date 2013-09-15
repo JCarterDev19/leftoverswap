@@ -11,7 +11,6 @@
 #import "LSAppDelegate.h"
 #import <Parse/Parse.h>
 #import "LSActivityView.h"
-#import "LSMapViewController.h"
 
 @interface LSLoginViewController ()
 

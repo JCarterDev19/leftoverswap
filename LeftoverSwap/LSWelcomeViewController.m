@@ -8,7 +8,6 @@
 
 #import "LSWelcomeViewController.h"
 #import "LSAppDelegate.h"
-#import "LSMapViewController.h"
 
 @implementation LSWelcomeViewController
 

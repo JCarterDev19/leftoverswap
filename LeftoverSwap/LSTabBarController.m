@@ -79,16 +79,29 @@
 
 -(void)welcomeControllerDidEat:(LSWelcomeViewController *)controller
 {
+  self.selectedViewController = self.mapViewController;
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)welcomeControllerDidFeed:(LSWelcomeViewController *)controller
 {
+  self.selectedViewController = self.mapViewController;
   [self dismissViewControllerAnimated:NO completion:nil];
   [self.cameraController presentCameraPickerController];
 }
 
 #pragma mark - LSLoginControllerDelegate
+
+-(void)signupControllerDidFinish
+{
+  LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
+  welcomeViewController.delegate = self;
+
+  UIViewController *lastPresentedViewController = self;
+  while((lastPresentedViewController = lastPresentedViewController.presentedViewController));
+  lastPresentedViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+  [lastPresentedViewController presentViewController:welcomeViewController animated:YES completion:nil];
+}
 
 -(void)loginControllerDidFinish
 {

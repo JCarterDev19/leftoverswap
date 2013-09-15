@@ -11,6 +11,7 @@
 @protocol LSLoginControllerDelegate <NSObject>
 
 - (void)loginControllerDidFinish;
+- (void)signupControllerDidFinish;
 
 @end
 
