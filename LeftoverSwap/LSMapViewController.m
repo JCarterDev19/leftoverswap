@@ -21,7 +21,7 @@
 @interface LSMapViewController ()
 
 @property (nonatomic) LSLocationController *locationController;
-@property (nonatomic) BOOL mapPinsPlaced;
+@property (nonatomic) BOOL initialPinsPlaced;
 @property (nonatomic) BOOL mapPannedSinceLocationUpdate;
 @property (nonatomic) NSMutableArray *allPosts;
 
@@ -38,7 +38,6 @@
 
 @synthesize mapView;
 @synthesize locationController;
-@synthesize mapPinsPlaced;
 @synthesize mapPannedSinceLocationUpdate;
 @synthesize allPosts;
 
@@ -53,6 +52,7 @@
     
     LSAppDelegate *appDelegate = (LSAppDelegate*)[[UIApplication sharedApplication] delegate];
     self.locationController = appDelegate.locationController;
+    
 	}
 	return self;
 }
@@ -72,6 +72,8 @@
   //FIXME: where is this?
 	self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.332495f, -122.029095f), MKCoordinateSpanMake(0.008516f, 0.021801f));
 	self.mapPannedSinceLocationUpdate = NO;
+
+  self.initialPinsPlaced = NO; // reset this for the next time we show the map.
 
   [locationController startUpdatingLocation];
 }
@@ -103,8 +105,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSUserLogInNotification object:nil];
-	
-	self.mapPinsPlaced = NO; // reset this for the next time we show the map.
 }
 
 #pragma mark - NSNotificationCenter notification handlers
@@ -291,8 +291,11 @@
     // 3. Configure our new posts; these are about to go onto the map.
     for (LSPost *newPost in newPosts) {
       // Animate all pins after the initial load:
-      newPost.animatesDrop = mapPinsPlaced;
+      newPost.animatesDrop = self.initialPinsPlaced;
     }
+    if (newPosts.count)
+      self.initialPinsPlaced = YES;
+
 
     // At this point, newAllPosts contains a new list of post objects.
     // We should add everything in newPosts to the map, remove everything in postsToRemove,
@@ -301,8 +304,6 @@
     [mapView addAnnotations:newPosts];
     [allPosts addObjectsFromArray:newPosts];
     [allPosts removeObjectsInArray:postsToRemove];
-
-    self.mapPinsPlaced = YES;
 	}];
 }
 

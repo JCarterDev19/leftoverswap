@@ -166,7 +166,7 @@
 {
   // Clear them out immediately
   self.recipientConversations = [NSMutableArray array];
-  [self updateSummarizedObjects];
+  self.summarizedObjects = [NSArray array];
   [self.tableView reloadData];
   self.navigationController.tabBarItem.badgeValue = nil;
 

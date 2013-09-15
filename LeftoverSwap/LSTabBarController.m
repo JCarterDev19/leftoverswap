@@ -110,7 +110,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kLSUserLogInNotification object:nil userInfo:nil];
   });
 
-  if ([(LSAppDelegate*)[UIApplication sharedApplication] shouldDisplayWelcomeScreen]) {
+  if ([(LSAppDelegate*)[UIApplication sharedApplication].delegate shouldDisplayWelcomeScreen]) {
     LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
     welcomeViewController.delegate = self;
     welcomeViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;    
