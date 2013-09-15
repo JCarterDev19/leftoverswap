@@ -16,6 +16,7 @@
 #import "LSMeViewController.h"
 #import "PFObject+PrivateChannelName.h"
 #import "LSConstants.h"
+#import "LSSignupViewController.h"
 
 @interface LSTabBarController ()
 
@@ -92,18 +93,16 @@
 
 #pragma mark - LSLoginControllerDelegate
 
--(void)signupControllerDidFinish
+-(void)signupControllerDidFinish:(LSSignupViewController*)signupController
 {
   LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
   welcomeViewController.delegate = self;
+  welcomeViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
 
-  UIViewController *lastPresentedViewController = self;
-  while((lastPresentedViewController = lastPresentedViewController.presentedViewController));
-  lastPresentedViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-  [lastPresentedViewController presentViewController:welcomeViewController animated:YES completion:nil];
+  [signupController presentViewController:welcomeViewController animated:YES completion:nil];
 }
 
--(void)loginControllerDidFinish
+-(void)loginControllerDidFinish:(LSLoginViewController*)loginController
 {
   [self dismissViewControllerAnimated:YES completion:nil];
   

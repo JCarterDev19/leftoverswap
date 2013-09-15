@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class LSLoginViewController, LSSignupViewController;
+
 @protocol LSLoginControllerDelegate <NSObject>
 
-- (void)loginControllerDidFinish;
-- (void)signupControllerDidFinish;
+- (void)loginControllerDidFinish:(LSLoginViewController*)loginController;
+- (void)signupControllerDidFinish:(LSSignupViewController*)signupController;
 
 @end
 

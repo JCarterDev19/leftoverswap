@@ -176,7 +176,7 @@
 		[activityView removeFromSuperview];
 
 		if (user) {
-      [self.delegate loginControllerDidFinish];
+      [self.delegate loginControllerDidFinish:self];
 
 		} else {
 			// Didn't get a user.
