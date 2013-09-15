@@ -17,6 +17,7 @@
 #import "PFObject+PrivateChannelName.h"
 #import "LSConstants.h"
 #import "LSSignupViewController.h"
+#import "LSAppDelegate.h"
 
 @interface LSTabBarController ()
 
@@ -95,17 +96,25 @@
 
 -(void)signupControllerDidFinish:(LSSignupViewController*)signupController
 {
-  LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
-  welcomeViewController.delegate = self;
-  welcomeViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
-  [signupController presentViewController:welcomeViewController animated:YES completion:nil];
+  [self loginDidFinish:signupController];
 }
 
 -(void)loginControllerDidFinish:(LSLoginViewController*)loginController
 {
-  [self dismissViewControllerAnimated:YES completion:nil];
+  [self loginDidFinish:loginController];
+}
+
+- (void)loginDidFinish:(UIViewController*)loginController
+{
   
+  if ([(LSAppDelegate*)[UIApplication sharedApplication] shouldDisplayWelcomeScreen]) {
+    LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
+    welcomeViewController.delegate = self;
+    welcomeViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;    
+    [loginController presentViewController:welcomeViewController animated:YES completion:nil];
+  } else {
+    [self dismissViewControllerAnimated:YES completion:nil];
+  }
   PFUser *user = [PFUser currentUser];
   [[PFInstallation currentInstallation] addUniqueObject:[user privateChannelName] forKey:kLSInstallationChannelsKey];
   [[PFInstallation currentInstallation] saveEventually];

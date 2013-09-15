@@ -26,6 +26,7 @@
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSUserLogInNotification object:nil];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -46,6 +47,7 @@
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
 
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
   
@@ -91,6 +93,12 @@
 }
 
 #pragma mark - Callbacks
+
+- (void)userDidLogIn:(NSNotification*)note
+{
+  // Don't want to keep around old objects
+  [self loadObjects];
+}
 
 - (void)postChanged:(NSNotification *)note
 {

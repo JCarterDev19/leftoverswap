@@ -17,4 +17,6 @@
 @property (nonatomic) LSLocationController *locationController;
 @property (nonatomic, readonly) UIViewController *viewController;
 
+- (BOOL)shouldDisplayWelcomeScreen;
+
 @end

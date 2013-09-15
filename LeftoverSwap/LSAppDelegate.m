@@ -164,7 +164,9 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     PFObject *conversation = [PFObject objectWithoutDataWithClassName:kConversationClassKey objectId:objectId];
     [conversation fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
       if (!error)
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: object}];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: object}];
+        });
     }];
 
     if (application.applicationState != UIApplicationStateActive) {
@@ -176,7 +178,9 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     PFObject *post = [PFObject objectWithoutDataWithClassName:kPostClassKey objectId:userInfo[@"pt"]];
     [post fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
       if (!error)
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:nil userInfo:@{kLSPostKey: object}];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:kLSPostTakenNotification object:nil userInfo:@{kLSPostKey: object}];
+        });
     }];
 
   }
