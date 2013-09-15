@@ -127,7 +127,6 @@
 		5D77658517D781F500F34A02 /* GPSicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658317D781F400F34A02 /* GPSicon.png */; };
 		5D77658617D781F500F34A02 /* GPSicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658417D781F400F34A02 /* GPSicon@2x.png */; };
 		5D77659017D79F8700F34A02 /* LSMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D77658E17D79F8700F34A02 /* LSMeViewController.m */; };
-		5D77659117D79F8700F34A02 /* LSMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D77658F17D79F8700F34A02 /* LSMeViewController.xib */; };
 		5D77659717D8242500F34A02 /* LSCameraOverlayRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D77659617D8242500F34A02 /* LSCameraOverlayRect.m */; };
 		5DA3557A17CAE4CA00CEC3D3 /* greenblock.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557917CAE4CA00CEC3D3 /* greenblock.png */; };
 		5DA3557F17CAE8C700CEC3D3 /* plain.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DA3557B17CAE8C700CEC3D3 /* plain.png */; };
@@ -308,7 +307,6 @@
 		5D77658417D781F400F34A02 /* GPSicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GPSicon@2x.png"; sourceTree = "<group>"; };
 		5D77658D17D79F8700F34A02 /* LSMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSMeViewController.h; sourceTree = "<group>"; };
 		5D77658E17D79F8700F34A02 /* LSMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSMeViewController.m; sourceTree = "<group>"; };
-		5D77658F17D79F8700F34A02 /* LSMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMeViewController.xib; sourceTree = "<group>"; };
 		5D77659517D8242500F34A02 /* LSCameraOverlayRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCameraOverlayRect.h; sourceTree = "<group>"; };
 		5D77659617D8242500F34A02 /* LSCameraOverlayRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCameraOverlayRect.m; sourceTree = "<group>"; };
 		5DA3557917CAE4CA00CEC3D3 /* greenblock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenblock.png; sourceTree = "<group>"; };
@@ -744,7 +742,6 @@
 			children = (
 				5D77658D17D79F8700F34A02 /* LSMeViewController.h */,
 				5D77658E17D79F8700F34A02 /* LSMeViewController.m */,
-				5D77658F17D79F8700F34A02 /* LSMeViewController.xib */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -836,7 +833,6 @@
 				5DA3558217CAE8C700CEC3D3 /* plain4.png in Resources */,
 				5D77658517D781F500F34A02 /* GPSicon.png in Resources */,
 				5D77658617D781F500F34A02 /* GPSicon@2x.png in Resources */,
-				5D77659117D79F8700F34A02 /* LSMeViewController.xib in Resources */,
 				083D471417D7FB310081FE4B /* bubble-default-incoming-green.png in Resources */,
 				083D471517D7FB310081FE4B /* bubble-default-incoming-green@2x.png in Resources */,
 				083D471617D7FB310081FE4B /* bubble-default-incoming-selected.png in Resources */,

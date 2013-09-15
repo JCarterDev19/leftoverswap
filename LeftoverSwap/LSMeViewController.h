@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 
-@interface LSMeViewController : PFQueryTableViewController
+@interface LSMeViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 - (id)initWithStyle:(UITableViewStyle)style;
 

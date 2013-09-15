@@ -7,6 +7,9 @@
 //
 
 #import "LSMeViewController.h"
+
+#import <Parse/Parse.h>
+
 #import "LSLoginSignupViewController.h"
 #import "LSTabBarController.h"
 #import "LSAppDelegate.h"
@@ -15,8 +18,8 @@
 
 @interface LSMeViewController ()
 
-@property (nonatomic) IBOutlet UILabel *userLabel;
 @property (nonatomic) PFUser *user;
+@property (nonatomic) NSMutableArray *objects;
 
 @end
 
@@ -34,9 +37,7 @@
   self = [super initWithStyle:style];
   if (self) {
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Me" image:[UIImage imageNamed:@"TabBarMe"] tag:2];
-    self.parseClassName = kPostClassKey;
-    self.pullToRefreshEnabled = NO;
-    self.paginationEnabled = NO;
+    self.objects = [NSMutableArray array];
   }
   return self;
 }
@@ -44,35 +45,62 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostCreatedNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postChanged:) name:kLSPostTakenNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postCreated:) name:kLSPostCreatedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postTaken:) name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
+  
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
   
   self.navigationItem.leftBarButtonItem = nil;
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Terms" style:UIBarButtonItemStyleBordered target:self action:@selector(termsOfService:)];
-
+  
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
-//  self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+
+  
+  [self loadPosts];
 }
 
-#pragma mark - Table dataSource methods
-
-//- (void)objectsDidLoad:(NSError *)error
-//{
-//  [super objectsDidLoad:error];
-//  [self.tableView reloadData];
-//}
-
-- (PFQuery *)queryForTable
+- (void)loadPosts
 {
   PFQuery *query = [PFQuery queryWithClassName:kPostClassKey];
   [query whereKey:kPostUserKey equalTo:[PFUser currentUser]];
   [query orderByDescending:@"createdAt"];
-  query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-  return query;
+  query.cachePolicy = kPFCachePolicyNetworkElseCache;
+
+  [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    self.objects = [NSMutableArray arrayWithArray:objects];
+    [self.tableView reloadData];
+  }];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//  PFObject *post = self.objects[indexPath.row];
+//
+//  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:[conversation objectForKey:kConversationPostKey]];
+//  conversationViewController.conversationDelegate = self;
+//  conversationViewController.hidesBottomBarWhenPushed = YES;
+//  [self.navigationController pushViewController:conversationViewController animated:YES];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return [LSMePostCell heightForCell];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return self.objects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,24 +115,34 @@
   return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  return [LSMePostCell heightForCell];
-}
-
 #pragma mark - Callbacks
 
 - (void)userDidLogIn:(NSNotification*)note
 {
   // Don't want to keep around old objects
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
-  [self clear];
-  [self loadObjects];
+  self.objects = nil;
+  [self.tableView reloadData];
+  [self loadPosts];
 }
 
-- (void)postChanged:(NSNotification *)note
+- (void)postCreated:(NSNotification *)note
 {
-  [self loadObjects];
+  PFObject *post = note.userInfo[kLSPostKey];
+  [self.objects insertObject:post atIndex:0];
+  [self.tableView reloadData];
+}
+
+- (void)postTaken:(NSNotification *)notification
+{
+  // Just set post taken notification instead.
+  // The ConversationHeader view should have updated its own post and redrawn it.
+  PFObject *takenPost = notification.userInfo[kLSPostKey];
+  for (PFObject *post in self.objects) {
+    if ([[post objectId] isEqualToString:[takenPost objectId]]) {
+      [post setObject:@(YES) forKey:kPostTakenKey];
+    }
+  }
 }
 
 - (void)logout:(id)sender

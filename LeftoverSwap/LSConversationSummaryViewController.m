@@ -133,7 +133,7 @@
 - (void)loadConversations
 {
   PFQuery *query = [self queryForTable];
-  query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+  query.cachePolicy = kPFCachePolicyNetworkElseCache;
   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
     [self partitionConversationsByRecipient:objects];
     [self.tableView reloadData];
@@ -177,7 +177,11 @@
 - (void)conversationCreated:(NSNotification*)notification
 {
   [self incrementBadgeValue];
-  [self loadConversations];
+
+  PFObject *conversation = notification.userInfo[kLSConversationKey];
+  [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
+  [self updateSummarizedObjects];
+  [self.tableView reloadData];
 }
 
 - (void)incrementBadgeValue
