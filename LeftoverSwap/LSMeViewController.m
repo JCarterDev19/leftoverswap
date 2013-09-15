@@ -97,6 +97,8 @@
 - (void)userDidLogIn:(NSNotification*)note
 {
   // Don't want to keep around old objects
+  self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
+  [self clear];
   [self loadObjects];
 }
 

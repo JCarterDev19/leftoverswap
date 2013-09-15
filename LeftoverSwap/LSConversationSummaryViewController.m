@@ -27,6 +27,7 @@
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSConversationCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSUserLogInNotification object:nil];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -39,6 +40,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
   }
   return self;
 }
@@ -158,6 +160,18 @@
   [[self conversationsForRecipient:[conversation recipient]] insertObject:conversation atIndex:0];
   [self updateSummarizedObjects];
   [self.tableView reloadData];
+}
+
+- (void)userDidLogIn:(NSNotification*)notification
+{
+  // Clear them out immediately
+  self.recipientConversations = [NSMutableArray array];
+  [self updateSummarizedObjects];
+  [self.tableView reloadData];
+  self.navigationController.tabBarItem.badgeValue = nil;
+
+  // then load conversations
+  [self loadConversations];
 }
 
 - (void)conversationCreated:(NSNotification*)notification

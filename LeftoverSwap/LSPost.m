@@ -43,7 +43,6 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
     self.title = [anObject objectForKey:kPostTitleKey];
     self.subtitle = [anObject objectForKey:kPostDescriptionKey];
     self.animatesDrop = NO;
-    self.pinColor = [[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]] ? MKPinAnnotationColorRed : MKPinAnnotationColorGreen;
   }
   return self;
 }
@@ -73,13 +72,18 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
 	}
 }
 
+-(MKPinAnnotationColor)pinColor
+{
+  return [[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]] ? MKPinAnnotationColorRed : MKPinAnnotationColorGreen;
+}
+
 -(PFFile *)thumbnail {
   return [self.object objectForKey:kPostThumbnailKey];
 }
 
 - (void)setupAnnotationView:(MKPinAnnotationView *)pinView
 {
-  pinView.pinColor = [self pinColor];
+  pinView.pinColor = self.pinColor;
   pinView.animatesDrop = [self animatesDrop];
   pinView.canShowCallout = YES;
   

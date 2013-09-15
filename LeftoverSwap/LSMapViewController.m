@@ -67,6 +67,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kLSLocationChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasCreated:) name:kLSPostCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
 
   //FIXME: where is this?
 	self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.332495f, -122.029095f), MKCoordinateSpanMake(0.008516f, 0.021801f));
@@ -101,6 +102,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSLocationChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostCreatedNotification object:nil];
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSUserLogInNotification object:nil];
 	
 	self.mapPinsPlaced = NO; // reset this for the next time we show the map.
 }
@@ -121,6 +123,16 @@
 	}
 
 	[self queryForAllPostsNearLocation:locationController.currentLocation.coordinate];
+}
+
+- (void)userDidLogIn:(NSNotification*)notification
+{
+  // The pins may have changed color when switching users
+  for (LSPost *annotation in self.mapView.annotations) {
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[self.mapView viewForAnnotation:annotation];
+    annotationView.pinColor = annotation.pinColor;
+  }
+//  [self queryForAllPostsNearLocation:locationController.currentLocation.coordinate];
 }
 
 - (void)postWasCreated:(NSNotification *)note
@@ -233,63 +245,64 @@
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 		if (error) {
 			NSLog(@"error in geo query!"); // todo why is this ever happening?
-		} else {
-			// We need to make new post objects from objects,
-			// and update allPosts and the map to reflect this new array.
-			// But we don't want to remove all annotations from the mapview blindly,
-			// so let's do some work to figure out what's new and what needs removing.
+      return;
+    }
 
-			// 1. Find genuinely new posts:
-			NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
-			// (Cache the objects we make for the search in step 2:)
-			NSMutableArray *allNewPosts = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
-			for (PFObject *object in objects) {
-				LSPost *newPost = [[LSPost alloc] initWithPFObject:object];
-				[allNewPosts addObject:newPost];
-				BOOL found = NO;
-				for (LSPost *currentPost in allPosts) {
-					if ([newPost equalToPost:currentPost]) {
-						found = YES;
-					}
-				}
-				if (!found) {
-					[newPosts addObject:newPost];
-				}
-			}
-			// newPosts now contains our new objects.
+    // We need to make new post objects from objects,
+    // and update allPosts and the map to reflect this new array.
+    // But we don't want to remove all annotations from the mapview blindly,
+    // so let's do some work to figure out what's new and what needs removing.
 
-			// 2. Find posts in allPosts that didn't make the cut.
-			NSMutableArray *postsToRemove = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
-			for (LSPost *currentPost in allPosts) {
-				BOOL found = NO;
-				// Use our object cache from the first loop to save some work.
-				for (LSPost *allNewPost in allNewPosts) {
-					if ([currentPost equalToPost:allNewPost]) {
-						found = YES;
-					}
-				}
-				if (!found) {
-					[postsToRemove addObject:currentPost];
-				}
-			}
-			// postsToRemove has objects that didn't come in with our new results.
+    // 1. Find genuinely new posts:
+    NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
+    // (Cache the objects we make for the search in step 2:)
+    NSMutableArray *allNewPosts = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
+    for (PFObject *object in objects) {
+      LSPost *newPost = [[LSPost alloc] initWithPFObject:object];
+      [allNewPosts addObject:newPost];
+      BOOL found = NO;
+      for (LSPost *currentPost in allPosts) {
+        if ([newPost equalToPost:currentPost]) {
+          found = YES;
+        }
+      }
+      if (!found) {
+        [newPosts addObject:newPost];
+      }
+    }
+    // newPosts now contains our new objects.
 
-			// 3. Configure our new posts; these are about to go onto the map.
-			for (LSPost *newPost in newPosts) {
-				// Animate all pins after the initial load:
-				newPost.animatesDrop = mapPinsPlaced;
-			}
+    // 2. Find posts in allPosts that didn't make the cut.
+    NSMutableArray *postsToRemove = [[NSMutableArray alloc] initWithCapacity:kPostLimit];
+    for (LSPost *currentPost in allPosts) {
+      BOOL found = NO;
+      // Use our object cache from the first loop to save some work.
+      for (LSPost *allNewPost in allNewPosts) {
+        if ([currentPost equalToPost:allNewPost]) {
+          found = YES;
+        }
+      }
+      if (!found) {
+        [postsToRemove addObject:currentPost];
+      }
+    }
+    // postsToRemove has objects that didn't come in with our new results.
 
-			// At this point, newAllPosts contains a new list of post objects.
-			// We should add everything in newPosts to the map, remove everything in postsToRemove,
-			// and add newPosts to allPosts.
-			[mapView removeAnnotations:postsToRemove];
-			[mapView addAnnotations:newPosts];
-			[allPosts addObjectsFromArray:newPosts];
-			[allPosts removeObjectsInArray:postsToRemove];
+    // 3. Configure our new posts; these are about to go onto the map.
+    for (LSPost *newPost in newPosts) {
+      // Animate all pins after the initial load:
+      newPost.animatesDrop = mapPinsPlaced;
+    }
 
-			self.mapPinsPlaced = YES;
-		}
+    // At this point, newAllPosts contains a new list of post objects.
+    // We should add everything in newPosts to the map, remove everything in postsToRemove,
+    // and add newPosts to allPosts.
+    [mapView removeAnnotations:postsToRemove];
+    [mapView addAnnotations:newPosts];
+    [allPosts addObjectsFromArray:newPosts];
+    [allPosts removeObjectsInArray:postsToRemove];
+
+    self.mapPinsPlaced = YES;
 	}];
 }
 

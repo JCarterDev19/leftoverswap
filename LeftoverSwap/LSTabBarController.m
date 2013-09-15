@@ -106,7 +106,10 @@
 
 - (void)loginDidFinish:(UIViewController*)loginController
 {
-  
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLSUserLogInNotification object:nil userInfo:nil];
+  });
+
   if ([(LSAppDelegate*)[UIApplication sharedApplication] shouldDisplayWelcomeScreen]) {
     LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
     welcomeViewController.delegate = self;
