@@ -15,6 +15,7 @@
 
 @interface LSConversationSummaryViewController ()
 
+@property (nonatomic, weak) LSConversationViewController *conversationController;
 @property (nonatomic) NSMutableDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
 
@@ -78,10 +79,11 @@
   PFObject *conversation = self.summarizedObjects[indexPath.row][0];
   PFObject *recipient = [conversation recipient];
   
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:[conversation objectForKey:kConversationPostKey]];
-  conversationViewController.conversationDelegate = self;
-  conversationViewController.hidesBottomBarWhenPushed = YES;
-  [self.navigationController pushViewController:conversationViewController animated:YES];
+  LSConversationViewController *conversationController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient];
+  conversationController.conversationDelegate = self;
+  conversationController.hidesBottomBarWhenPushed = YES;
+  self.conversationController = conversationController;
+  [self.navigationController pushViewController:conversationController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -137,6 +139,11 @@
   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
     [self partitionConversationsByRecipient:objects];
     [self.tableView reloadData];
+    
+    // Refresh conversation view.
+    if (self.conversationController) {
+      [self.conversationController updateConversations:[self conversationsForRecipient:self.conversationController.recipient]];
+    }
   }];
 }
 
@@ -146,11 +153,12 @@
 {
   PFObject *recipient = [post objectForKey:kPostUserKey];
   
-  LSConversationViewController *conversationViewController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient post:post];
-  conversationViewController.conversationDelegate = self;
-  conversationViewController.hidesBottomBarWhenPushed = YES;
-  [self.navigationController pushViewController:conversationViewController animated:NO];
-  [conversationViewController addMessage:text];
+  LSConversationViewController *conversationController = [[LSConversationViewController alloc] initWithConversations:[self conversationsForRecipient:recipient] recipient:recipient];
+  conversationController.conversationDelegate = self;
+  conversationController.hidesBottomBarWhenPushed = YES;
+  self.conversationController = conversationController;
+  [self.navigationController pushViewController:conversationController animated:NO];
+  [conversationController addMessage:text];
 }
 
 #pragma mark - LSConversationControllerDelegate
@@ -177,19 +185,7 @@
 - (void)conversationCreated:(NSNotification*)notification
 {
   [self incrementBadgeValue];
-
-  PFObject *newConversation = notification.userInfo[kLSConversationKey];
-  
-  NSMutableArray *conversations = [self conversationsForRecipient:[newConversation recipient]];
-  
-  // Only insert if the new conversation doesn't already exist.
-  // This can happen when we loadConversations, then a push
-  // notification payload containing the new object if also read.
-  if (![LSConversationUtils conversations:conversations containsConversation:newConversation])
-    [conversations insertObject:newConversation atIndex:0];
-
-  [self updateSummarizedObjects];
-  [self.tableView reloadData];
+  [self loadConversations];
 }
 
 - (void)incrementBadgeValue

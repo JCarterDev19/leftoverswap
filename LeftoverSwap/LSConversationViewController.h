@@ -39,12 +39,12 @@
 
 @interface LSConversationViewController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
 
-@property (nonatomic) PFObject *post; /* nilable */
-@property (nonatomic) PFObject *recipient;
+@property (nonatomic, readonly) PFObject *recipient;
+
 @property (nonatomic, weak) id<LSConversationControllerDelegate> conversationDelegate;
 
-- initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post;
-
+- (void)updateConversations:(NSMutableArray*)conversations;
 - (void)addMessage:(NSString*)text;
+- (id)initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient;
 
 @end

@@ -37,6 +37,7 @@
 
 @interface LSConversationViewController ()
 
+@property (nonatomic) PFObject *recipient;
 @property (nonatomic) NSMutableArray *conversations; /* PFObject */
 @property (nonatomic) LSConversationHeader *header;
 
@@ -46,33 +47,15 @@
 
 #pragma mark - Initialization
 
-- (void)dealloc
-{
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSConversationCreatedNotification object:nil];
-}
-
-- initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient post:(PFObject*)post
+- (id)initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient
 {
   self = [super init];
   if (self) {
-    // Ensure proper sorting for conversations
-    self.conversations = [NSMutableArray arrayWithArray:[conversations sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-      return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
-    }]];
-    self.post = post;
+    self.conversations = [conversations mutableCopy];
     self.recipient = recipient;
-    self.title = [recipient objectForKey:kUserDisplayNameKey];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
+    self.title = [self.recipient objectForKey:kUserDisplayNameKey];
   }
   return self;
-}
-
-- (UIButton *)sendButton
-{
-  // Override to use a custom send button
-  // The button's frame is set automatically for you
-  return [UIButton defaultSendButton];
 }
 
 #pragma mark - View lifecycle
@@ -83,26 +66,40 @@
   
   self.delegate = self;
   self.dataSource = self;
-//
-//  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward
-//                                                                                         target:self
-//                                                                                         action:@selector(buttonPressed:)];
-//  self.navigationItem.title = @"New Conversation";
-//  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed:)];
-//  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Message" style:UIBarButtonItemStyleDone target:self action:@selector(postPressed:)];
+  
+  [self setHeaderView];
 }
 
-- (void)setPost:(PFObject *)post
+- (void)setConversations:(NSMutableArray *)sorted
 {
-  _post = post;
+  // Ensure proper sorting for conversations (ascending order)
+  [sorted sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
+  }];
+  _conversations = sorted;
+}
+
+- (void)updateConversations:(NSArray*)conversations
+{
+  self.conversations = [conversations mutableCopy];
+  [self setHeaderView];
+  
+  [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];  
+}
+
+- (void)setHeaderView
+{
+  PFObject *latestPost = [self latestPost];
+  if (self.header.post == latestPost) return;
 
   if (self.header)
     [self.header removeFromSuperview];
-
+  
   self.header = [[LSConversationHeader alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-  self.header.post = self.post;
+  self.header.post = latestPost;
   [self.view addSubview:self.header];
-
+  
   self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:self.header.frame];
   [self.tableView setNeedsDisplay];
 }
@@ -113,41 +110,35 @@
 //  LSCon *vc = [[DemoViewController alloc] initWithNibName:nil bundle:nil];
 //  [self.navigationController pushViewController:vc animated:YES];
 //}
+
 #pragma mark - Instance methods
 
-- (void)conversationCreated:(NSNotification*)notification
+- (UIButton *)sendButton
 {
-  PFObject *conversation = notification.userInfo[kLSConversationKey];
-  if ([[[conversation recipient] objectId] isEqualToString:[self.recipient objectId]]
-      && ![LSConversationUtils conversations:self.conversations containsConversation:conversation]) {
-    [self.conversations addObject:conversation];
-    
-    PFObject *newPost = [conversation objectForKey:kConversationPostKey];
-    if (![[newPost objectId] isEqualToString:[self.post objectId]])
-      self.post = newPost;
-    
-    [self.tableView reloadData];
-    [self scrollToBottomAnimated:YES];
-  }
+  // Override to use a custom send button
+  // The button's frame is set automatically for you
+  return [UIButton defaultSendButton];
 }
 
 - (void)addMessage:(NSString*)text
 {
   PFObject *newConversation = [self conversationForMessage:text];
+
   [self.conversations addObject:newConversation];
-  
+  [self setHeaderView];
+  [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];
+
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (!succeeded)
+      return;
+    
     [JSMessageSoundEffect playMessageSentSound];
-    NSLog(@"Sent message for post %@ and text %@", [self.post objectId], text);
-  
     [self sendPushForConversation:newConversation];
-//    [push setChannel:[newConversation objectForKey:kConversationToUserKey] privateChannelName]];
     
     if (self.conversationDelegate)
       [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
-  [self.tableView reloadData];
-  [self scrollToBottomAnimated:NO];
 }
 
 #pragma mark - Table view data source
@@ -160,10 +151,18 @@
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
   PFObject *newConversation = [self conversationForMessage:text];
-  [self.conversations addObject:newConversation];
-  
-  // TODO: maybe only add this when it's been saved instead?
+
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    if (!succeeded)
+      return;
+    
+    if (![self.conversations containsObject:newConversation]) {
+      [self.conversations addObject:newConversation];
+      [self setHeaderView];
+      [self.tableView reloadData];
+      [self scrollToBottomAnimated:NO];
+    }
+
     [JSMessageSoundEffect playMessageSentSound];
     [self sendPushForConversation:newConversation];
     
@@ -171,13 +170,9 @@
       [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
 
+  [self.conversations addObject:newConversation];
+  [self setHeaderView];
   [self finishSend];
-
-//  if((self.conversations.count - 1) % 2)
-//    
-//  else
-//    [JSMessageSoundEffect playMessageReceivedSound];
-  
 }
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,12 +200,6 @@
 {
   return JSAvatarStyleSquare;
 }
-
-//  Optional delegate method
-//  Required if using `JSMessagesViewTimestampPolicyCustom`
-//
-//  - (BOOL)hasTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
-//
 
 #pragma mark - Messages view data source
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -240,12 +229,11 @@
 
 - (PFObject*)conversationForMessage:(NSString*)text
 {
-  NSAssert(self.post, @"post must not be nil");
   PFObject *newConversation = [PFObject objectWithClassName:kConversationClassKey];
   [newConversation setObject:text forKey:kConversationMessageKey];
   [newConversation setObject:[PFUser currentUser] forKey:kConversationFromUserKey];
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
-  [newConversation setObject:self.post forKey:kConversationPostKey];
+  [newConversation setObject:[self latestPost] forKey:kConversationPostKey];
   return newConversation;
 }
 
@@ -267,6 +255,11 @@
                         };
   [push setData:data];
   [push sendPushInBackground];
+}
+
+- (PFObject*)latestPost
+{
+  return [[self.conversations lastObject] objectForKey:kConversationPostKey];
 }
 
 @end

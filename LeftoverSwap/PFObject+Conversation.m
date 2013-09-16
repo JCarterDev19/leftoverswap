@@ -22,4 +22,11 @@
   }
 }
 
+- (BOOL)isEqual:(id)object
+{
+  if (![object isKindOfClass:[PFObject class]]) return NO;
+  PFObject *other = object;
+  return [self.objectId isEqualToString:other.objectId];
+}
+
 @end
