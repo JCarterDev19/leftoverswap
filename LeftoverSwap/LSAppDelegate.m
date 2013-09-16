@@ -87,6 +87,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+  if (application.applicationIconBadgeNumber != 0) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:nil];
+    });
+  }
+
   [self resetApplicationBadgeNumber:application];
 }
 
