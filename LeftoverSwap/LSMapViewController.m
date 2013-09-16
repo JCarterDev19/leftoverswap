@@ -234,7 +234,7 @@
 	// If no objects are loaded in memory, we look to the cache first to fill the table
 	// and then subsequently do a query against the network.
 	if ([self.allPosts count] == 0) {
-		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+		query.cachePolicy = kPFCachePolicyNetworkElseCache;
 	}
 
 	// Query for posts sort of kind of near our current location.

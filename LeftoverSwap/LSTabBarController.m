@@ -63,11 +63,11 @@
   self.selectedViewController = self.conversationNavigationController;
 }
 
--(void)presentSignInView
+-(void)presentSignInView:(BOOL)animated
 {
   LSLoginSignupViewController *signInViewController = [[LSLoginSignupViewController alloc] initWithNibName:nil bundle:nil];
   signInViewController.delegate = self;
-  [self presentViewController:signInViewController animated:NO completion:nil];
+  [self presentViewController:signInViewController animated:animated completion:nil];
 }
 
 -(void)presentWelcomeView
@@ -82,6 +82,7 @@
 -(void)welcomeControllerDidEat:(LSWelcomeViewController *)controller
 {
   self.selectedViewController = self.mapViewController;
+  controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 

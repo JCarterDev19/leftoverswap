@@ -148,7 +148,7 @@
 - (void)logout:(id)sender
 {
   [PFUser logOut];
-  [(LSTabBarController*)self.tabBarController presentSignInView];
+  [(LSTabBarController*)self.tabBarController presentSignInView:YES];
 }
 
 - (void)termsOfService:(id)sender

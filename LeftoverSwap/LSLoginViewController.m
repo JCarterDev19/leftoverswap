@@ -13,11 +13,15 @@
 #import "LSActivityView.h"
 #import "LSConstants.h"
 
+static const NSInteger kResetPasswordAlertView = 20;
+
 @interface LSLoginViewController ()
 
 - (void)processFieldEntries;
 - (void)textInputChanged:(NSNotification *)note;
 - (BOOL)shouldEnableDoneButton;
+
+@property (nonatomic) IBOutlet UIButton *resetPasswordButton;
 
 @end
 
@@ -32,7 +36,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:NSStringFromClass(self.class) bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -45,6 +48,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:usernameField];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordField];
 
+  self.resetPasswordButton.hidden = YES;
 	doneButton.enabled = NO;
 }
 
@@ -79,6 +83,7 @@
 - (IBAction)resetPassword:(id)sender
 {
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reset password" message:@"Please enter your email address:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+  alert.tag = kResetPasswordAlertView;
   alert.alertViewStyle = UIAlertViewStylePlainTextInput;
   UITextField *alertTextField = [alert textFieldAtIndex:0];
   alertTextField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -88,6 +93,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+  if (alertView.tag != kResetPasswordAlertView) return;
   if (buttonIndex == alertView.firstOtherButtonIndex) { // Done
     UITextField *alertTextField = [alertView textFieldAtIndex:0];
     NSString *email = alertTextField.text;
@@ -105,6 +111,7 @@
 
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
 {
+  if (alertView.tag != kResetPasswordAlertView) return YES;
   UITextField *alertTextField = [alertView textFieldAtIndex:0];
   return alertTextField.text.length != 0;
 }
@@ -228,6 +235,9 @@
 				alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 			}
 			[alertView show];
+
+      self.resetPasswordButton.hidden = NO;
+
 			// Bring the keyboard back up, because they'll probably need to change something.
 			[usernameField becomeFirstResponder];
 		}
