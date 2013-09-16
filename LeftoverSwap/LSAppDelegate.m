@@ -187,6 +187,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   if (application.applicationIconBadgeNumber != 0) {
     application.applicationIconBadgeNumber = 0;
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation.badge = 0;
     [currentInstallation saveEventually];
   }
 }
