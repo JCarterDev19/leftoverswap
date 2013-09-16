@@ -178,6 +178,7 @@ typedef NS_ENUM(NSUInteger, LSConversationHeaderState) {
   
   // Only load if the url changes
   if (self.imageView.file.url != thumbnail.url) {
+    self.imageView.image = nil;
     self.imageView.file = thumbnail;
     [self.imageView loadInBackground];
   }
