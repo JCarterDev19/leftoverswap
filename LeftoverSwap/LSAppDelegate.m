@@ -156,6 +156,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     // The application was just brought from the background to the foreground,
     // so we consider the app as having been "opened by a push notification."
     [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+  } else {
+    
+    // If the app is active, don't increment the application badge number externally.
+    if (application.applicationIconBadgeNumber != 0) {
+      application.applicationIconBadgeNumber = 0;
+    }
   }
 
   if (userInfo[@"c"]) { // conversation created
