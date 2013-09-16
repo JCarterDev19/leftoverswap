@@ -37,6 +37,7 @@
 
 @interface LSConversationViewController ()
 
+@property (nonatomic) NSMutableArray *locallyAddedConversations; /* PFObject */
 @property (nonatomic) PFObject *recipient;
 @property (nonatomic) NSMutableArray *conversations; /* PFObject */
 @property (nonatomic) LSConversationHeader *header;
@@ -51,6 +52,7 @@
 {
   self = [super init];
   if (self) {
+    self.locallyAddedConversations = [NSMutableArray array];
     self.conversations = [conversations mutableCopy];
     self.recipient = recipient;
     self.title = [self.recipient objectForKey:kUserDisplayNameKey];
@@ -70,13 +72,30 @@
   [self setHeaderView];
 }
 
-- (void)setConversations:(NSMutableArray *)sorted
+- (void)setConversations:(NSMutableArray *)newConversations
 {
+  // Add conversations only seen locally
+  NSMutableArray *stillNotAdded = [NSMutableArray array];
+  for (PFObject *locallyAddedConversation in self.locallyAddedConversations) {
+    if (![newConversations containsObject:locallyAddedConversation]) {
+      [newConversations addObject:locallyAddedConversation];
+      [stillNotAdded addObject:locallyAddedConversation];
+    }
+  }
+  self.locallyAddedConversations = stillNotAdded;
+  
   // Ensure proper sorting for conversations (ascending order)
-  [sorted sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-    return [[(PFObject*)obj1 createdAt] compare:[(PFObject*)obj2 createdAt]];
+  [newConversations sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSDate *date1 = [(PFObject*)obj1 createdAt];
+    if (!date1)
+      date1 = [NSDate date];
+    NSDate *date2 = [(PFObject*)obj2 createdAt];
+    if (!date2)
+      date2 = [NSDate date];
+    return [date1 compare:date2];
   }];
-  _conversations = sorted;
+  
+  _conversations = newConversations;
 }
 
 - (void)updateConversations:(NSArray*)conversations
@@ -125,11 +144,6 @@
   PFObject *newConversation = [self conversationForMessage:text];
   [newConversation setObject:post forKey:kConversationPostKey];
 
-  [self.conversations addObject:newConversation];
-  [self setHeaderView];
-  [self.tableView reloadData];
-  [self scrollToBottomAnimated:NO];
-
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!succeeded)
       return;
@@ -140,6 +154,12 @@
     if (self.conversationDelegate)
       [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
+  
+  [self.locallyAddedConversations addObject:newConversation];
+  [self.conversations addObject:newConversation];
+  [self setHeaderView];
+  [self.tableView reloadData];
+  [self scrollToBottomAnimated:NO];
 }
 
 #pragma mark - Table view data source
@@ -152,18 +172,11 @@
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
   PFObject *newConversation = [self conversationForMessage:text];
-
+  
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!succeeded)
       return;
     
-    if (![self.conversations containsObject:newConversation]) {
-      [self.conversations addObject:newConversation];
-      [self setHeaderView];
-      [self.tableView reloadData];
-      [self scrollToBottomAnimated:NO];
-    }
-
     [JSMessageSoundEffect playMessageSentSound];
     [self sendPushForConversation:newConversation];
     
@@ -171,6 +184,7 @@
       [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
 
+  [self.locallyAddedConversations addObject:newConversation];
   [self.conversations addObject:newConversation];
   [self setHeaderView];
   [self finishSend];
