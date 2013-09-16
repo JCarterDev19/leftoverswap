@@ -15,6 +15,7 @@
 
 @interface LSConversationSummaryViewController ()
 
+@property (nonatomic) NSInteger numObjects;
 @property (nonatomic, weak) LSConversationViewController *conversationController;
 @property (nonatomic) NSMutableDictionary *recipientConversations; /* NSString *objectId => NSArray of PFObjects */
 @property (nonatomic) NSArray *summarizedObjects; /* NSArray of PFObjects */
@@ -39,6 +40,7 @@
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:[UIImage imageNamed:@"TabBarMessage"] tag:1];
     self.title = @"Conversations";
     self.recipientConversations = [NSMutableDictionary dictionary];
+    self.numObjects = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -49,7 +51,7 @@
 
 - (void)viewDidLoad
 {
-  [self loadConversations];
+  [self loadConversationsWithBadgeCount:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -132,11 +134,17 @@
   return query;
 }
 
-- (void)loadConversations
+- (void)loadConversationsWithBadgeCount:(BOOL)updateBadge
 {
   PFQuery *query = [self queryForTable];
   query.cachePolicy = kPFCachePolicyNetworkElseCache;
   [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    NSInteger oldCount = self.numObjects;
+    if (updateBadge)
+      [self setBadgeCount:MAX(objects.count - oldCount, 0)];
+    self.numObjects = objects.count;
+
     [self partitionConversationsByRecipient:objects];
     [self.tableView reloadData];
     
@@ -179,26 +187,22 @@
   self.navigationController.tabBarItem.badgeValue = nil;
 
   // then load conversations
-  [self loadConversations];
+  [self loadConversationsWithBadgeCount:NO];
 }
 
 - (void)conversationCreated:(NSNotification*)notification
 {
-  [self incrementBadgeValue];
-  [self loadConversations];
+  [self loadConversationsWithBadgeCount:YES];
 }
 
-- (void)incrementBadgeValue
+- (void)setBadgeCount:(NSInteger)badgeCount
 {
   UITabBarItem *tabBarItem = self.navigationController.tabBarItem;
-  NSString *currentBadgeValue = tabBarItem.badgeValue;
-  
-  if (currentBadgeValue && currentBadgeValue.length > 0) {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    NSNumber *badgeValue = [numberFormatter numberFromString:currentBadgeValue];
-    tabBarItem.badgeValue = [numberFormatter stringFromNumber:@([badgeValue intValue] + 1)];
+  if (badgeCount == 0) {
+    tabBarItem.badgeValue = nil;
   } else {
-    tabBarItem.badgeValue = @"1";
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    tabBarItem.badgeValue = [numberFormatter stringFromNumber:@(badgeCount)];
   }
 }
 
