@@ -97,11 +97,13 @@
 
 -(void)signupControllerDidFinish:(LSSignupViewController*)signupController
 {
+  signupController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
   [self loginDidFinish:signupController];
 }
 
 -(void)loginControllerDidFinish:(LSLoginViewController*)loginController
 {
+  loginController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
   [self loginDidFinish:loginController];
 }
 
