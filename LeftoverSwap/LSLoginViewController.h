@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LSLoginSignupViewController.h"
 
-@interface LSLoginViewController : UIViewController <UITextFieldDelegate>
+@interface LSLoginViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 

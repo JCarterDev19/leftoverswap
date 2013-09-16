@@ -183,7 +183,7 @@
 	}
 
 	if (textError) {
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorText message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorText message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 		[alertView show];
 		return;
 	}
@@ -211,7 +211,7 @@
 
 	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		if (error) {
-			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 			[alertView show];
 			doneButton.enabled = [self shouldEnableDoneButton];
 			[activityView.activityIndicator stopAnimating];

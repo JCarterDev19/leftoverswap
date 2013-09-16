@@ -11,6 +11,7 @@
 #import "LSAppDelegate.h"
 #import <Parse/Parse.h>
 #import "LSActivityView.h"
+#import "LSConstants.h"
 
 @interface LSLoginViewController ()
 
@@ -35,7 +36,6 @@
     }
     return self;
 }
-
 
 #pragma mark - View lifecycle
 
@@ -74,6 +74,39 @@
 	[passwordField resignFirstResponder];
 
 	[self processFieldEntries];
+}
+
+- (IBAction)resetPassword:(id)sender
+{
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reset password" message:@"Please enter your email address:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+  alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+  UITextField *alertTextField = [alert textFieldAtIndex:0];
+  alertTextField.keyboardType = UIKeyboardTypeEmailAddress;
+  alertTextField.placeholder = @"eat@leftoverswap.com";
+  [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex == alertView.firstOtherButtonIndex) { // Done
+    UITextField *alertTextField = [alertView textFieldAtIndex:0];
+    NSString *email = alertTextField.text;
+    
+    [PFUser requestPasswordResetForEmailInBackground:email block:^(BOOL succeeded, NSError *error) {
+      NSString *message = error.userInfo[@"error"];
+      if (succeeded)
+        message = @"Check your email for reset instructions!";
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reset password" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+      alert.alertViewStyle = UIAlertViewStyleDefault;
+      [alert show];
+    }];
+  }
+}
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+  UITextField *alertTextField = [alertView textFieldAtIndex:0];
+  return alertTextField.text.length != 0;
 }
 
 #pragma mark - UITextField text field change notifications and helper methods
@@ -150,7 +183,7 @@
 
 	if (textError) {
 		errorText = [errorText stringByAppendingString:errorTextEnding];
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorText message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorText message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 		[alertView show];
 		return;
 	}
@@ -163,6 +196,7 @@
 	UILabel *label = activityView.label;
 	label.text = @"Logging in";
 	label.font = [UIFont boldSystemFontOfSize:20.f];
+  activityView.label = label;
 	[activityView.activityIndicator startAnimating];
 	[activityView layoutSubviews];
 
@@ -188,10 +222,10 @@
 
 			if (error == nil) {
 				// the username or password is probably wrong.
-				alertView = [[UIAlertView alloc] initWithTitle:@"Couldn’t log in:\nThe username or password were wrong." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+				alertView = [[UIAlertView alloc] initWithTitle:@"Couldn’t log in:\nThe username or password were wrong." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 			} else {
 				// Something else went horribly wrong:
-				alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+				alertView = [[UIAlertView alloc] initWithTitle:[[error userInfo] objectForKey:@"error"] message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 			}
 			[alertView show];
 			// Bring the keyboard back up, because they'll probably need to change something.

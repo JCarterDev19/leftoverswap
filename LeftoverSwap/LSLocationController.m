@@ -117,7 +117,7 @@ static NSString * const kDefaultsLocationKey = @"currentLocation";
     case kCLAuthorizationStatusDenied:
       NSLog(@"kCLAuthorizationStatusDenied");
     {{
-      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LeftoverSwap can’t access your current location.\n\nTo view nearby posts or create a post at your current location, turn on access for Anywall to your location in the Settings app under Location Services." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"LeftoverSwap can’t access your current location.\n\nTo view nearby posts or create a post at your current location, turn on access for Anywall to your location in the Settings app under Location Services." message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
       [alertView show];
     }}
       break;
@@ -144,7 +144,7 @@ static NSString * const kDefaultsLocationKey = @"currentLocation";
 		                                                message:[error description]
 		                                               delegate:nil
 		                                      cancelButtonTitle:nil
-		                                      otherButtonTitles:@"Ok", nil];
+		                                      otherButtonTitles:@"OK", nil];
 		[alert show];
 	}
 }
