@@ -146,25 +146,26 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     NSLog(@"Receiving a remote notification should only occur if we're signed in");
     return;
   }
-  
+
+  [self resetApplicationBadgeNumber:application];
+
   if (application.applicationState != UIApplicationStateActive) {
     // The application was just brought from the background to the foreground,
     // so we consider the app as having been "opened by a push notification."
     [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-  } else {
-    // If the app is active, don't increment the application badge number externally.
-    [self resetApplicationBadgeNumber:application];
   }
 
   if (userInfo[@"c"]) { // conversation created
     
     NSString *objectId = userInfo[@"c"];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: objectId}];
-    });
-    
-    if (application.applicationState != UIApplicationStateActive) {
+    // Send a notification only if the user is using the app. The backgrounded
+    // case will still cause an onActive update in the conversations view.
+    if (application.applicationState == UIApplicationStateActive) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:@{kLSConversationKey: objectId}];
+      });
+    } else {
       [self.tabBarController dismissViewControllerAnimated:NO completion:nil];
       [self.tabBarController selectConversations];
     }

@@ -29,4 +29,9 @@
   return [self.objectId isEqualToString:other.objectId];
 }
 
+- (NSUInteger)hash
+{
+  return self.objectId.hash;
+}
+
 @end

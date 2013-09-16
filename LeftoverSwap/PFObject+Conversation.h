@@ -14,5 +14,6 @@
 
 // Conversations are defined as equal if they have the same object id
 - (BOOL)isEqual:(id)object;
+- (NSUInteger)hash;
 
 @end
