@@ -158,7 +158,7 @@
   conversationController.hidesBottomBarWhenPushed = YES;
   self.conversationController = conversationController;
   [self.navigationController pushViewController:conversationController animated:NO];
-  [conversationController addMessage:text];
+  [conversationController addMessage:text forPost:post];
 }
 
 #pragma mark - LSConversationControllerDelegate

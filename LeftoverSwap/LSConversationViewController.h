@@ -44,7 +44,7 @@
 @property (nonatomic, weak) id<LSConversationControllerDelegate> conversationDelegate;
 
 - (void)updateConversations:(NSMutableArray*)conversations;
-- (void)addMessage:(NSString*)text;
+- (void)addMessage:(NSString*)text forPost:(PFObject*)post;
 - (id)initWithConversations:(NSArray*)conversations recipient:(PFObject*)recipient;
 
 @end

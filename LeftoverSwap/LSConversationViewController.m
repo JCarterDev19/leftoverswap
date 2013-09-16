@@ -120,9 +120,10 @@
   return [UIButton defaultSendButton];
 }
 
-- (void)addMessage:(NSString*)text
+- (void)addMessage:(NSString*)text forPost:(PFObject*)post
 {
   PFObject *newConversation = [self conversationForMessage:text];
+  [newConversation setObject:post forKey:kConversationPostKey];
 
   [self.conversations addObject:newConversation];
   [self setHeaderView];
