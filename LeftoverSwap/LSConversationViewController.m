@@ -172,6 +172,7 @@
 - (void)sendPressed:(UIButton *)sender withText:(NSString *)text
 {
   PFObject *newConversation = [self conversationForMessage:text];
+  [newConversation setObject:[self latestPost] forKey:kConversationPostKey];
   
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!succeeded)
@@ -248,7 +249,6 @@
   [newConversation setObject:text forKey:kConversationMessageKey];
   [newConversation setObject:[PFUser currentUser] forKey:kConversationFromUserKey];
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
-  [newConversation setObject:[self latestPost] forKey:kConversationPostKey];
   return newConversation;
 }
 
