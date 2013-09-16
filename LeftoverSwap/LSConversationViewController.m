@@ -122,8 +122,12 @@
       && ![LSConversationUtils conversations:self.conversations containsConversation:conversation]) {
     [self.conversations addObject:conversation];
     
+    PFObject *newPost = [conversation objectForKey:kConversationPostKey];
+    if (![[newPost objectId] isEqualToString:[self.post objectId]])
+      self.post = newPost;
+    
     [self.tableView reloadData];
-    [self scrollToBottomAnimated:NO];
+    [self scrollToBottomAnimated:YES];
   }
 }
 
@@ -162,12 +166,12 @@
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     [JSMessageSoundEffect playMessageSentSound];
     [self sendPushForConversation:newConversation];
+    
+    if (self.conversationDelegate)
+      [self.conversationDelegate conversationController:self didAddConversation:newConversation];
   }];
 
   [self finishSend];
-
-  if (self.conversationDelegate)
-    [self.conversationDelegate conversationController:self didAddConversation:newConversation];
 
 //  if((self.conversations.count - 1) % 2)
 //    
@@ -250,10 +254,11 @@
   PFPush *push = [[PFPush alloc] init];
   PFObject *recipient = [conversation objectForKey:kConversationToUserKey];
   [push setChannel:[recipient privateChannelName]];
-  
-  PFObject *post = [conversation objectForKey:kConversationPostKey];
 
-  NSString *message = [NSString stringWithFormat:@"%@: %@", [post objectForKey:kPostTitleKey], [conversation objectForKey:kConversationMessageKey]];
+//  PFObject *post = [conversation objectForKey:kConversationPostKey];
+  NSString *message = [NSString stringWithFormat:@"%@: %@",
+                       [[PFUser currentUser] objectForKey:kUserDisplayNameKey],
+                       [conversation objectForKey:kConversationMessageKey]];
   
   NSDictionary *data = @{
                          @"alert": message,

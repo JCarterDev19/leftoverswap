@@ -43,10 +43,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   [Parse setApplicationId:@"rxURqAiZdT4w3QiLPpecMAOyFF2qzVxsLPD1FcGR"
                 clientKey:@"HF41j3NxMvnykjW2Cbu7LL48NA2Ebk98qUCT252h"];
   
-  if (application.applicationIconBadgeNumber != 0) {
-    application.applicationIconBadgeNumber = 0;
-    [[PFInstallation currentInstallation] saveEventually];
-  }
+  [self resetApplicationBadgeNumber:application];
   
   [self setupAppearance];
   
@@ -90,10 +87,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  if (application.applicationIconBadgeNumber != 0) {
-    application.applicationIconBadgeNumber = 0;
-    [[PFInstallation currentInstallation] saveEventually];
-  }
+  [self resetApplicationBadgeNumber:application];
 }
 
 #pragma mark - LSAppDelegate
@@ -122,10 +116,8 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 #pragma mark - Remote notifications
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken
-{  
-  if (application.applicationIconBadgeNumber != 0) {
-    application.applicationIconBadgeNumber = 0;
-  }
+{
+  [self resetApplicationBadgeNumber:application];
 
   PFInstallation *currentInstallation = [PFInstallation currentInstallation];
   [currentInstallation setDeviceTokenFromData:newDeviceToken];
@@ -135,7 +127,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     [currentInstallation addUniqueObject:[user privateChannelName] forKey:kLSInstallationChannelsKey];
   }
 
-  [currentInstallation saveInBackground];
+  [currentInstallation saveEventually];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -157,11 +149,8 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
     // so we consider the app as having been "opened by a push notification."
     [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
   } else {
-    
     // If the app is active, don't increment the application badge number externally.
-    if (application.applicationIconBadgeNumber != 0) {
-      application.applicationIconBadgeNumber = 0;
-    }
+    [self resetApplicationBadgeNumber:application];
   }
 
   if (userInfo[@"c"]) { // conversation created
@@ -199,6 +188,15 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
         });
     }];
 
+  }
+}
+
+- (void)resetApplicationBadgeNumber:(UIApplication*)application
+{
+  if (application.applicationIconBadgeNumber != 0) {
+    application.applicationIconBadgeNumber = 0;
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation saveEventually];
   }
 }
 
