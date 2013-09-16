@@ -90,12 +90,6 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   // TODO: is this really needed?
   [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
 
-  if (application.applicationIconBadgeNumber != 0) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [[NSNotificationCenter defaultCenter] postNotificationName:kLSConversationCreatedNotification object:nil userInfo:nil];
-    });
-  }
-
   [self resetApplicationBadgeNumber:application];
 }
 

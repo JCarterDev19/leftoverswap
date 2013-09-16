@@ -41,17 +41,13 @@
     self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Conversations" image:[UIImage imageNamed:@"TabBarMessage"] tag:1];
     self.title = @"Conversations";
     self.recipientConversations = [NSMutableDictionary dictionary];
+    self.objects = [NSArray array];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(conversationCreated:) name:kLSConversationCreatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogIn:) name:kLSUserLogInNotification object:nil];
   }
   return self;
-}
-
-- (void)viewDidLoad
-{
-  [self loadConversations];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,7 +62,7 @@
 - (void)didBecomeActive:(NSNotification*)notification
 {
   if (![PFUser currentUser]) return;
-  [self viewWillAppear:NO];
+  [self loadNewConversationsWithBadgeUpdate:NO];
 }
 
 #pragma mark - UITableViewDelegate
@@ -153,6 +149,44 @@
   }];
 }
 
+- (void)loadNewConversationsWithBadgeUpdate:(BOOL)badgeUpdate
+{
+  // Find newer posts than now, and integrate them
+  PFQuery *query = [self queryForTable];
+  query.cachePolicy = kPFCachePolicyNetworkOnly;
+  
+  if (self.objects.count)
+    [query whereKey:@"createdAt" greaterThan:[self.objects[0] createdAt]];
+  
+  [query findObjectsInBackgroundWithBlock:^(NSArray *newConversations, NSError *error) {
+    if (error)
+      return;
+    
+    NSArray *oldConversations = self.objects;
+    NSMutableArray *toAdd = [newConversations mutableCopy];
+    [toAdd removeObjectsInArray:oldConversations];
+    
+    if (badgeUpdate) {
+      // All new conversations not from us
+      NSInteger badgeCount = 0;
+      for (PFObject *newConversation in toAdd) {
+        if (![[newConversation objectForKey:kConversationFromUserKey] isCurrentUser])
+          ++badgeCount;
+      }
+      [self incrementBadgeCount:badgeCount];
+    }
+
+    self.objects = [toAdd arrayByAddingObjectsFromArray:self.objects];
+    [self partitionConversationsByRecipient:self.objects];
+    [self.tableView reloadData];
+    
+    // Refresh conversation view.
+    if (self.conversationController) {
+      [self.conversationController updateConversations:[self conversationsForRecipient:self.conversationController.recipient]];
+    }
+  }];
+}
+
 #pragma mark - Instance methods
 
 - (void)addNewConversation:(NSString*)text forPost:(PFObject*)post
@@ -190,38 +224,7 @@
 
 - (void)conversationCreated:(NSNotification*)notification
 {
-  // Find newer posts than now, and integrate them
-  PFQuery *query = [self queryForTable];
-  query.cachePolicy = kPFCachePolicyNetworkOnly;
-  
-  if (self.objects.count)
-    [query whereKey:@"createdAt" greaterThan:[self.objects[0] createdAt]];
-  
-  [query findObjectsInBackgroundWithBlock:^(NSArray *newConversations, NSError *error) {
-    if (error)
-      return;
-
-    NSArray *oldConversations = self.objects;
-    NSMutableArray *toAdd = [newConversations mutableCopy];
-    [toAdd removeObjectsInArray:oldConversations];
-    
-    // All new conversations not from us
-    NSInteger badgeCount = 0;
-    for (PFObject *newConversation in toAdd) {
-      if (![[newConversation objectForKey:kConversationFromUserKey] isCurrentUser])
-        ++badgeCount;
-    }
-
-    [self incrementBadgeCount:badgeCount];
-    self.objects = [toAdd arrayByAddingObjectsFromArray:self.objects];
-    [self partitionConversationsByRecipient:self.objects];
-    [self.tableView reloadData];
-    
-    // Refresh conversation view.
-    if (self.conversationController) {
-      [self.conversationController updateConversations:[self conversationsForRecipient:self.conversationController.recipient]];
-    }
-  }];
+  [self loadNewConversationsWithBadgeUpdate:YES];
 }
 
 - (void)incrementBadgeCount:(NSInteger)badgeCount
@@ -232,7 +235,7 @@
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     NSNumber *badgeValue = [numberFormatter numberFromString:currentBadgeValue];
     tabBarItem.badgeValue = [numberFormatter stringFromNumber:@([badgeValue intValue] + badgeCount)];
-  } else {
+  } else if (badgeCount != 0) {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     tabBarItem.badgeValue = [numberFormatter stringFromNumber:@(badgeCount)];
   }
