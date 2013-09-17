@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LSLocationController.h"
 
-@interface LSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface LSAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
