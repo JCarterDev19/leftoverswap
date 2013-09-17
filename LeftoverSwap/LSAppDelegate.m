@@ -190,8 +190,10 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 {
   application.applicationIconBadgeNumber = 0;
   PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-  currentInstallation.badge = 0;
-  [currentInstallation saveEventually];
+  if (currentInstallation.deviceToken) {
+    currentInstallation.badge = 0;
+    [currentInstallation saveEventually];
+  }
 }
 
 #pragma mark - BITHockeyManagerDelegate
