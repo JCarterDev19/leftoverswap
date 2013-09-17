@@ -154,6 +154,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
   }
   [self.contactButton setTitle:title forState:UIControlStateNormal];
   self.contactButton.backgroundColor = backgroundColor;
+  
+  [self.view setNeedsDisplay];
 }
 
 - (void)postWasTaken:(NSNotification *)note
@@ -162,6 +164,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
   PFObject *aPost = note.userInfo[kLSPostKey];
   if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
+    self.post = aPost;
     [self setContactButtonStyle];
   }
 }
