@@ -67,7 +67,7 @@
   
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     cameraUI.showsCameraControls = YES;
-    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
+//    cameraUI.cameraOverlayView = [[LSCameraOverlayRect alloc] initWithFrame:self.view.bounds];
     
     if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
       cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
@@ -89,11 +89,11 @@
   
   self.imagePickerController = cameraUI;
 
-  cameraUI.cameraOverlayView.alpha = 0;
+//  cameraUI.cameraOverlayView.hidden = YES;
   [self.tabBarController presentViewController:imagePickerController animated:YES completion:^{
-    [UIView animateWithDuration:2 animations:^{
-      cameraUI.cameraOverlayView.alpha = 1;
-    }];
+//    [UIView animateWithDuration:2 animations:^{
+//      cameraUI.cameraOverlayView.alpha = 1;
+//    }];
   }];
 }
 

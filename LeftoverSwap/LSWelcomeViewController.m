@@ -103,13 +103,13 @@
 
 - (void)imageTapped:(UIGestureRecognizer *)recognizer
 {
-    NSLog(@"tapped");
+//    NSLog(@"tapped");
     NSInteger screenWidth = [UIScreen mainScreen].bounds.size.width;
     logoView.image = nil;
     if (arrayIndex == 3)
     {   arrayIndex = 0;
         logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
-        NSLog(@"%i", arrayIndex);
+//        NSLog(@"%i", arrayIndex);
         CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
         [logoView setFrame:logoFrame];
         [logoView setContentMode:UIViewContentModeScaleAspectFit];
@@ -118,7 +118,7 @@
     else if (arrayIndex == 0)
     {   arrayIndex = 1;
         logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
-        NSLog(@"%i", arrayIndex);
+//        NSLog(@"%i", arrayIndex);
         CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
         [logoView setFrame:logoFrame];
         [logoView setContentMode:UIViewContentModeScaleAspectFit];
@@ -127,7 +127,7 @@
       else if (arrayIndex == 1)
     {   arrayIndex = 2;
         logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
-        NSLog(@"%i", arrayIndex);
+//        NSLog(@"%i", arrayIndex);
         CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
         [logoView setFrame:logoFrame];
         [logoView setContentMode:UIViewContentModeScaleAspectFit];
@@ -136,7 +136,7 @@
        else if (arrayIndex == 2)
     {   arrayIndex = 3;
         logoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[watermelons objectAtIndex:arrayIndex]]];
-        NSLog(@"%i", arrayIndex);
+//        NSLog(@"%i", arrayIndex);
         CGRect logoFrame = CGRectMake((screenWidth/4.0f), 0.0f, (screenWidth/2.0f), 230.0f);
         [logoView setFrame:logoFrame];
         [logoView setContentMode:UIViewContentModeScaleAspectFit];

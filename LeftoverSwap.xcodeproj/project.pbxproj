@@ -16,7 +16,6 @@
 		0823B44517A0D4C400FE86FF /* LSListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44417A0D3F600FE86FF /* LSListingCell.m */; };
 		0823B44617A0D4C700FE86FF /* LSLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823B44217A0D3EB00FE86FF /* LSLoadMoreCell.m */; };
 		0837080E17C3791700576377 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0837080A17C3791700576377 /* HockeySDK.framework */; };
-		0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0837080C17C3791700576377 /* HockeySDK.xcconfig */; };
 		0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0837080D17C3791700576377 /* HockeySDKResources.bundle */; };
 		0837081217C3793C00576377 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0837081117C3793C00576377 /* CoreText.framework */; };
 		083D470D17D7FB310081FE4B /* JSBubbleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D46D517D7FB300081FE4B /* JSBubbleMessageCell.m */; };
@@ -90,6 +89,7 @@
 		08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7E17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m */; };
 		08EB0F8417B569F300C5E4FF /* LSConversationSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F8217B569F200C5E4FF /* LSConversationSummaryViewController.m */; };
 		08EB0F8817B8857200C5E4FF /* LSConversationSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F8717B8857100C5E4FF /* LSConversationSummaryCell.m */; };
+		08EFF7B717E8262D00C66499 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F45598179F7C8200CB7E2D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45597179F7C8200CB7E2D /* UIKit.framework */; };
 		08F4559A179F7C8200CB7E2D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F45599179F7C8200CB7E2D /* Foundation.framework */; };
 		08F4559C179F7C8200CB7E2D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F4559B179F7C8200CB7E2D /* CoreGraphics.framework */; };
@@ -106,7 +106,6 @@
 		08F455C9179F7D0500CB7E2D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455C8179F7D0500CB7E2D /* StoreKit.framework */; };
 		08F455CB179F7D0A00CB7E2D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */; };
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
-		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
 		5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */; };
 		5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarMe.png */; };
@@ -770,7 +769,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = LS;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = LeftoverSwap;
 			};
 			buildConfigurationList = 08F4558F179F7C8200CB7E2D /* Build configuration list for PBXProject "LeftoverSwap" */;
@@ -796,8 +795,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F455A2179F7C8200CB7E2D /* InfoPlist.strings in Resources */,
-				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
-				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
+				08EFF7B717E8262D00C66499 /* LSPostPhotoViewController.xib in Resources */,
 				08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */,
 				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
 				08EB0F5D17B3113600C5E4FF /* LSLoginSignupViewController.xib in Resources */,
@@ -818,7 +816,6 @@
 				5D6C3F5717B44A710036BD08 /* iTunesArtwork.png in Resources */,
 				5D6C3F5817B44A710036BD08 /* iTunesArtwork@2x.png in Resources */,
 				5DA73C3117C4052A001ED879 /* Default.png in Resources */,
-				0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */,
 				0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */,
 				5DA73C3717C55A0D001ED879 /* Default-568h@2x.png in Resources */,
 				5DA73C3817C55A0D001ED879 /* Default@2x.png in Resources */,
