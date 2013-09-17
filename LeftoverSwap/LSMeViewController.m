@@ -15,6 +15,7 @@
 #import "LSAppDelegate.h"
 #import "LSMePostCell.h"
 #import "LSConstants.h"
+#import <HockeySDK/HockeySDK.h>
 
 @interface LSMeViewController ()
 
@@ -155,7 +156,10 @@
 
 - (void)submitFeedback:(id)sender
 {
-  
+  BITFeedbackManager *feedbackManager = [[BITHockeyManager sharedHockeyManager] feedbackManager];
+  BITFeedbackListViewController *listController = [feedbackManager feedbackListViewController:YES];
+  UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:listController];
+  [self presentViewController:navController animated:YES completion:nil];
 }
 
 @end

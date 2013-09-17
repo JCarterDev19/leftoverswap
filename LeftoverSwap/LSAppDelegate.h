@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "LSLocationController.h"
+#import <HockeySDK/HockeySDK.h>
 
 @interface LSAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate>
 

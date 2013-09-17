@@ -1003,6 +1003,7 @@
 		};
 		08F455B8179F7C8200CB7E2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0837080C17C3791700576377 /* HockeySDK.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1024,6 +1025,7 @@
 		};
 		08F455B9179F7C8200CB7E2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0837080C17C3791700576377 /* HockeySDK.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -196,4 +196,18 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   }
 }
 
+#pragma mark - BITHockeyManagerDelegate
+
+- (NSString *)userNameForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager
+{
+  if (![PFUser currentUser]) return nil;
+  return [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
+}
+
+- (NSString *)userEmailForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager
+{
+  if (![PFUser currentUser]) return nil;
+  return [[PFUser currentUser] objectForKey:kUserEmailKey];
+}
+
 @end
