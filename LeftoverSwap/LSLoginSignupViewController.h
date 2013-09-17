@@ -21,6 +21,7 @@
 
 - (IBAction)loginButtonSelected:(id)sender;
 - (IBAction)signUpSelected:(id)sender;
+- (IBAction)termsOfService:(id)sender;
 
 @property (nonatomic, weak) id<LSLoginControllerDelegate> delegate;
 

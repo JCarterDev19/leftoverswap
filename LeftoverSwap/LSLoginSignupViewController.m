@@ -45,4 +45,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - targets
+
+- (IBAction)termsOfService:(id)sender
+{
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.leftoverswap.com/tos.html"]];
+}
+
 @end

@@ -53,7 +53,7 @@
   self.navigationItem.title = [[PFUser currentUser] objectForKey:kUserDisplayNameKey];
   
   self.navigationItem.leftBarButtonItem = nil;
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Terms" style:UIBarButtonItemStyleBordered target:self action:@selector(termsOfService:)];
+  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Feedback" style:UIBarButtonItemStyleBordered target:self action:@selector(submitFeedback:)];
   
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log out" style:UIBarButtonItemStyleDone target:self action:@selector(logout:)];
 
@@ -153,9 +153,9 @@
   [(LSTabBarController*)self.tabBarController presentSignInView:YES];
 }
 
-- (void)termsOfService:(id)sender
+- (void)submitFeedback:(id)sender
 {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.leftoverswap.com/tos.html"]];
+  
 }
 
 @end
