@@ -53,6 +53,8 @@ static TTTTimeIntervalFormatter *timeFormatter;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  self.view.backgroundColor = [UIColor blackColor];
 
   NSInteger adjustBottom = 548 - self.view.bounds.size.height;
 
