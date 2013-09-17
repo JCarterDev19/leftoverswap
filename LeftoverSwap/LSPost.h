@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
+#import "LSPostDetailViewController.h"
 
 extern NSString *const kCantViewPostTitle;
 
@@ -36,7 +37,7 @@ extern NSString *const kCantViewPostTitle;
 @property (nonatomic, readonly) MKPinAnnotationColor pinColor;
 
 - (void)setupAnnotationView:(MKPinAnnotationView*)pinView;
-- (UIViewController*)viewControllerForPost;
+- (UIViewController*)viewControllerWithDelegate:(id<LSPostDetailDelegate>)delegate;
 
 - (id)initWithPFObject:(PFObject *)object;
 - (BOOL)equalToPost:(LSPost *)aPost;

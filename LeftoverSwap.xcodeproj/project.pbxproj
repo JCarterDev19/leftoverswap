@@ -69,7 +69,6 @@
 		083D475217E3015C0081FE4B /* LSMePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D475117E3015B0081FE4B /* LSMePostCell.m */; };
 		083D475517E5323B0081FE4B /* LSConversationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 083D475417E5323B0081FE4B /* LSConversationUtils.m */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
-		08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
 		08B69AF817A0680F00F32A3C /* LSWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B69AF617A0680F00F32A3C /* LSWelcomeViewController.m */; };
 		08E05CEC17D7A53800393A3D /* PFObject+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */; };
@@ -227,7 +226,6 @@
 		083D475417E5323B0081FE4B /* LSConversationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationUtils.m; sourceTree = "<group>"; };
 		08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostDetailViewController.h; sourceTree = "<group>"; };
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
-		08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostDetailViewController.xib; sourceTree = "<group>"; };
 		08AB64F617C034D400EF8D0D /* LSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarController.h; sourceTree = "<group>"; };
 		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
 		08B69AF517A0680F00F32A3C /* LSWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSWelcomeViewController.h; sourceTree = "<group>"; };
@@ -575,7 +573,6 @@
 			children = (
 				08AB64F017BEB55C00EF8D0D /* LSPostDetailViewController.h */,
 				08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */,
-				08AB64F217BEB55D00EF8D0D /* LSPostDetailViewController.xib */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -820,7 +817,6 @@
 				5D6C3F5617B44A710036BD08 /* Icon@2x.png in Resources */,
 				5D6C3F5717B44A710036BD08 /* iTunesArtwork.png in Resources */,
 				5D6C3F5817B44A710036BD08 /* iTunesArtwork@2x.png in Resources */,
-				08AB64F417BEB55D00EF8D0D /* LSPostDetailViewController.xib in Resources */,
 				5DA73C3117C4052A001ED879 /* Default.png in Resources */,
 				0837080F17C3791700576377 /* HockeySDK.xcconfig in Resources */,
 				0837081017C3791700576377 /* HockeySDKResources.bundle in Resources */,

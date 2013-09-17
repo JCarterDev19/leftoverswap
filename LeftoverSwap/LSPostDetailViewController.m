@@ -15,14 +15,7 @@
 
 @interface LSPostDetailViewController ()
 
-@property (nonatomic) IBOutlet PFImageView *imageView;
-@property (nonatomic) IBOutlet UILabel *titleLabel;
-@property (nonatomic) IBOutlet UILabel *sellerLabel;
-@property (nonatomic) IBOutlet UILabel *postDateLabel;
-@property (nonatomic) IBOutlet UITextView *description;
 @property (nonatomic) IBOutlet UIButton *contactButton;
-//@property (nonatomic) IBOutlet UIBarButtonItem *contactBarButtonItem;
-
 @property (nonatomic) PFObject *post;
 @property (nonatomic) PFUser *seller;
 
@@ -32,39 +25,27 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 @implementation LSPostDetailViewController
 
-@synthesize imageView;
-@synthesize titleLabel;
-@synthesize sellerLabel;
-@synthesize postDateLabel;
-@synthesize description;
-
-@synthesize post;
-@synthesize seller;
-
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLSPostTakenNotification object:nil];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(PFObject*)aPost
+- (id)initWithPost:(PFObject*)post
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-      self.post = aPost;
-      self.seller = [aPost objectForKey:kPostUserKey];
-      
-      if (!timeFormatter) {
-        timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
-      }
-
+  self = [super init];
+  if (self) {
+    self.post = post;
+    self.seller = [post objectForKey:kPostUserKey];
+    
+    if (!timeFormatter) {
+      timeFormatter = [[TTTTimeIntervalFormatter alloc] init];
     }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
+  }
+  return self;
 }
 
 #pragma mark - View lifecycle
@@ -72,36 +53,48 @@ static TTTTimeIntervalFormatter *timeFormatter;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(postWasTaken:) name:kLSPostTakenNotification object:nil];
 
-  [self setContactButtonView];
+  NSInteger adjustBottom = 548 - self.view.bounds.size.height;
 
-  self.imageView.backgroundColor = [UIColor clearColor];
-  self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-  self.imageView.file = [self.post objectForKey:kPostImageKey];
+  PFImageView *imageView = [[PFImageView alloc] initWithFrame:self.view.bounds];
+  imageView.backgroundColor = [UIColor clearColor];
+  imageView.contentMode = UIViewContentModeScaleAspectFill;
+  imageView.file = [self.post objectForKey:kPostImageKey];
+  [imageView loadInBackground];
+  [self.view addSubview:imageView];
   
-  [self.imageView loadInBackground];
-    NSString *postTitle = [self.post objectForKey:kPostTitleKey];
-    self.titleLabel.text = [NSString stringWithFormat:@" %@", postTitle];
+  UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 352 - adjustBottom, 280, 21)];
+  titleLabel.font = [UIFont boldSystemFontOfSize:17];
+  titleLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+  titleLabel.text = [NSString stringWithFormat:@" %@", [self.post objectForKey:kPostTitleKey]];
+  [self.view addSubview:titleLabel];
   
-//  [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-//   NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
-//   self.sellerLabel.text = [NSString stringWithFormat:@"Posted by %@", name];
-//    [self.sellerLabel setNeedsDisplay];
-//  }];
+  UILabel *postDetailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 373 - adjustBottom, 280, 23)];
+  postDetailsLabel.font = [UIFont systemFontOfSize:12];
+  postDetailsLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+  [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+    NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:self.post.createdAt];
+    NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
+    postDetailsLabel.text = [NSString stringWithFormat:@" Posted by %@ about %@", name, postDate];
+    [postDetailsLabel setNeedsDisplay];
+  }];
+  [self.view addSubview:postDetailsLabel];
 
-    NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:[self.post createdAt]];
+  UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 396 - adjustBottom, 280, 47)];
+  descriptionLabel.font = [UIFont systemFontOfSize:14];
+  descriptionLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+  descriptionLabel.text = [NSString stringWithFormat:@" %@", [self.post objectForKey:kPostDescriptionKey]];
+  descriptionLabel.numberOfLines = 0;
+  [self.view addSubview:descriptionLabel];
   
-//  self.postDateLabel.text = [NSString stringWithFormat:@"about %@", postDate];
+  UIButton *contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  [contactButton addTarget:self action:@selector(contact:) forControlEvents:UIControlEventTouchUpInside];
+  contactButton.frame = CGRectMake(20, 451 - adjustBottom, 280, 44);
+  contactButton.titleLabel.font = [UIFont boldSystemFontOfSize:19];
+  self.contactButton = contactButton;
+  [self.view addSubview:contactButton];
   
-    [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
-    self.sellerLabel.text = [NSString stringWithFormat:@" Posted by %@ about %@", name, postDate];
-            [self.sellerLabel setNeedsDisplay];
-    }];
-  
-  self.description.text = [self.post objectForKey:kPostDescriptionKey];
+  [self setContactButtonStyle];
 }
 
 #pragma mark UINavigationBar-based actions
@@ -113,11 +106,14 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 - (void)contact:(id)sender
 {
-  if ([[self.post objectForKey:kPostTakenKey] boolValue]) {
+  if ([[self.post objectForKey:kPostTakenKey] boolValue])
     return;
-  } else if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+  
+  if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
+    
     [self.post setObject:@(YES) forKey:kPostTakenKey];
-    [self setContactButtonView];
+    [self setContactButtonStyle];
+
     [self.post saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
       if (succeeded) {
         NSLog(@"Taken set for post %@", [self.post objectForKey:kPostTitleKey]);
@@ -127,34 +123,35 @@ static TTTTimeIntervalFormatter *timeFormatter;
         });
       } else {
         [self.post setObject:@(NO) forKey:kPostTakenKey];
-        [self setContactButtonView];
+        [self setContactButtonStyle];
       }
     }];
+
     if (self.delegate)
       [self.delegate postDetailControllerDidMarkAsTaken:self forPost:self.post];
+
   } else {
     if (self.delegate)
       [self.delegate postDetailControllerDidContact:self forPost:self.post];
   }
 }
 
-- (void)setContactButtonView
+- (void)setContactButtonStyle
 {
+  NSString *title = nil;
+  UIColor *backgroundColor = nil;
   if ([[self.post objectForKey:kPostTakenKey] boolValue]) {
-    [self.contactButton setTitle:@"Taken" forState:UIControlStateNormal];
-    self.contactButton.backgroundColor = [UIColor colorWithWhite:0.537 alpha:1.000];
-//    self.navigationItem.rightBarButtonItem = nil;
-//    self.contactBarButtonItem.title = @"Taken";
-//    self.contactBarButtonItem.tintColor = [UIColor colorWithWhite:0.537 alpha:1.000];
+    title = @"Taken";
+    backgroundColor = [UIColor colorWithWhite:0.537 alpha:1.000];
   } else if ([[self.post objectForKey:kPostUserKey] isCurrentUser]) {
-    [self.contactButton setTitle:@"Mark as taken" forState:UIControlStateNormal];
-    self.contactButton.backgroundColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
-    
-    // re-add this, as we could've removed it previously
-//    self.navigationItem.rightBarButtonItem = self.contactBarButtonItem;
-//    self.contactBarButtonItem.title = @"Mark as taken";
-//    self.contactBarButtonItem.tintColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+    title = @"Mark as taken";
+    backgroundColor = [UIColor colorWithRed:0.900 green:0.247 blue:0.294 alpha:1.000];
+  } else {
+    title = @"contact";
+    backgroundColor = [UIColor colorWithRed:0.357 green:0.844 blue:0.435 alpha:1.000];
   }
+  [self.contactButton setTitle:title forState:UIControlStateNormal];
+  self.contactButton.backgroundColor = backgroundColor;
 }
 
 - (void)postWasTaken:(NSNotification *)note
@@ -163,7 +160,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
   PFObject *aPost = note.userInfo[kLSPostKey];
   if ([[self.post objectId] isEqualToString:[aPost objectId]]) {
-    [self setContactButtonView];
+    [self setContactButtonStyle];
   }
 }
 

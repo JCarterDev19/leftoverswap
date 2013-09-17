@@ -197,9 +197,8 @@
     return;
   
   // Have the TabBarController present this post view so the contact view => message view transition works as expected.
-  LSPostDetailViewController *detailController = (LSPostDetailViewController*)[(LSPost*)view.annotation viewControllerForPost];
-  detailController.delegate = (LSTabBarController*)self.tabBarController;
-  [self.tabBarController presentViewController:detailController animated:YES completion:nil];
+  UIViewController *controller = [(LSPost*)view.annotation viewControllerWithDelegate:(LSTabBarController*)self.tabBarController];
+  [self.tabBarController presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view

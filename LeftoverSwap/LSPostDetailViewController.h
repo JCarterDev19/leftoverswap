@@ -20,10 +20,7 @@
 
 @interface LSPostDetailViewController : UIViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil post:(PFObject*)post;
-
-- (IBAction)cancel:(id)sender;
-- (IBAction)contact:(id)sender;
+- (id)initWithPost:(PFObject*)post;
 
 @property (nonatomic, weak) id<LSPostDetailDelegate> delegate;
 

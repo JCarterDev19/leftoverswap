@@ -99,9 +99,11 @@ NSString *const kCantViewPostTitle = @"Can't view Post! Get closer";
   pinView.rightCalloutAccessoryView = rightButton;
 }
 
-- (UIViewController *)viewControllerForPost
+- (UIViewController*)viewControllerWithDelegate:(id<LSPostDetailDelegate>)delegate
 {
-  return [[LSPostDetailViewController alloc] initWithNibName:nil bundle:nil post:self.object];
+  LSPostDetailViewController *detailController = [[LSPostDetailViewController alloc] initWithPost:self.object];
+  detailController.delegate = delegate;
+  return[[UINavigationController alloc] initWithRootViewController:detailController];
 }
 
 @end
