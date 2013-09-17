@@ -143,7 +143,7 @@
 {
   PFObject *newConversation = [self conversationForMessage:text];
   [newConversation setObject:post forKey:kConversationPostKey];
-
+  
   [newConversation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
     if (!succeeded)
       return;
@@ -249,6 +249,12 @@
   [newConversation setObject:text forKey:kConversationMessageKey];
   [newConversation setObject:[PFUser currentUser] forKey:kConversationFromUserKey];
   [newConversation setObject:self.recipient forKey:kConversationToUserKey];
+  
+  PFACL *conversationACL = [PFACL ACL];
+  for (PFUser *user in @[[PFUser currentUser], self.recipient]) {
+    [conversationACL setReadAccess:YES forUser:user];
+  }
+  newConversation.ACL = conversationACL;
   return newConversation;
 }
 
