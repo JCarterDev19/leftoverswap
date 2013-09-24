@@ -7,7 +7,6 @@
 //
 
 #import "LSTabBarController.h"
-#import "LSWelcomeViewController.h"
 #import "LSLoginSignupViewController.h"
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
@@ -70,29 +69,6 @@
   [self presentViewController:signInViewController animated:animated completion:nil];
 }
 
--(void)presentWelcomeView
-{
-  LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
-  welcomeViewController.delegate = self;
-  [self presentViewController:welcomeViewController animated:NO completion:nil];
-}
-
-#pragma mark - LSWelcomeControllerDelegate
-
--(void)welcomeControllerDidEat:(LSWelcomeViewController *)controller
-{
-  self.selectedViewController = self.mapViewController;
-  controller.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-  [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)welcomeControllerDidFeed:(LSWelcomeViewController *)controller
-{
-  self.selectedViewController = self.mapViewController;
-  [self dismissViewControllerAnimated:NO completion:nil];
-  [self.cameraController presentCameraPickerController];
-}
-
 #pragma mark - LSLoginControllerDelegate
 
 -(void)signupControllerDidFinish:(LSSignupViewController*)signupController
@@ -113,17 +89,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kLSUserLogInNotification object:nil userInfo:nil];
   });
 
-  if ([(LSAppDelegate*)[UIApplication sharedApplication].delegate shouldDisplayWelcomeScreen]) {
-    LSWelcomeViewController *welcomeViewController = [[LSWelcomeViewController alloc] init];
-    welcomeViewController.delegate = self;
-    welcomeViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;    
-    [loginController presentViewController:welcomeViewController animated:YES completion:nil];
-  } else {
-    [self dismissViewControllerAnimated:YES completion:nil];
-  }
   PFUser *user = [PFUser currentUser];
   [[PFInstallation currentInstallation] addUniqueObject:[user privateChannelName] forKey:kLSInstallationChannelsKey];
   [[PFInstallation currentInstallation] saveEventually];
+  
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITabBarControllerDelegate

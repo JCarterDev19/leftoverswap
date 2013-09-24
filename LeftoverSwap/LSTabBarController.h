@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LSWelcomeViewController.h"
 #import "LSLoginSignupViewController.h"
 #import "LSNewConversationViewController.h"
 #import "LSPostDetailViewController.h"
 
 @class PFObject, LSMapViewController;
 
-@interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, LSWelcomeControllerDelegate, UITabBarControllerDelegate, LSNewConversationDelegate, LSPostDetailDelegate>
+@interface LSTabBarController : UITabBarController <LSLoginControllerDelegate, UITabBarControllerDelegate, LSNewConversationDelegate, LSPostDetailDelegate>
 
 @property (nonatomic, readonly) LSMapViewController *mapViewController;
 
 - (void)selectConversations;
 - (void)presentSignInView:(BOOL)animated;
-- (void)presentWelcomeView;
 
 @end

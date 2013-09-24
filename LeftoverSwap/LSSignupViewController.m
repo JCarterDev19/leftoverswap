@@ -52,7 +52,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[usernameField becomeFirstResponder];
 	[super viewWillAppear:animated];
 }
 

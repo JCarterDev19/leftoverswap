@@ -68,8 +68,6 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
   if (![PFUser currentUser]) {
     [self.tabBarController presentSignInView:NO];
-  } else if ([self shouldDisplayWelcomeScreen]) {
-    [self.tabBarController presentWelcomeView];
   }
   
   return YES;
@@ -78,11 +76,11 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   // Only do a "last-time opened" save when we've moved on from welcome / sign-in views.
-  if (!self.tabBarController.presentedViewController) {
-    NSDate *now = [NSDate date];
-    [[NSUserDefaults standardUserDefaults] setObject:now forKey:kLastTimeOpenedKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-  }
+//  if (!self.tabBarController.presentedViewController) {
+//    NSDate *now = [NSDate date];
+//    [[NSUserDefaults standardUserDefaults] setObject:now forKey:kLastTimeOpenedKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//  }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -94,18 +92,6 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 }
 
 #pragma mark - LSAppDelegate
-
-- (BOOL)shouldDisplayWelcomeScreen
-{
-  BOOL shouldDisplay = NO;
-  
-  NSDate *lastOpened = [[NSUserDefaults standardUserDefaults] objectForKey:kLastTimeOpenedKey];
-  NSDate *now = [NSDate date];
-  if (!lastOpened || [now timeIntervalSinceDate:lastOpened] > 1800) { // 30 minutes
-    shouldDisplay = YES;
-  }
-  return shouldDisplay;
-}
 
 - (void)setupAppearance {
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];

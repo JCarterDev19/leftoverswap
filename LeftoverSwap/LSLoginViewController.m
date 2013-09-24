@@ -244,4 +244,12 @@ static const NSInteger kResetPasswordAlertView = 20;
 	}];
 }
 
+#pragma mark - targets
+
+
+- (IBAction)termsOfService:(id)sender
+{
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.leftoverswap.com/tos.html"]];
+}
+
 @end
