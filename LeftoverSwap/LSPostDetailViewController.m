@@ -77,17 +77,28 @@ static TTTTimeIntervalFormatter *timeFormatter;
   [self.seller fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
     NSString *postDate = [timeFormatter stringForTimeIntervalFromDate:[NSDate date] toDate:self.post.createdAt];
     NSString *name = [self.seller objectForKey:kUserDisplayNameKey];
-    postDetailsLabel.text = [NSString stringWithFormat:@" Posted by %@ about %@", name, postDate];
+    postDetailsLabel.text = [NSString stringWithFormat:@"  Posted by %@ about %@", name, postDate];
     [postDetailsLabel setNeedsDisplay];
   }];
   [self.view addSubview:postDetailsLabel];
 
-  UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 396 - adjustBottom, 280, 47)];
-  descriptionLabel.font = [UIFont systemFontOfSize:14];
-  descriptionLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
-  descriptionLabel.text = [NSString stringWithFormat:@" %@", [self.post objectForKey:kPostDescriptionKey]];
-  descriptionLabel.numberOfLines = 0;
-  [self.view addSubview:descriptionLabel];
+//  UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 396 - adjustBottom, 280, 47)];
+//  descriptionLabel.font = [UIFont systemFontOfSize:14];
+//  descriptionLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+//  descriptionLabel.text = [NSString stringWithFormat:@" %@", [self.post objectForKey:kPostDescriptionKey]];
+//  descriptionLabel.numberOfLines = 0;
+  
+  UITextView *descriptionView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 280, 47)];
+  descriptionView.font = [UIFont systemFontOfSize:14];
+  descriptionView.text = [self.post objectForKey:kPostDescriptionKey];
+  descriptionView.scrollEnabled = YES;
+  descriptionView.editable = NO;
+  descriptionView.backgroundColor = [UIColor clearColor];
+  
+  UIView *descriptionWrapView = [[UIView alloc] initWithFrame:CGRectMake(20, 396 - adjustBottom, 280, 47)];
+  [descriptionWrapView addSubview: descriptionView];
+  descriptionWrapView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
+  [self.view addSubview:descriptionWrapView];
   
   UIButton *contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
   [contactButton addTarget:self action:@selector(contact:) forControlEvents:UIControlEventTouchUpInside];
