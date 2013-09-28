@@ -37,12 +37,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 {
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+  [Parse setApplicationId:@"rxURqAiZdT4w3QiLPpecMAOyFF2qzVxsLPD1FcGR"
+                clientKey:@"HF41j3NxMvnykjW2Cbu7LL48NA2Ebk98qUCT252h"];
+
   [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"5626fb490590f2c11ca90eece15c0a23" delegate:self];
   [[BITHockeyManager sharedHockeyManager] startManager];
 
-  [Parse setApplicationId:@"rxURqAiZdT4w3QiLPpecMAOyFF2qzVxsLPD1FcGR"
-                clientKey:@"HF41j3NxMvnykjW2Cbu7LL48NA2Ebk98qUCT252h"];
-  
   [self resetApplicationBadgeNumber:application];
   
   [self setupAppearance];
@@ -197,10 +197,10 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 }
 
 - (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
-#ifndef CONFIGURATION_AppStore
-  if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
-    return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-#endif
+//#ifndef CONFIGURATION_AppStore
+//  if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+//    return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+//#endif
   return nil;
 }
 
