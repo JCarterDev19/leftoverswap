@@ -196,4 +196,12 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
   return [[PFUser currentUser] objectForKey:kUserEmailKey];
 }
 
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_AppStore
+  if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+    return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+  return nil;
+}
+
 @end

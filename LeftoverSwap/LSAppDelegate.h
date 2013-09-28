@@ -11,7 +11,7 @@
 #import "LSLocationController.h"
 #import <HockeySDK/HockeySDK.h>
 
-@interface LSAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate>
+@interface LSAppDelegate : UIResponder <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
