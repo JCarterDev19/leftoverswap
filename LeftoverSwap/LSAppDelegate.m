@@ -64,6 +64,7 @@ static NSString *const kLastTimeOpenedKey = @"lastTimeOpened";
 
   [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
 
+  self.window.tintColor = [UIColor colorWithRed:(40./255) green:(198./255) blue:(23./255) alpha:1];
   [self.window makeKeyAndVisible];
 
   if (![PFUser currentUser]) {
