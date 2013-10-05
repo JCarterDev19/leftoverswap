@@ -1,4 +1,12 @@
 //
+//  LSSignupViewController.m
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 9/13/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  PAWNewUserViewController.m
 //  Anywall
 //
@@ -32,15 +40,8 @@
 
 #pragma mark - UIViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:NSStringFromClass(self.class) bundle:nibBundleOrNil];
-  if (self) {
-    // Custom initialization
-  }
-  return self;
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   // Do any additional setup after loading the view from its nib.
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:usernameField];
@@ -51,16 +52,8 @@
 	doneButton.enabled = NO;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)dealloc {
+- (void)dealloc
+{
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:usernameField];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:passwordField];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:passwordAgainField];
@@ -70,17 +63,15 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
 	if (textField == usernameField) {
 		[passwordField becomeFirstResponder];
-	}
-	if (textField == passwordField) {
+	} else if (textField == passwordField) {
 		[passwordAgainField becomeFirstResponder];
-	}
-	if (textField == passwordAgainField) {
-		[passwordAgainField resignFirstResponder];
-	}
-  if (textField == emailField) {
+	} else if (textField == passwordAgainField) {
+		[emailField becomeFirstResponder];
+	} else if (textField == emailField) {
     [emailField resignFirstResponder];
     [self processFieldEntries];
   }
@@ -90,7 +81,8 @@
 
 #pragma mark - ()
 
-- (BOOL)shouldEnableDoneButton {
+- (BOOL)shouldEnableDoneButton
+{
 	BOOL enableDoneButton = NO;
 	if (usernameField.text != nil &&
 		usernameField.text.length > 0 &&
@@ -105,15 +97,18 @@
 	return enableDoneButton;
 }
 
-- (void)textInputChanged:(NSNotification *)note {
+- (void)textInputChanged:(NSNotification *)note
+{
 	doneButton.enabled = [self shouldEnableDoneButton];
 }
 
-- (IBAction)cancel:(id)sender {
+- (IBAction)cancel:(id)sender
+{
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)done:(id)sender {
+- (IBAction)done:(id)sender
+{
 	[usernameField resignFirstResponder];
 	[passwordField resignFirstResponder];
 	[passwordAgainField resignFirstResponder];
@@ -121,7 +116,8 @@
 	[self processFieldEntries];
 }
 
-- (void)processFieldEntries {
+- (void)processFieldEntries
+{
 	// Check that we have a non-zero username and passwords.
 	// Compare password and passwordAgain for equality
 	// Throw up a dialog that tells them what they did wrong if they did it wrong.

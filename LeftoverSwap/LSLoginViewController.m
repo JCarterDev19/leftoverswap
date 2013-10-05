@@ -1,4 +1,12 @@
 //
+//  LSLoginViewController.m
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 9/13/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  PAWLoginViewController.m
 //  Anywall
 //
@@ -27,55 +35,42 @@ static const NSInteger kResetPasswordAlertView = 20;
 
 @implementation LSLoginViewController
 
-@synthesize doneButton;
-@synthesize usernameField;
-@synthesize passwordField;
-
-@synthesize delegate;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:NSStringFromClass(self.class) bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:usernameField];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:passwordField];
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  // Do any additional setup after loading the view from its nib.
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:self.usernameField];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextFieldTextDidChangeNotification object:self.passwordField];
 
   self.resetPasswordButton.hidden = YES;
-	doneButton.enabled = NO;
+	self.doneButton.enabled = NO;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[usernameField becomeFirstResponder];
+- (void)viewWillAppear:(BOOL)animated
+{
+	[self.usernameField becomeFirstResponder];
 	[super viewWillAppear:animated];
 }
 
--  (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:usernameField];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:passwordField];
+-  (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:self.usernameField];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:self.passwordField];
 }
 
 #pragma mark - IBActions
 
-- (IBAction)cancel:(id)sender {
+- (IBAction)cancel:(id)sender
+{
   [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)done:(id)sender {
-	[usernameField resignFirstResponder];
-	[passwordField resignFirstResponder];
+- (IBAction)done:(id)sender
+{
+	[self.usernameField resignFirstResponder];
+	[self.passwordField resignFirstResponder];
 
 	[self processFieldEntries];
 }
@@ -118,29 +113,32 @@ static const NSInteger kResetPasswordAlertView = 20;
 
 #pragma mark - UITextField text field change notifications and helper methods
 
-- (BOOL)shouldEnableDoneButton {
+- (BOOL)shouldEnableDoneButton
+{
 	BOOL enableDoneButton = NO;
-	if (usernameField.text != nil &&
-		usernameField.text.length > 0 &&
-		passwordField.text != nil &&
-		passwordField.text.length > 0) {
+	if (self.usernameField.text != nil &&
+		self.usernameField.text.length > 0 &&
+		self.passwordField.text != nil &&
+		self.passwordField.text.length > 0) {
 		enableDoneButton = YES;
 	}
 	return enableDoneButton;
 }
 
-- (void)textInputChanged:(NSNotification *)note {
-	doneButton.enabled = [self shouldEnableDoneButton];
+- (void)textInputChanged:(NSNotification *)note
+{
+	self.doneButton.enabled = [self shouldEnableDoneButton];
 }
 
 #pragma mark - UITextFieldDelegate methods
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	if (textField == usernameField) {
-		[passwordField becomeFirstResponder];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	if (textField == self.usernameField) {
+		[self.passwordField becomeFirstResponder];
 	}
-	if (textField == passwordField) {
-		[passwordField resignFirstResponder];
+	if (textField == self.passwordField) {
+		[self.passwordField resignFirstResponder];
 		[self processFieldEntries];
 	}
 
@@ -151,10 +149,11 @@ static const NSInteger kResetPasswordAlertView = 20;
 
 #pragma mark Field validation
 
-- (void)processFieldEntries {
+- (void)processFieldEntries
+{
 	// Get the username text, store it in the app delegate for now
-	NSString *username = usernameField.text;
-	NSString *password = passwordField.text;
+	NSString *username = self.usernameField.text;
+	NSString *password = self.passwordField.text;
 	NSString *noUsernameText = @"username";
 	NSString *noPasswordText = @"password";
 	NSString *errorText = @"No ";
@@ -168,10 +167,10 @@ static const NSInteger kResetPasswordAlertView = 20;
 
 		// Set up the keyboard for the first field missing input:
 		if (password.length == 0) {
-			[passwordField becomeFirstResponder];
+			[self.passwordField becomeFirstResponder];
 		}
 		if (username.length == 0) {
-			[usernameField becomeFirstResponder];
+			[self.usernameField becomeFirstResponder];
 		}
 	}
 
@@ -197,7 +196,7 @@ static const NSInteger kResetPasswordAlertView = 20;
 
 	// Everything looks good; try to log in.
 	// Disable the done button for now.
-	doneButton.enabled = NO;
+	self.doneButton.enabled = NO;
 
 	LSActivityView *activityView = [[LSActivityView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
 	UILabel *label = activityView.label;
@@ -224,7 +223,7 @@ static const NSInteger kResetPasswordAlertView = 20;
 			NSLog(@"%s didn't get a user!", __PRETTY_FUNCTION__);
 
 			// Re-enable the done button if we're tossing them back into the form.
-			doneButton.enabled = [self shouldEnableDoneButton];
+			self.doneButton.enabled = [self shouldEnableDoneButton];
 			UIAlertView *alertView = nil;
 
 			if (error == nil) {
@@ -239,7 +238,7 @@ static const NSInteger kResetPasswordAlertView = 20;
       self.resetPasswordButton.hidden = NO;
 
 			// Bring the keyboard back up, because they'll probably need to change something.
-			[usernameField becomeFirstResponder];
+			[self.usernameField becomeFirstResponder];
 		}
 	}];
 }

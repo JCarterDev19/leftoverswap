@@ -1,4 +1,12 @@
 //
+//  LSLoginSignupViewController.h
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 9/13/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  PAWViewController.h
 //  Anywall
 //

@@ -72,11 +72,10 @@
 		084157C217E8C0400090C2E2 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 084157BE17E8C0400090C2E2 /* Icon-152.png */; };
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
+		08D1880518009DF500C45CA0 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08D1880418009DF500C45CA0 /* LoginSignup.storyboard */; };
 		08E05CEC17D7A53800393A3D /* PFObject+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */; };
 		08EB0F5017B300D600C5E4FF /* LSSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */; };
 		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
-		08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5217B3011500C5E4FF /* LSSignupViewController.xib */; };
-		08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */; };
 		08EB0F5817B3024C00C5E4FF /* LSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5717B3024C00C5E4FF /* LSActivityView.m */; };
 		08EB0F5B17B303EA00C5E4FF /* LSLoginSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5A17B303EA00C5E4FF /* LSLoginSignupViewController.m */; };
 		08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F5F17B32DA300C5E4FF /* LSLocationController.m */; };
@@ -227,14 +226,13 @@
 		08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostDetailViewController.m; sourceTree = "<group>"; };
 		08AB64F617C034D400EF8D0D /* LSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarController.h; sourceTree = "<group>"; };
 		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
+		08D1880418009DF500C45CA0 /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
 		08E05CEA17D7A53800393A3D /* PFObject+PrivateChannelName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+PrivateChannelName.h"; sourceTree = "<group>"; };
 		08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+PrivateChannelName.m"; sourceTree = "<group>"; };
 		08EB0F4C17B300D600C5E4FF /* LSSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSignupViewController.h; sourceTree = "<group>"; };
 		08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSSignupViewController.m; sourceTree = "<group>"; };
 		08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginViewController.h; sourceTree = "<group>"; };
 		08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSLoginViewController.m; sourceTree = "<group>"; };
-		08EB0F5217B3011500C5E4FF /* LSSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSSignupViewController.xib; sourceTree = "<group>"; };
-		08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSLoginViewController.xib; sourceTree = "<group>"; };
 		08EB0F5617B3024C00C5E4FF /* LSActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSActivityView.h; sourceTree = "<group>"; };
 		08EB0F5717B3024C00C5E4FF /* LSActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSActivityView.m; sourceTree = "<group>"; };
 		08EB0F5917B303EA00C5E4FF /* LSLoginSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSLoginSignupViewController.h; sourceTree = "<group>"; };
@@ -581,12 +579,11 @@
 			children = (
 				08EB0F5917B303EA00C5E4FF /* LSLoginSignupViewController.h */,
 				08EB0F5A17B303EA00C5E4FF /* LSLoginSignupViewController.m */,
-				08EB0F5217B3011500C5E4FF /* LSSignupViewController.xib */,
 				08EB0F4C17B300D600C5E4FF /* LSSignupViewController.h */,
 				08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */,
-				08EB0F5317B3011500C5E4FF /* LSLoginViewController.xib */,
 				08EB0F4E17B300D600C5E4FF /* LSLoginViewController.h */,
 				08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */,
+				08D1880418009DF500C45CA0 /* LoginSignup.storyboard */,
 			);
 			name = "Signup / login";
 			sourceTree = "<group>";
@@ -771,9 +768,8 @@
 			files = (
 				08F455A2179F7C8200CB7E2D /* InfoPlist.strings in Resources */,
 				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
+				08D1880518009DF500C45CA0 /* LoginSignup.storyboard in Resources */,
 				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
-				08EB0F5417B3011500C5E4FF /* LSSignupViewController.xib in Resources */,
-				08EB0F5517B3011500C5E4FF /* LSLoginViewController.xib in Resources */,
 				08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */,
 				5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */,
 				5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */,

@@ -1,4 +1,12 @@
 //
+//  LSLoginSignupViewController.m
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 9/13/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  PAWViewController.m
 //  Anywall
 //
@@ -15,15 +23,15 @@
 @property (nonatomic, strong) UIImageView *logoView;
 @property (nonatomic, strong) NSArray *watermelons;
 @property int arrayIndex;
+@property UIStoryboard *loginSignupStoryboard;
 
 @end
 
 @implementation LSLoginSignupViewController
 
-@synthesize delegate;
-
 - (void)viewDidLoad
 {
+  self.loginSignupStoryboard = [UIStoryboard storyboardWithName:@"LoginSignup" bundle:nil];
   self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"greenblock"]];
   
   NSInteger screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -89,16 +97,20 @@
 
 - (IBAction)loginButtonSelected:(id)sender
 {
-	LSLoginViewController *loginViewController = [[LSLoginViewController alloc] initWithNibName:nil bundle:nil];
+  UINavigationController *navController = (UINavigationController*)[self.loginSignupStoryboard instantiateViewControllerWithIdentifier:@"loginViewController"];
+  LSLoginViewController *loginViewController = (LSLoginViewController*)navController.topViewController;
   loginViewController.delegate = self.delegate;
-	[self presentViewController:loginViewController animated:YES completion:nil];
+  navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+	[self presentViewController:navController animated:YES completion:nil];
 }
 
 - (IBAction)signUpSelected:(id)sender
 {
-	LSSignupViewController *signupViewController = [[LSSignupViewController alloc] initWithNibName:nil bundle:nil];
+  UINavigationController *navController = (UINavigationController*)[self.loginSignupStoryboard  instantiateViewControllerWithIdentifier:@"signupViewController"];
+  LSSignupViewController *signupViewController = (LSSignupViewController*)navController.topViewController;
   signupViewController.delegate = self.delegate;
-	[self presentViewController:signupViewController animated:YES completion:nil];
+  navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+	[self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)imageTapped:(UIGestureRecognizer *)recognizer
@@ -140,8 +152,5 @@
     [self.view addSubview:self.logoView];
   };
 }
-
-#pragma mark - targets
-
 
 @end

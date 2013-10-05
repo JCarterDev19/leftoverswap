@@ -1,4 +1,12 @@
 //
+//  LSLoginViewController.h
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 9/13/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  PAWLoginViewController.h
 //  Anywall
 //
@@ -11,10 +19,10 @@
 
 @interface LSLoginViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
+@property (nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
-@property (nonatomic, strong) IBOutlet UITextField *usernameField;
-@property (nonatomic, strong) IBOutlet UITextField *passwordField;
+@property (nonatomic) IBOutlet UITextField *usernameField;
+@property (nonatomic) IBOutlet UITextField *passwordField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
