@@ -51,14 +51,12 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
       self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(49, 6, 174, 18)];
       [self.titleLabel setTextColor:[UIColor blackColor]];
-      [self.titleLabel setNumberOfLines:0];
       [self.titleLabel setBackgroundColor:[UIColor clearColor]];
       [self.mainView addSubview:self.titleLabel];
 
       self.messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(49, 26, 263, 14)];
       [self.messageLabel setFont:[UIFont systemFontOfSize:12]];
       [self.messageLabel setTextColor:[UIColor blackColor]];
-      [self.messageLabel setNumberOfLines:0];
       [self.messageLabel setBackgroundColor:[UIColor clearColor]];
       [self.mainView addSubview:self.messageLabel];
       
@@ -94,10 +92,6 @@ static TTTTimeIntervalFormatter *timeFormatter;
   
   NSString *recipientText = [[conversation recipient] objectForKey:kUserDisplayNameKey];
   NSString *postText = [NSString stringWithFormat:@"  for %@", [post objectForKey:kPostTitleKey]];
-  
-  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-  formatter.dateStyle = NSDateFormatterShortStyle;
-  formatter.doesRelativeDateFormatting = YES;
   
   NSMutableAttributedString *titleLabelText = [[NSMutableAttributedString alloc] initWithString:[recipientText stringByAppendingString:postText]];
   [titleLabelText addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:15] range:NSMakeRange(0, [recipientText length])];
