@@ -121,8 +121,6 @@
 	if (!self.mapPannedSinceLocationUpdate) {
     [self centerMapOnCurrentLocation];
 	}
-
-	[self queryForAllPostsNearLocation:locationController.currentLocation.coordinate];
 }
 
 - (void)userDidLogIn:(NSNotification*)notification
