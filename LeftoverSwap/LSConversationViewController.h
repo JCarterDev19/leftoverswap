@@ -1,4 +1,12 @@
 //
+//  LSConversationViewController.h
+//  LeftoverSwap
+//
+//  Created by Bryan Summersett on 8/8/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
+//
+
+//
 //  DemoViewController.h
 //
 //  Created by Jesse Squires on 2/12/13.

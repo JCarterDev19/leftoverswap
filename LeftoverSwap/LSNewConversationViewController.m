@@ -49,7 +49,7 @@
 
 - (void)cancelPressed:(id)sender
 {
-  [self.presentingViewController dismissModalViewControllerAnimated:YES];
+  [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source

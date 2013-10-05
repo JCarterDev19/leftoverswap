@@ -1,8 +1,9 @@
 //
-//  PAPEditPhotoViewController.h
-//  Anypic
+//  LSPostPhotoViewController.h
+//  LeftoverSwap
 //
-//  Created by Héctor Ramos on 5/3/12.
+//  Created by Bryan Summersett on 8/8/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
 @class LSPaddedTextField;

@@ -213,7 +213,7 @@
 - (void)userDidLogIn:(NSNotification*)notification
 {
   // Clear them out immediately
-  self.recipientConversations = [NSMutableArray array];
+  self.recipientConversations = [NSMutableDictionary dictionary];
   self.summarizedObjects = [NSArray array];
   [self.tableView reloadData];
   self.navigationController.tabBarItem.badgeValue = nil;

@@ -1,9 +1,9 @@
 //
-//  PAWWallViewController.m
-//  Anywall
+//  LSMapViewController.m
+//  LeftoverSwap
 //
-//  Created by Christopher Bowns on 1/30/12.
-//  Copyright (c) 2013 Parse. All rights reserved.
+//  Created by Bryan Summersett on 8/7/13.
+//  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
 #import "LSMapViewController.h"

@@ -110,7 +110,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
-	[self.presentingViewController dismissModalViewControllerAnimated:YES];
+	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)done:(id)sender {

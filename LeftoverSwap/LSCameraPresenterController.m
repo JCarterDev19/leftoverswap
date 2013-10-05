@@ -8,7 +8,6 @@
 
 #import "LSCameraPresenterController.h"
 #import "LSPostPhotoViewController.h"
-#import "LSCameraOverlayRect.h"
 #import "LSTabBarController.h"
 #import "LSMapViewController.h"
 

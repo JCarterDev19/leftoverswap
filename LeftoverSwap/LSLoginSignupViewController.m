@@ -36,7 +36,7 @@
     [textLabel setText:text];
     [textLabel setTextColor:[UIColor blackColor]];
     [textLabel setBackgroundColor:[UIColor clearColor]];
-    [textLabel setTextAlignment:UITextAlignmentCenter];
+    [textLabel setTextAlignment:NSTextAlignmentCenter];
     
     [self.view addSubview:textLabel];
     

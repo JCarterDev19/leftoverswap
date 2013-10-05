@@ -114,7 +114,7 @@ static TTTTimeIntervalFormatter *timeFormatter;
 
 -(void)cancel:(id)sender
 {
-  [self.presentingViewController dismissModalViewControllerAnimated:YES];
+  [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)contact:(id)sender
