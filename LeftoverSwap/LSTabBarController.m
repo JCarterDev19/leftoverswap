@@ -10,7 +10,7 @@
 #import "LSLoginSignupViewController.h"
 #import "LSLoginViewController.h"
 #import "LSMapViewController.h"
-#import "LSCameraPresenterController.h"
+#import "LSPostTabPlaceholderController.h"
 #import "LSConversationSummaryViewController.h"
 #import "LSMeViewController.h"
 #import "PFObject+PrivateChannelName.h"
@@ -21,7 +21,7 @@
 @interface LSTabBarController ()
 
 @property (nonatomic) LSMapViewController *mapViewController;
-@property (nonatomic) LSCameraPresenterController *cameraController;
+@property (nonatomic) LSPostTabPlaceholderController *cameraController;
 @property (nonatomic) UINavigationController *conversationNavigationController;
 @property (nonatomic) LSConversationSummaryViewController *conversationSummaryController;
 
@@ -42,7 +42,7 @@
     self.delegate = self;
 
     self.mapViewController = [[LSMapViewController alloc] initWithNibName:nil bundle:nil];
-    self.cameraController = [[LSCameraPresenterController alloc] init];
+    self.cameraController = [[LSPostTabPlaceholderController alloc] init];
     
     self.conversationSummaryController = [[LSConversationSummaryViewController alloc] init];
     self.conversationNavigationController = [[UINavigationController alloc] initWithRootViewController:self.conversationSummaryController];
@@ -99,8 +99,9 @@
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)aViewController
 {
   // Intercept tab event, and trigger its own modal UI instead
-  if ([aViewController isKindOfClass:[LSCameraPresenterController class]]) {
-    [(LSCameraPresenterController*)aViewController presentCameraPickerController];
+  if ([aViewController isKindOfClass:[LSPostTabPlaceholderController class]]) {
+    UIImagePickerController *cameraPicker = [((LSPostTabPlaceholderController*)aViewController) imagePickerController];
+    [self presentViewController:cameraPicker animated:YES completion:nil];
     return NO;
   }
   return YES;

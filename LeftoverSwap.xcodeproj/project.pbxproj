@@ -73,6 +73,8 @@
 		08AB64F317BEB55D00EF8D0D /* LSPostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F117BEB55C00EF8D0D /* LSPostDetailViewController.m */; };
 		08AB64F817C034D700EF8D0D /* LSTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB64F717C034D600EF8D0D /* LSTabBarController.m */; };
 		08D1880518009DF500C45CA0 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08D1880418009DF500C45CA0 /* LoginSignup.storyboard */; };
+		08D188071800E30900C45CA0 /* PostPhoto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08D188061800E30900C45CA0 /* PostPhoto.storyboard */; };
+		08D18809180109CB00C45CA0 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D18808180109CB00C45CA0 /* CoreImage.framework */; };
 		08E05CEC17D7A53800393A3D /* PFObject+PrivateChannelName.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */; };
 		08EB0F5017B300D600C5E4FF /* LSSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4D17B300D600C5E4FF /* LSSignupViewController.m */; };
 		08EB0F5117B300D600C5E4FF /* LSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F4F17B300D600C5E4FF /* LSLoginViewController.m */; };
@@ -82,7 +84,7 @@
 		08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6317B3496100C5E4FF /* LSMapViewController.m */; };
 		08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F6D17B3559D00C5E4FF /* LSPost.m */; };
 		08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EB0F6F17B3589400C5E4FF /* MapKit.framework */; };
-		08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */; };
+		08EB0F7317B35C0600C5E4FF /* LSPostTabPlaceholderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7217B35C0600C5E4FF /* LSPostTabPlaceholderController.m */; };
 		08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */; };
 		08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */; };
 		08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0F7B17B4782D00C5E4FF /* LSConversationCell.m */; };
@@ -105,7 +107,6 @@
 		08F455C9179F7D0500CB7E2D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455C8179F7D0500CB7E2D /* StoreKit.framework */; };
 		08F455CB179F7D0A00CB7E2D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */; };
 		08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */; };
-		08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */; };
 		08F8DCC417AF7E6300A6AE60 /* LSPaddedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */; };
 		5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */; };
 		5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D44DF9117B967EF000E0B9C /* TabBarMe.png */; };
@@ -227,6 +228,8 @@
 		08AB64F617C034D400EF8D0D /* LSTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTabBarController.h; sourceTree = "<group>"; };
 		08AB64F717C034D600EF8D0D /* LSTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTabBarController.m; sourceTree = "<group>"; };
 		08D1880418009DF500C45CA0 /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
+		08D188061800E30900C45CA0 /* PostPhoto.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostPhoto.storyboard; sourceTree = "<group>"; };
+		08D18808180109CB00C45CA0 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		08E05CEA17D7A53800393A3D /* PFObject+PrivateChannelName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+PrivateChannelName.h"; sourceTree = "<group>"; };
 		08E05CEB17D7A53800393A3D /* PFObject+PrivateChannelName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+PrivateChannelName.m"; sourceTree = "<group>"; };
 		08EB0F4C17B300D600C5E4FF /* LSSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSSignupViewController.h; sourceTree = "<group>"; };
@@ -244,8 +247,8 @@
 		08EB0F6C17B3559D00C5E4FF /* LSPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPost.h; sourceTree = "<group>"; };
 		08EB0F6D17B3559D00C5E4FF /* LSPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPost.m; sourceTree = "<group>"; };
 		08EB0F6F17B3589400C5E4FF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		08EB0F7117B35C0600C5E4FF /* LSCameraPresenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCameraPresenterController.h; sourceTree = "<group>"; };
-		08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCameraPresenterController.m; sourceTree = "<group>"; };
+		08EB0F7117B35C0600C5E4FF /* LSPostTabPlaceholderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPostTabPlaceholderController.h; sourceTree = "<group>"; };
+		08EB0F7217B35C0600C5E4FF /* LSPostTabPlaceholderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPostTabPlaceholderController.m; sourceTree = "<group>"; };
 		08EB0F7417B3623300C5E4FF /* LSMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSMapViewController.xib; sourceTree = "<group>"; };
 		08EB0F7717B4738000C5E4FF /* LSConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSConversationViewController.h; sourceTree = "<group>"; };
 		08EB0F7817B4738000C5E4FF /* LSConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSConversationViewController.m; sourceTree = "<group>"; };
@@ -277,7 +280,6 @@
 		08F455C8179F7D0500CB7E2D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		08F455CA179F7D0A00CB7E2D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		08F455CC179F7D1100CB7E2D /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
-		08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LSPostPhotoViewController.xib; sourceTree = "<group>"; };
 		08F8DCC217AF7E6300A6AE60 /* LSPaddedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPaddedTextField.h; sourceTree = "<group>"; };
 		08F8DCC317AF7E6300A6AE60 /* LSPaddedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPaddedTextField.m; sourceTree = "<group>"; };
 		5D44DF9017B967EF000E0B9C /* TabBarMe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarMe@2x.png"; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D18809180109CB00C45CA0 /* CoreImage.framework in Frameworks */,
 				0837081217C3793C00576377 /* CoreText.framework in Frameworks */,
 				08EB0F7017B3589400C5E4FF /* MapKit.framework in Frameworks */,
 				08F455CD179F7D1100CB7E2D /* libz.1.1.3.dylib in Frameworks */,
@@ -340,10 +343,10 @@
 			isa = PBXGroup;
 			children = (
 				0805F28717A7940300963343 /* LSPostPhotoViewController.h */,
-				08F8DCC017AEFDA700A6AE60 /* LSPostPhotoViewController.xib */,
 				0805F28817A7940300963343 /* LSPostPhotoViewController.m */,
-				08EB0F7117B35C0600C5E4FF /* LSCameraPresenterController.h */,
-				08EB0F7217B35C0600C5E4FF /* LSCameraPresenterController.m */,
+				08EB0F7117B35C0600C5E4FF /* LSPostTabPlaceholderController.h */,
+				08EB0F7217B35C0600C5E4FF /* LSPostTabPlaceholderController.m */,
+				08D188061800E30900C45CA0 /* PostPhoto.storyboard */,
 			);
 			name = "Take Picture";
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 		08F45596179F7C8200CB7E2D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08D18808180109CB00C45CA0 /* CoreImage.framework */,
 				080CCE5317F66DC9006A09F9 /* HockeySDK.embeddedframework */,
 				0837081117C3793C00576377 /* CoreText.framework */,
 				08EB0F6F17B3589400C5E4FF /* MapKit.framework */,
@@ -767,11 +771,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F455A2179F7C8200CB7E2D /* InfoPlist.strings in Resources */,
-				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
 				08D1880518009DF500C45CA0 /* LoginSignup.storyboard in Resources */,
-				08F8DCC117AEFDA700A6AE60 /* LSPostPhotoViewController.xib in Resources */,
 				08EB0F7517B3623300C5E4FF /* LSMapViewController.xib in Resources */,
 				5D44DF9817B967EF000E0B9C /* TabBarMe@2x.png in Resources */,
+				08D188071800E30900C45CA0 /* PostPhoto.storyboard in Resources */,
 				5D44DF9917B967EF000E0B9C /* TabBarMe.png in Resources */,
 				5D44DF9A17B967EF000E0B9C /* TabBarPost@2x.png in Resources */,
 				5D44DF9B17B967EF000E0B9C /* TabBarPost.png in Resources */,
@@ -860,7 +863,7 @@
 				08EB0F6017B32DA300C5E4FF /* LSLocationController.m in Sources */,
 				08EB0F6417B3496100C5E4FF /* LSMapViewController.m in Sources */,
 				08EB0F6E17B3559D00C5E4FF /* LSPost.m in Sources */,
-				08EB0F7317B35C0600C5E4FF /* LSCameraPresenterController.m in Sources */,
+				08EB0F7317B35C0600C5E4FF /* LSPostTabPlaceholderController.m in Sources */,
 				08EB0F7917B4738000C5E4FF /* LSConversationViewController.m in Sources */,
 				08EB0F7C17B4782D00C5E4FF /* LSConversationCell.m in Sources */,
 				08EB0F7F17B47A6000C5E4FF /* TTTTimeIntervalFormatter.m in Sources */,

@@ -14,9 +14,9 @@
  view controller through presentCameraPickerController in the app delegate when 
  selecting this button's tab button.
  */
-@interface LSCameraPresenterController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, LSPostPhotoViewControllerDelegate>
+@interface LSPostTabPlaceholderController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, LSPostPhotoViewControllerDelegate>
 
 - (id)init;
-- (void)presentCameraPickerController;
+- (UIImagePickerController*)imagePickerController;
 
 @end

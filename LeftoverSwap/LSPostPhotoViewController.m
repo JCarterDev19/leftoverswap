@@ -29,34 +29,11 @@
 
 @implementation LSPostPhotoViewController
 
-@synthesize scrollView;
-@synthesize imageView;
-@synthesize titleTextField;
-@synthesize descriptionTextView;
-@synthesize postButton;
-
-@synthesize delegate;
-
-@synthesize photoFile;
-@synthesize thumbnailFile;
-@synthesize fileUploadBackgroundTaskId;
-@synthesize photoPostBackgroundTaskId;
-
 #pragma mark - NSObject
 
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-  self = [super initWithNibName:nil bundle:nibBundleOrNil];
-  if (self) {
-    self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
-    self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
-  }
-  return self;
 }
 
 #pragma mark - UIViewController
@@ -65,27 +42,27 @@
 {
   [super viewDidLoad];
   
-  self.scrollView.delegate = self;
-  self.scrollView.scrollEnabled = NO;
+  self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
+  self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
 
-  self.navigationItem.hidesBackButton = YES;
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPost:)];
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleDone target:self action:@selector(postPost:)];
-  
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textInputChanged:) name:UITextViewTextDidChangeNotification object:nil];
   
-  titleTextField.delegate = self;
-  descriptionTextView.delegate = self;
-  
-  titleTextField.leftRightPadding = 8.0f;
+  self.titleTextField.delegate = self;
+  self.descriptionTextView.delegate = self;
 
-  // Adding image view properties
+  CALayer *blurLayer = [self.imageView layer];
+  CIFilter *blur = [CIFilter filterWithName:@"CIGaussianBlur"];
+  [blur setDefaults];
+  blurLayer.backgroundFilters = [NSArray arrayWithObject:blur];
+  
   self.imageView.image = self.image;
   [self.imageView setClipsToBounds:YES];
-
-  [self shouldUploadImage:self.image];
   
-  [titleTextField becomeFirstResponder];
+  [self shouldUploadImage:self.image];
+
+  self.titleTextField.leftRightPadding = 4;
+
+  [self.titleTextField becomeFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -106,12 +83,6 @@
 {
 //  [self.scrollView setContentOffset:CGPointMake(0, CGRectGetMinY(textView.frame)) animated:YES];
   return YES;
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
 }
 
 #pragma mark - ()
@@ -157,8 +128,8 @@
 
 - (IBAction)postPost:(id)sender
 {
-  [titleTextField resignFirstResponder];
-  [descriptionTextView resignFirstResponder];
+  [self.titleTextField resignFirstResponder];
+  [self.descriptionTextView resignFirstResponder];
   
   UIView *emptyView = [self findEmptyViews];
   
@@ -215,14 +186,14 @@
   }];
 
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidFinishPosting:)]) {
-    [delegate postPhotoControllerDidFinishPosting:self];
+    [self.delegate postPhotoControllerDidFinishPosting:self];
   }
 }
 
 - (IBAction)cancelPost:(id)sender
 {
   if (self.delegate && [self.delegate respondsToSelector:@selector(postPhotoControllerDidCancel:)]) {
-    [delegate postPhotoControllerDidCancel:self];
+    [self.delegate postPhotoControllerDidCancel:self];
   }
 }
 
@@ -230,7 +201,7 @@
 
 - (void)textInputChanged:(NSNotification *)note
 {
-  postButton.enabled = [self findEmptyViews] == nil;
+  self.postButton.enabled = [self findEmptyViews] == nil;
 }
 
 #pragma mark Private helper methods
@@ -245,14 +216,13 @@
 
 -(UIView*)findEmptyViews
 {
-  if (titleTextField.text.length == 0) {
-    return titleTextField;
-  } else if (descriptionTextView == 0) {
-    return descriptionTextView;
+  if (self.titleTextField.text.length == 0) {
+    return self.titleTextField;
+  } else if (self.descriptionTextView == 0) {
+    return self.descriptionTextView;
   } else {
     return nil;
   }
 }
-
 
 @end

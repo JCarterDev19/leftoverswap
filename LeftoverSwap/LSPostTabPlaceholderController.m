@@ -6,20 +6,19 @@
 //  Copyright (c) 2013 LeftoverSwap. All rights reserved.
 //
 
-#import "LSCameraPresenterController.h"
-#import "LSPostPhotoViewController.h"
+#import "LSPostTabPlaceholderController.h"
 #import "LSTabBarController.h"
 #import "LSMapViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface LSCameraPresenterController ()
+@interface LSPostTabPlaceholderController ()
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
 
 @end
 
-@implementation LSCameraPresenterController
+@implementation LSPostTabPlaceholderController
 
 @synthesize imagePickerController;
 
@@ -27,19 +26,20 @@
 {
   self = [super init];
   if (self) {
-      self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:[UIImage imageNamed:@"TabBarPost.png"] tag:1];
+    self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:[UIImage imageNamed:@"TabBarPost.png"] tag:1];
   }
   return self;
 }
 
 #pragma mark - UIImagePickerDelegate
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
   [self.tabBarController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-  
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
   if (!image) {
     image = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -48,17 +48,20 @@
   // presenting another VC from a UIPickerController will never set the status bar back to its original state.
   [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 
-  LSPostPhotoViewController *editPhotoController = [[LSPostPhotoViewController alloc] initWithNibName:nil bundle:nil];
-  editPhotoController.image = image;
-  editPhotoController.delegate = self;
+  UIStoryboard *sb = [UIStoryboard storyboardWithName:@"PostPhoto" bundle:nil];
+  UINavigationController *navController = [sb instantiateInitialViewController];
+  LSPostPhotoViewController *postPhotoController = (LSPostPhotoViewController*)navController.topViewController;
+  postPhotoController.image = image;
+  postPhotoController.delegate = self;
+  
   [imagePickerController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
-  [imagePickerController presentViewController:editPhotoController animated:YES completion:nil];
+  [imagePickerController presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - ()
 
-- (void)presentCameraPickerController {
-  
+- (UIImagePickerController*)imagePickerController
+{
   UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
   cameraUI.mediaTypes = @[(NSString*)kUTTypeImage];
   
@@ -86,10 +89,7 @@
   cameraUI.allowsEditing = NO;
   cameraUI.delegate = self;
   
-  self.imagePickerController = cameraUI;
-
-//  cameraUI.cameraOverlayView.alpha = 0;
-  [self.tabBarController presentViewController:imagePickerController animated:YES completion:nil];
+  return self.imagePickerController = cameraUI;
 }
 
 #pragma mark - LSPostPhotoViewControllerDelegate
